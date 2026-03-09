@@ -19,6 +19,7 @@ import { InstagramIcon, FacebookIcon, WhatsappIcon } from "@/components/icons";
 const navItems = [
   { label: "Home", href: "/" },
   { label: "Destinos", href: "/destinos" },
+  { label: "Women", href: "/women", highlight: true },
   { label: "Nosotros", href: "/nosotros" },
 ];
 
@@ -39,7 +40,6 @@ export const Navbar = () => {
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand as="div" className="gap-2 max-w-fit">
           <NextLink className="flex items-center gap-2" href="/">
-            {/* ✅ Favicon como logo */}
             <span className="relative h-9 w-9 overflow-hidden rounded-full border border-divider/70 bg-content1">
               <Image
                 src="/favicon.ico"
@@ -66,7 +66,10 @@ export const Navbar = () => {
               <NextLink
                 className={clsx(
                   linkStyles({ color: "foreground" }),
-                  "text-sm text-foreground/80 hover:text-foreground transition",
+                  "text-sm transition",
+                  item.highlight
+                    ? "rounded-full bg-gradient-to-r from-pink-500 via-fuchsia-500 to-rose-500 px-4 py-2 font-semibold text-white shadow-md hover:scale-[1.02] hover:text-white"
+                    : "text-foreground/80 hover:text-foreground"
                 )}
                 href={item.href}
               >
@@ -115,7 +118,11 @@ export const Navbar = () => {
                 color="foreground"
                 href={item.href}
                 size="lg"
-                className="py-2"
+                className={clsx(
+                  "py-2",
+                  item.highlight &&
+                    "rounded-full bg-gradient-to-r from-pink-500 via-fuchsia-500 to-rose-500 px-4 py-3 font-semibold text-white"
+                )}
               >
                 {item.label}
               </Link>

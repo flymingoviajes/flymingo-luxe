@@ -6,6 +6,7 @@ import { Providers } from "./providers";
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
+import SiteFooter from '@/components/site-footer'
 
 export const metadata: Metadata = {
   title: {
@@ -39,7 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="relative flex min-h-screen flex-col">
             <Navbar />
             <main className="flex-grow">{children}</main>
-            {/* footer Flymingo luego lo metemos aquí */}
+            <SiteFooter />
           </div>
         </Providers>
       </body>
