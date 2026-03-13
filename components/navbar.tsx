@@ -19,6 +19,7 @@ import { InstagramIcon, FacebookIcon, WhatsappIcon } from "@/components/icons";
 const navItems = [
   { label: "Home", href: "/" },
   { label: "Destinos", href: "/destinos" },
+  { label: "Weddings", href: "/weddings", wedding: true },
   { label: "Women", href: "/women", highlight: true },
   { label: "Nosotros", href: "/nosotros" },
 ];
@@ -69,7 +70,9 @@ export const Navbar = () => {
                   "text-sm transition",
                   item.highlight
                     ? "rounded-full bg-gradient-to-r from-pink-500 via-fuchsia-500 to-rose-500 px-4 py-2 font-semibold text-white shadow-md hover:scale-[1.02] hover:text-white"
-                    : "text-foreground/80 hover:text-foreground"
+                    : item.wedding
+                      ? "rounded-full border border-rose-200/70 bg-rose-50 px-4 py-2 font-medium text-rose-900 hover:bg-rose-100 hover:text-rose-950"
+                      : "text-foreground/80 hover:text-foreground"
                 )}
                 href={item.href}
               >
@@ -121,7 +124,9 @@ export const Navbar = () => {
                 className={clsx(
                   "py-2",
                   item.highlight &&
-                    "rounded-full bg-gradient-to-r from-pink-500 via-fuchsia-500 to-rose-500 px-4 py-3 font-semibold text-white"
+                    "rounded-full bg-gradient-to-r from-pink-500 via-fuchsia-500 to-rose-500 px-4 py-3 font-semibold text-white",
+                  item.wedding &&
+                    "rounded-full border border-rose-200 bg-rose-50 px-4 py-3 font-medium text-rose-900"
                 )}
               >
                 {item.label}
