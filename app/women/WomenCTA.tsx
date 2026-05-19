@@ -7,56 +7,82 @@ export default function WomenCTA() {
     "https://wa.me/5218716887385?text=Hola%20Flymingo,%20quiero%20m%C3%A1s%20info%20de%20Flymingo%20Women."
 
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-hidden bg-[#1a0f16] min-h-[70vh] flex items-center">
+
+      {/* Imagen de fondo */}
       <div className="absolute inset-0">
         <Image
           src="/images/women/cta-bg.jpg"
-          alt="Flymingo Women CTA"
+          alt="Flymingo Women"
           fill
-          className="object-cover"
+          className="object-cover opacity-30"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,244,249,0.88)_0%,rgba(255,235,245,0.90)_50%,rgba(255,255,255,0.96)_100%)]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1a0f16] via-[#1a0f16]/60 to-[#1a0f16]/40" />
       </div>
 
-      <div className="relative mx-auto max-w-5xl px-6 py-20 text-center md:px-10">
-        <span className="inline-flex rounded-full border border-pink-200 bg-white/90 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-pink-600 shadow-sm">
-          Flymingo Women
-        </span>
+      {/* Orbs */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden>
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 h-[400px] w-[600px] rounded-full bg-rose-900/20 blur-[100px]" />
+        <div className="absolute bottom-0 right-0 h-[300px] w-[400px] rounded-full bg-fuchsia-950/30 blur-[80px]" />
+      </div>
 
-        <h2 className="mt-6 text-4xl font-semibold tracking-tight text-[#4c1f3d] md:text-6xl">
-          Viajes que se viven distinto cuando los compartes con mujeres increíbles
+      <div className="relative mx-auto max-w-5xl w-full px-6 py-24 md:px-10 text-center">
+
+        {/* Eyebrow */}
+        <div className="flex items-center justify-center gap-3 mb-8">
+          <div className="h-px w-8 bg-rose-400/50" />
+          <span className="font-sans text-[10px] font-bold uppercase tracking-[0.28em] text-rose-300/70">
+            Flymingo Women
+          </span>
+          <div className="h-px w-8 bg-rose-400/50" />
+        </div>
+
+        {/* Título grande */}
+        <h2
+          className="text-white mx-auto max-w-3xl leading-[0.95] tracking-[-0.03em] mb-8"
+          style={{
+            fontFamily: "var(--font-display, 'Clash Display', sans-serif)",
+            fontWeight: 700,
+            fontSize: "clamp(2.5rem, 6vw, 5rem)"
+          }}
+        >
+          Viajes que se viven distinto cuando los compartes con{" "}
+          <span className="text-rose-400">mujeres increíbles</span>
         </h2>
 
-        <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-[#744c67] md:text-lg">
-          Descubre nuestras experiencias para mujeres, pregunta por salidas activas
-          o únete a la lista de espera para enterarte primero de los próximos destinos.
+        {/* Subtítulo */}
+        <p className="font-sans text-base leading-8 text-white/50 max-w-xl mx-auto mb-10 font-light md:text-lg">
+          Descubre nuestras experiencias, pregunta por salidas activas o únete
+          a la lista de espera para enterarte primero.
         </p>
 
-        <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+        {/* CTAs */}
+        <div className="flex flex-col sm:flex-row justify-center gap-3 mb-8">
           <Button
             as={Link}
             href={whatsappLink}
             target="_blank"
             radius="full"
-            className="bg-pink-500 px-6 text-white shadow-lg shadow-pink-200"
+            className="bg-white text-[#1a0f16] font-sans font-bold text-sm px-8 hover:bg-white/90 transition-colors"
           >
             Quiero informes
           </Button>
-
           <Button
             as={Link}
             href="#top"
             radius="full"
             variant="bordered"
-            className="border-pink-200 bg-white text-pink-700"
+            className="border-white/15 text-white/60 font-sans font-semibold text-sm px-6 hover:border-white/30 hover:text-white/80"
           >
             Volver al inicio
           </Button>
         </div>
 
-        <p className="mt-6 text-sm text-[#8b6780]">
-          Islandia y Japón son solo el comienzo. Muy pronto llegarán nuevas experiencias.
+        {/* Nota */}
+        <p className="font-sans text-sm text-white/30 font-light">
+          Islandia y Japón son solo el comienzo. Muy pronto, nuevas experiencias.
         </p>
+
       </div>
     </section>
   )

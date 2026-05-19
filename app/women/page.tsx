@@ -1,7 +1,7 @@
 import WomenHero from "./womenhero"
 import WomenManifesto from "./WomenManifiesto"
 import WomenIcelandSection from "./WomenIcelandSection"
-import WomenJapanSection from "./WomenJapanSection"
+import WomenNYSection from "./WomenNYSection"
 import WomenCTA from "./WomenCTA"
 
 export default function WomenPage() {
@@ -10,7 +10,7 @@ export default function WomenPage() {
       <WomenHero />
       <WomenManifesto />
       <WomenIcelandSection />
-      <WomenJapanSection />
+      <WomenNYSection />
       <WomenCTA />
     </main>
   )

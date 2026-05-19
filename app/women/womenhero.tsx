@@ -5,86 +5,100 @@ import { womenHeroData } from "./women.data"
 
 export default function WomenHero() {
   return (
-    <section className="relative overflow-hidden bg-[linear-gradient(180deg,#fff6fb_0%,#fff0f7_45%,#ffffff_100%)]">
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-16 left-[-8%] h-72 w-72 rounded-full bg-pink-200/40 blur-3xl" />
-        <div className="absolute top-20 right-[-6%] h-80 w-80 rounded-full bg-fuchsia-200/40 blur-3xl" />
-        <div className="absolute bottom-0 left-1/3 h-64 w-64 rounded-full bg-rose-100/50 blur-3xl" />
+    <section className="relative overflow-hidden bg-[#0e0a0d] min-h-screen flex items-center">
+
+      {/* Imagen de fondo con overlay */}
+      <div className="absolute inset-0">
+        <Image
+          src={womenHeroData.images.main}
+          alt="Flymingo Women hero"
+          fill
+          className="object-cover opacity-40"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0e0a0d] via-[#0e0a0d]/80 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0e0a0d] via-transparent to-transparent" />
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-6 py-20 md:px-10 md:py-28">
-        <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
-          <div>
-            <span className="inline-flex rounded-full border border-pink-200 bg-white/80 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-pink-600 shadow-sm backdrop-blur">
+      {/* Orbs decorativos */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-1/4 left-[30%] h-[500px] w-[500px] rounded-full bg-rose-900/20 blur-[120px]" />
+        <div className="absolute bottom-0 left-0 h-[300px] w-[300px] rounded-full bg-fuchsia-950/30 blur-[100px]" />
+      </div>
+
+      <div className="relative mx-auto max-w-7xl w-full px-6 py-28 md:px-10 md:py-36">
+        <div className="max-w-3xl">
+
+          {/* Eyebrow */}
+          <div className="flex items-center gap-3 mb-8">
+            <div className="h-px w-10 bg-rose-400/60" />
+            <span className="font-sans text-[11px] font-bold uppercase tracking-[0.28em] text-rose-300/80">
               {womenHeroData.badge}
             </span>
+          </div>
 
-            <h1 className="mt-6 max-w-4xl text-5xl font-semibold leading-[0.95] tracking-tight text-[#4c1f3d] md:text-7xl">
-              {womenHeroData.title}
-            </h1>
+          {/* Título con Clash Display via font-display */}
+          <h1
+            className="text-white leading-[0.92] tracking-[-0.03em]"
+            style={{ fontFamily: "var(--font-display, 'Clash Display', sans-serif)", fontWeight: 700 }}
+          >
+            {womenHeroData.title}
+          </h1>
 
-            <p className="mt-6 max-w-2xl text-base leading-8 text-[#744c67] md:text-lg">
-              {womenHeroData.subtitle}
-            </p>
+          {/* Subtítulo */}
+          <p className="mt-8 max-w-xl text-base leading-8 text-white/55 md:text-lg font-sans font-light">
+            {womenHeroData.subtitle}
+          </p>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button
-                as={Link}
-                href={womenHeroData.primaryCta.href}
-                radius="full"
-                className="bg-pink-500 px-6 text-white shadow-lg shadow-pink-200"
-              >
-                {womenHeroData.primaryCta.label}
-              </Button>
+          {/* CTAs */}
+          <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+            <Button
+              as={Link}
+              href={womenHeroData.primaryCta.href}
+              radius="full"
+              className="bg-white text-[#0e0a0d] font-bold font-sans text-sm px-8 shadow-none hover:bg-white/90 transition-all"
+            >
+              {womenHeroData.primaryCta.label}
+            </Button>
+            <Button
+              as={Link}
+              href={womenHeroData.secondaryCta.href}
+              radius="full"
+              variant="bordered"
+              className="border-white/20 text-white/80 font-sans font-semibold text-sm px-6 hover:border-white/40 hover:text-white"
+            >
+              {womenHeroData.secondaryCta.label}
+            </Button>
+          </div>
 
-              <Button
-                as={Link}
-                href={womenHeroData.secondaryCta.href}
-                radius="full"
-                variant="bordered"
-                className="border-pink-200 bg-white text-pink-700"
-              >
-                {womenHeroData.secondaryCta.label}
-              </Button>
+          {/* Imagen side flotante — visible en md+ */}
+          <div className="hidden md:block absolute right-10 top-1/2 -translate-y-1/2 w-[340px]">
+            <div className="relative rounded-[2rem] overflow-hidden aspect-[3/4] shadow-2xl">
+              <Image
+                src={womenHeroData.images.side}
+                alt="Flymingo Women viaje"
+                fill
+                className="object-cover"
+              />
+              {/* Pill flotante */}
+              <div className="absolute bottom-5 left-4 right-4">
+                <div className="rounded-2xl bg-black/50 backdrop-blur-md border border-white/10 px-4 py-3">
+                  <p className="font-sans text-[10px] font-bold uppercase tracking-[0.22em] text-rose-300/80 mb-1">
+                    Flymingo Women
+                  </p>
+                  <p className="font-sans text-[13px] text-white/80 leading-5 font-light">
+                    Viajes entre mujeres con una vibra bonita y memorable.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="relative">
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="rounded-[2rem] border border-pink-100 bg-white p-4 shadow-[0_20px_80px_rgba(236,72,153,0.12)] sm:translate-y-8">
-                <div className="relative aspect-[4/5] overflow-hidden rounded-[1.5rem]">
-                  <Image
-                    src={womenHeroData.images.main}
-                    alt="Flymingo Women hero"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              </div>
-
-              <div className="rounded-[2rem] border border-pink-100 bg-white p-4 shadow-[0_20px_80px_rgba(236,72,153,0.12)]">
-                <div className="relative aspect-[4/5] overflow-hidden rounded-[1.5rem]">
-                  <Image
-                    src={womenHeroData.images.side}
-                    alt="Viajes para mujeres Flymingo"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="absolute -bottom-5 left-4 max-w-xs rounded-[1.5rem] border border-pink-100 bg-white/90 px-5 py-4 shadow-xl backdrop-blur">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-pink-500">
-                Flymingo Women
-              </p>
-              <p className="mt-2 text-sm leading-6 text-[#744c67]">
-                Viajes entre mujeres con una vibra bonita, cuidada y profundamente memorable.
-              </p>
-            </div>
-          </div>
         </div>
       </div>
+
+      {/* Fade bottom */}
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
     </section>
   )
 }
