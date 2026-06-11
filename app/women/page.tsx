@@ -1,3 +1,25 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Flymingo Women — Viajes para Mujeres",
+  description:
+    "Viajes en grupo diseñados para mujeres. Seguros, increíbles y con las personas correctas. Próximo destino: Islandia Nov 2026 desde $79,890 MXN.",
+  keywords: [
+    "viajes para mujeres México",
+    "viaje en grupo mujeres",
+    "viaje de amigas México",
+    "Flymingo Women",
+    "viaje grupal femenino",
+    "viaje a Islandia mujeres",
+    "viaje seguro para mujeres México",
+    "grupo de viaje mujeres Torreón",
+  ],
+  openGraph: {
+    title: "Flymingo Women — Viajes diseñados para mujeres",
+    description: "Grupos femeninos, destinos increíbles. Próximo viaje: Islandia Nov 2026.",
+  },
+};
+
 import WomenHero from "./womenhero"
 import WomenManifesto from "./WomenManifiesto"
 import WomenIcelandSection from "./WomenIcelandSection"

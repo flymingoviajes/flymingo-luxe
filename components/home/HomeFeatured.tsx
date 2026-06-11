@@ -1,288 +1,303 @@
-"use client";
+import Image from "next/image";
+import Link from "next/link";
 
-import * as React from "react";
-import { Link } from "@heroui/link";
-import { Button } from "@heroui/button";
+// ─── Product Lines ────────────────────────────────────────────────────────────
 
-type FeaturedItem = {
-  key: string;
-  title: string;
-  subtitle: string;
-  tag?: string;
-  videoSrc: string;
-  poster?: string;
-};
-
-const ITEMS: FeaturedItem[] = [
+const LINES = [
   {
-    key: "islandia",
-    title: "Islandia",
-    subtitle: "Auroras, roadtrip y paisajes fuera de este mundo",
-    tag: "Top",
-    videoSrc: "/videos/featured/islandia.mp4",
-    poster: "/images/featured/islandia.jpg",
+    key: "destinos",
+    label: "Destinos",
+    eyebrow: "Itinerarios personalizados",
+    title: "El mundo,\na tu ritmo.",
+    price: "desde $84,890 MXN",
+    cta: "Explorar",
+    href: "/destinos",
+    image: "/images/featured/islandia.jpg",
+    neon: false,
   },
+  {
+    key: "women",
+    label: "Women",
+    eyebrow: "Flymingo Women",
+    title: "Viaja con\ntu tribu.",
+    price: "Islandia · Nov 2026 · $79,890",
+    cta: "Ver viaje",
+    href: "/women",
+    image: "/images/featured/women.jpg",
+    neon: true,
+  },
+  {
+    key: "weddings",
+    label: "Weddings",
+    eyebrow: "Flymingo Weddings",
+    title: "Tu boda,\nun sueño.",
+    price: "Xcaret · AVA · Hard Rock · Nobu",
+    cta: "Cotizar",
+    href: "/weddings",
+    image: "/images/featured/weddings.jpg",
+    neon: false,
+  },
+];
+
+// ─── Destination tiles ────────────────────────────────────────────────────────
+
+const DESTINATIONS = [
   {
     key: "japon",
     title: "Japón",
-    subtitle: "Tokio, Kioto y rutas con lógica (sin cansancio)",
+    region: "Asia",
     tag: "Nuevo",
-    videoSrc: "/videos/featured/japon.mp4",
-    poster: "/images/featured/japon.jpg",
+    price: "desde $90,890",
+    image: "/images/featured/japon.jpg",
+    href: "/destinos/japon",
   },
   {
     key: "europa",
     title: "Europa a tu ritmo",
-    subtitle: "Ruta inteligente, sin regresos innecesarios",
-    videoSrc: "/videos/featured/europa.mp4",
-    poster: "/images/featured/europa.jpg",
+    region: "Europa",
+    image: "/images/featured/europa.jpg",
+    href: "/destinos",
   },
   {
     key: "honeymoon",
     title: "Honeymoon Luxe",
-    subtitle: "Momentos especiales, sin complicaciones",
+    region: "Mundo",
     tag: "Luxe",
-    videoSrc: "/videos/featured/honeymoon.mp4",
-    poster: "/images/featured/honeymoon.jpg",
-  },
-  {
-    key: "amigas",
-    title: "Viaje de amigas",
-    subtitle: "Vibra top + experiencias que sí valen",
-    videoSrc: "/videos/featured/amigas.mp4",
-    poster: "/images/featured/amigas.jpg",
+    image: "/images/featured/honeymoon.jpg",
+    href: "/destinos",
   },
 ];
 
-const WA_LINK = "https://wa.me/5218716887385";
+// ─── Component ────────────────────────────────────────────────────────────────
 
 export default function HomeFeatured() {
-  const [activeKey, setActiveKey] = React.useState(ITEMS[0]?.key ?? "");
-  const active = React.useMemo(
-    () => ITEMS.find((i) => i.key === activeKey) ?? ITEMS[0],
-    [activeKey]
-  );
-
   return (
-    <section className="relative">
-      {/* Full-bleed video background */}
-      <div className="relative h-[680px] w-full overflow-hidden md:h-[720px]">
-        <video
-          key={active.videoSrc}
-          className="absolute inset-0 h-full w-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster={active.poster}
-        >
-          <source src={active.videoSrc} type="video/mp4" />
-        </video>
+    <section style={{ background: "white" }}>
+      <div className="mx-auto max-w-7xl px-6 pt-32 pb-20 lg:px-12 lg:pt-44 lg:pb-28">
 
-        {/* Overlays premium */}
-        <div className="absolute inset-0 bg-black/45 dark:bg-black/55" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/20 to-background" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_18%,rgba(255,255,255,0.16),transparent_45%)] opacity-80" />
-
-        {/* Content container */}
-        <div className="relative mx-auto flex h-full max-w-6xl flex-col px-4 py-14">
-          {/* Header row */}
-          <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
-            <div className="max-w-2xl">
-              <h2 className="text-2xl font-semibold text-white md:text-3xl">
-                Explora destinos como si fuera un trailer.
-              </h2>
-              <p className="mt-3 text-white/80">
-                Selecciona un destino y el ambiente cambia. Todo es personalizable.
-              </p>
+        {/* Header — editorial, bigger type */}
+        <div className="flex items-end justify-between mb-14">
+          <div>
+            <p className="text-eyebrow-accent mb-10">Experiencias Flymingo</p>
+            <div style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2.8rem, 6vw, 5.5rem)", letterSpacing: "-0.04em", lineHeight: 0.9 }}>
+              <span style={{ display: "block", fontWeight: 800, color: "var(--color-brand-ink)" }}>Tres formas de vivir</span>
+              <span style={{ display: "block", fontWeight: 200, fontStyle: "italic", color: "var(--color-brand-ink)", opacity: 0.25 }}>el viaje perfecto.</span>
             </div>
-
-            <Link
-              href="/destinos"
-              className="text-sm font-medium text-white/90 hover:text-white"
-            >
-              Ver destinos →
-            </Link>
           </div>
-
-          {/* Main layout: left info + right overlay cards */}
-<div className="mt-10 grid flex-1 grid-cols-1 gap-6 md:grid-cols-12 md:items-stretch">
-  {/* Left “Now playing” */}
-  <div className="md:col-span-7">
-    <div className="flex h-full flex-col justify-between rounded-3xl border border-white/15 bg-white/10 p-7 backdrop-blur md:min-h-[420px] shadow-[0_20px_90px_rgba(0,0,0,0.35)] ring-1 ring-white/10">
-      <div>
-        <div className="flex items-center gap-2">
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs text-white/85">
-            <span className="h-1.5 w-1.5 rounded-full bg-white/80" />
-            Seleccionado
-          </span>
-          {active.tag ? (
-            <span className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs text-white/85">
-              {active.tag}
-            </span>
-          ) : null}
-        </div>
-
-        <h3 className="mt-4 text-3xl font-semibold leading-tight text-white md:text-4xl">
-          {active.title}
-        </h3>
-        <p className="mt-2 max-w-2xl text-sm text-white/80 md:text-base">
-          {active.subtitle}
-        </p>
-      </div>
-
-      <div>
-        <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-          <Button
-            as={Link}
+          <Link
             href="/destinos"
-            radius="full"
-            className="bg-white text-neutral-900 hover:bg-white/90 font-medium"
+            className="hidden md:inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest transition-opacity hover:opacity-50"
+            style={{ color: "var(--color-brand-ink)" }}
           >
-            Ver este destino
-          </Button>
-
-          <Button
-            as={Link}
-            href={WA_LINK}
-            isExternal
-            variant="bordered"
-            radius="full"
-            className="border-white/25 text-white hover:bg-white/10"
-          >
-            Diseñar por WhatsApp
-          </Button>
+            Ver todo
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </Link>
         </div>
 
-        <p className="mt-5 text-xs text-white/65">
-          Itinerario flexible • Ajustes reales • Estilo luxe
-        </p>
-      </div>
-    </div>
-  </div>
-
-  {/* Right overlay catalog */}
-  <div className="md:col-span-5 md:justify-self-end">
-    {/* Desktop stack */}
-    <div className="hidden w-full max-w-[420px] flex-col gap-3 md:flex">
-      {ITEMS.map((item) => (
-        <OverlayCard
-          key={item.key}
-          item={item}
-          active={item.key === activeKey}
-          onClick={() => setActiveKey(item.key)}
-        />
-      ))}
-    </div>
-
-    {/* Mobile horizontal */}
-    <div className="md:hidden">
-      <p className="text-xs font-medium text-white/75">Más destinos</p>
-      <div className="mt-3 flex gap-3 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        {ITEMS.map((item) => (
-          <OverlayCardMobile
-            key={item.key}
-            item={item}
-            active={item.key === activeKey}
-            onClick={() => setActiveKey(item.key)}
-          />
-        ))}
-      </div>
-    </div>
-  </div>
-</div>
-
-          {/* Bottom note (optional) */}
-          <div className="mt-8 rounded-3xl border border-white/15 bg-white/10 p-6 text-white/85 backdrop-blur">
-            <p className="text-sm font-semibold">¿No ves tu destino aquí?</p>
-            <p className="mt-2 text-sm text-white/75">
-              Esto es solo una selección. Diseñamos viajes a cualquier destino del mundo, con el ritmo y
-              el estilo que tú quieres.
-            </p>
-          </div>
+        {/* Product line grid — cinematic, minimal chrome */}
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+          {LINES.map((line, i) => (
+            <LineCard key={line.key} line={line} tall={i === 0} />
+          ))}
         </div>
 
-        {/* Bottom fade to next section */}
-        <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-b from-transparent to-background" />
+        {/* Destination tiles */}
+        <div className="mt-3 grid grid-cols-1 gap-3 md:grid-cols-3">
+          {DESTINATIONS.map((d) => (
+            <DestCard key={d.key} dest={d} />
+          ))}
+        </div>
+
+        {/* Footer note */}
+        <div className="mt-10 flex items-center gap-5">
+          <span className="divider-accent" />
+          <p className="text-caption">
+            Diseñamos viajes a cualquier destino del mundo. Si no ves el tuyo, escríbenos.
+          </p>
+        </div>
       </div>
     </section>
   );
 }
 
-/* ------------------------- Overlay Cards ------------------------- */
+// ─── Line Card ────────────────────────────────────────────────────────────────
 
-function OverlayCard({
-  item,
-  active,
-  onClick,
-}: {
-  item: FeaturedItem;
-  active: boolean;
-  onClick: () => void;
-}) {
+function LineCard({ line, tall }: { line: (typeof LINES)[number]; tall: boolean }) {
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={[
-        "w-full rounded-3xl border p-5 text-left backdrop-blur transition",
-        "hover:-translate-y-0.5 hover:shadow-md",
-        active
-          ? "border-white/30 bg-white/18 shadow-[0_20px_80px_rgba(0,0,0,0.35)]"
-          : "border-white/15 bg-white/10",
-      ].join(" ")}
-      aria-label={`Seleccionar ${item.title}`}
+    <Link
+      href={line.href}
+      className="group relative block overflow-hidden"
+      style={{
+        borderRadius: "20px",
+        height: tall ? "clamp(380px, 55vw, 620px)" : "clamp(340px, 48vw, 540px)",
+      }}
     >
-      <div className="flex items-start justify-between gap-3">
-        <div>
-          <p className="text-sm font-semibold text-white">{item.title}</p>
-          <p className="mt-1 text-sm text-white/75 line-clamp-2">{item.subtitle}</p>
-        </div>
-        {item.tag ? (
-          <span className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs text-white/85">
-            {item.tag}
+      {/* Image */}
+      <Image
+        src={line.image}
+        alt={line.title}
+        fill
+        className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+        sizes="(max-width: 768px) 100vw, 33vw"
+      />
+
+      {/* Deep cinematic gradient — no cheap overlay */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: "linear-gradient(to top, rgba(10,5,8,0.9) 0%, rgba(10,5,8,0.3) 45%, transparent 75%)",
+        }}
+      />
+
+      {/* Top label — ultra minimal */}
+      <div className="absolute top-6 left-6 right-6 flex items-center justify-between z-10">
+        <span
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontWeight: 600,
+            fontSize: "0.6rem",
+            letterSpacing: "0.2em",
+            textTransform: "uppercase",
+            color: "rgba(255,255,255,0.45)",
+          }}
+        >
+          {line.eyebrow}
+        </span>
+        {line.neon && (
+          <span
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontWeight: 700,
+              fontSize: "0.55rem",
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: "#FF2D78",
+              background: "rgba(255,45,120,0.12)",
+              border: "1px solid rgba(255,45,120,0.25)",
+              padding: "0.25rem 0.7rem",
+              borderRadius: "100px",
+            }}
+          >
+            Próximo viaje
           </span>
-        ) : null}
+        )}
       </div>
 
-      <div className="mt-4 flex items-center justify-between">
-        <p className="text-xs text-white/65">{active ? "Reproduciendo…" : "Seleccionar"}</p>
-        <span className="text-sm font-medium text-white">{active ? "●" : "→"}</span>
+      {/* Bottom content */}
+      <div className="absolute bottom-0 left-0 right-0 z-10 p-7">
+        <p
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontWeight: 300,
+            fontSize: "0.6rem",
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            color: "rgba(255,255,255,0.4)",
+            marginBottom: "0.7rem",
+          }}
+        >
+          {line.price}
+        </p>
+
+        <p
+          className="text-white whitespace-pre-line"
+          style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 800,
+            fontSize: "clamp(1.7rem, 3vw, 2.4rem)",
+            letterSpacing: "-0.035em",
+            lineHeight: 0.9,
+          }}
+        >
+          {line.title}
+        </p>
+
+        {/* CTA — slides up on hover */}
+        <div
+          className="overflow-hidden mt-5"
+          style={{ maxHeight: "0", transition: "max-height 0.4s ease" }}
+        >
+          <span
+            className="inline-flex items-center gap-2 text-white text-xs font-semibold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          >
+            {line.cta}
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </span>
+        </div>
+        <span
+          className="mt-5 inline-flex items-center gap-2 text-white text-xs font-semibold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        >
+          {line.cta}
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </span>
       </div>
-    </button>
+    </Link>
   );
 }
 
-function OverlayCardMobile({
-  item,
-  active,
-  onClick,
-}: {
-  item: FeaturedItem;
-  active: boolean;
-  onClick: () => void;
-}) {
+// ─── Destination Card ─────────────────────────────────────────────────────────
+
+function DestCard({ dest }: { dest: (typeof DESTINATIONS)[number] }) {
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={[
-        "min-w-[260px] rounded-3xl border p-5 text-left backdrop-blur transition",
-        active ? "border-white/30 bg-white/18" : "border-white/15 bg-white/10",
-      ].join(" ")}
-      aria-label={`Seleccionar ${item.title}`}
+    <Link
+      href={dest.href}
+      className="group relative block overflow-hidden h-56 md:h-64"
+      style={{ borderRadius: "16px" }}
     >
-      <div className="flex items-start justify-between gap-3">
-        <p className="text-sm font-semibold text-white">{item.title}</p>
-        {item.tag ? (
-          <span className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs text-white/85">
-            {item.tag}
-          </span>
-        ) : null}
+      <Image
+        src={dest.image}
+        alt={dest.title}
+        fill
+        className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+        sizes="(max-width: 768px) 100vw, 33vw"
+      />
+      <div
+        className="absolute inset-0"
+        style={{
+          background: "linear-gradient(to top, rgba(10,5,8,0.8) 0%, transparent 60%)",
+        }}
+      />
+
+      {"tag" in dest && dest.tag && (
+        <div className="absolute top-4 left-4 z-10">
+          <span className="badge badge-white">{dest.tag}</span>
+        </div>
+      )}
+
+      <div className="absolute bottom-0 left-0 right-0 z-10 p-5">
+        <p
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontWeight: 300,
+            fontSize: "0.55rem",
+            letterSpacing: "0.2em",
+            textTransform: "uppercase",
+            color: "rgba(255,255,255,0.4)",
+            marginBottom: "0.4rem",
+          }}
+        >
+          {dest.region}
+          {"price" in dest && dest.price ? ` · ${dest.price}` : ""}
+        </p>
+        <p
+          className="text-white"
+          style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 700,
+            fontSize: "clamp(1.1rem, 1.8vw, 1.4rem)",
+            letterSpacing: "-0.025em",
+            lineHeight: 1,
+          }}
+        >
+          {dest.title}
+        </p>
       </div>
-      <p className="mt-2 text-sm text-white/75 line-clamp-2">{item.subtitle}</p>
-      <p className="mt-4 text-xs text-white/65">{active ? "Reproduciendo…" : "Tocar para ver"}</p>
-    </button>
+    </Link>
   );
 }

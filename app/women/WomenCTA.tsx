@@ -1,89 +1,64 @@
-import { Button } from "@heroui/button"
-import Link from "next/link"
-import Image from "next/image"
+import TrackLink from "@/components/TrackLink";
+
+const whatsappLink = "https://wa.me/5218716887385?text=Hola%20Flymingo,%20quiero%20informes%20de%20Flymingo%20Women.";
 
 export default function WomenCTA() {
-  const whatsappLink =
-    "https://wa.me/5218716887385?text=Hola%20Flymingo,%20quiero%20m%C3%A1s%20info%20de%20Flymingo%20Women."
-
   return (
-    <section className="relative overflow-hidden bg-[#1a0f16] min-h-[70vh] flex items-center">
+    <section style={{ background: "var(--color-brand-surface)", borderTop: "1px solid var(--color-brand-border)" }}>
+      <div className="mx-auto max-w-7xl px-6 py-24 lg:px-12 lg:py-36">
 
-      {/* Imagen de fondo */}
-      <div className="absolute inset-0">
-        <Image
-          src="/images/women/cta-bg.jpg"
-          alt="Flymingo Women"
-          fill
-          className="object-cover opacity-30"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1a0f16] via-[#1a0f16]/60 to-[#1a0f16]/40" />
-      </div>
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:items-end">
 
-      {/* Orbs */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden>
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 h-[400px] w-[600px] rounded-full bg-rose-900/20 blur-[100px]" />
-        <div className="absolute bottom-0 right-0 h-[300px] w-[400px] rounded-full bg-fuchsia-950/30 blur-[80px]" />
-      </div>
+          {/* Left: headline */}
+          <div>
+            <p className="text-eyebrow-accent mb-8">Empieza aqui</p>
+            <div style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2.8rem, 6.5vw, 6rem)", letterSpacing: "-0.04em", lineHeight: 0.88 }}>
+              <span style={{ display: "block", fontWeight: 200, color: "var(--color-brand-ink)", opacity: 0.25 }}>Viajes que</span>
+              <span style={{ display: "block", fontWeight: 800, color: "var(--color-brand-ink)" }}>se viven distinto</span>
+              <span style={{ display: "block", fontWeight: 800, fontStyle: "italic", color: "var(--color-brand-accent)" }}>en compania.</span>
+            </div>
 
-      <div className="relative mx-auto max-w-5xl w-full px-6 py-24 md:px-10 text-center">
+            <div className="mt-12 flex flex-wrap gap-4">
+              <TrackLink href={whatsappLink} className="btn btn-accent" label="Women CTA — Quiero informes">
+                Quiero informes por WhatsApp
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </TrackLink>
+              <a href="#islandia" className="btn btn-ghost">
+                Ver Islandia
+              </a>
+            </div>
+          </div>
 
-        {/* Eyebrow */}
-        <div className="flex items-center justify-center gap-3 mb-8">
-          <div className="h-px w-8 bg-rose-400/50" />
-          <span className="font-sans text-[10px] font-bold uppercase tracking-[0.28em] text-rose-300/70">
-            Flymingo Women
-          </span>
-          <div className="h-px w-8 bg-rose-400/50" />
+          {/* Right: social proof + note */}
+          <div style={{ paddingBottom: "0.5rem" }}>
+            <div className="space-y-0">
+              {[
+                { stat: "2 destinos", label: "activos ahora mismo" },
+                { stat: "Islandia + NY", label: "salidas nov 2026" },
+                { stat: "24/7", label: "asistencia durante tu viaje" },
+              ].map((item, i, arr) => (
+                <div
+                  key={i}
+                  className="flex items-baseline justify-between py-5"
+                  style={{ borderBottom: i < arr.length - 1 ? "1px solid var(--color-brand-border)" : "none" }}
+                >
+                  <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.8rem, 3.5vw, 2.5rem)", letterSpacing: "-0.04em", color: "var(--color-brand-ink)", lineHeight: 1 }}>
+                    {item.stat}
+                  </p>
+                  <p className="text-caption">{item.label}</p>
+                </div>
+              ))}
+            </div>
+
+            <p style={{ marginTop: "2rem", fontFamily: "var(--font-sans)", fontWeight: 300, fontSize: "0.8rem", color: "var(--color-brand-dim)", lineHeight: 1.6 }}>
+              Islandia y Nueva York son solo el comienzo.{" "}
+              <strong style={{ fontWeight: 600, color: "var(--color-brand-ink)" }}>Muy pronto, nuevas experiencias y destinos.</strong>
+            </p>
+          </div>
         </div>
-
-        {/* Título grande */}
-        <h2
-          className="text-white mx-auto max-w-3xl leading-[0.95] tracking-[-0.03em] mb-8"
-          style={{
-            fontFamily: "var(--font-display, 'Clash Display', sans-serif)",
-            fontWeight: 700,
-            fontSize: "clamp(2.5rem, 6vw, 5rem)"
-          }}
-        >
-          Viajes que se viven distinto cuando los compartes con{" "}
-          <span className="text-rose-400">mujeres increíbles</span>
-        </h2>
-
-        {/* Subtítulo */}
-        <p className="font-sans text-base leading-8 text-white/50 max-w-xl mx-auto mb-10 font-light md:text-lg">
-          Descubre nuestras experiencias, pregunta por salidas activas o únete
-          a la lista de espera para enterarte primero.
-        </p>
-
-        {/* CTAs */}
-        <div className="flex flex-col sm:flex-row justify-center gap-3 mb-8">
-          <Button
-            as={Link}
-            href={whatsappLink}
-            target="_blank"
-            radius="full"
-            className="bg-white text-[#1a0f16] font-sans font-bold text-sm px-8 hover:bg-white/90 transition-colors"
-          >
-            Quiero informes
-          </Button>
-          <Button
-            as={Link}
-            href="#top"
-            radius="full"
-            variant="bordered"
-            className="border-white/15 text-white/60 font-sans font-semibold text-sm px-6 hover:border-white/30 hover:text-white/80"
-          >
-            Volver al inicio
-          </Button>
-        </div>
-
-        {/* Nota */}
-        <p className="font-sans text-sm text-white/30 font-light">
-          Islandia y Japón son solo el comienzo. Muy pronto, nuevas experiencias.
-        </p>
-
       </div>
     </section>
-  )
+  );
 }

@@ -1,9 +1,8 @@
 import HomeHero from "@/components/home/HomeHero";
+import HomeMarquee from "@/components/home/HomeMarquee";
 import HomeValueProps from "@/components/home/HomeValueProps";
-import HomeScrollStory from "@/components/home/HomeScrollStory";
-import HomeBeforeAfter from "@/components/home/HomeBeforeAfter";
 import HomeFeatured from "@/components/home/HomeFeatured";
-import HomeMiniWizard from "@/components/home/HomeMiniWizard";
+import HomeBeforeAfter from "@/components/home/HomeBeforeAfter";
 import HomeTestimonials from "@/components/home/HomeTestimonials";
 import HomeFinalCta from "@/components/home/HomeFinalCTA";
 
@@ -11,10 +10,10 @@ export default function HomePage() {
   return (
     <main>
       <HomeHero />
+      <HomeMarquee />
       <HomeValueProps />
-      <HomeScrollStory />
-      <HomeBeforeAfter />
       <HomeFeatured />
+      <HomeBeforeAfter />
       <HomeTestimonials />
       <HomeFinalCta />
     </main>

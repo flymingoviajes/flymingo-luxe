@@ -1,4 +1,5 @@
 // app/destinos/[slug]/page.tsx
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getDestinationBySlug } from '@/app/lib/destinations'
 import LandingShell from './LandingShell'
@@ -18,6 +19,41 @@ import MomentsGallerySection from '@/components/destinations/sections/MomentsGal
 
 type PageProps = {
   params: Promise<{ slug: string }>
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params
+  const destination = getDestinationBySlug(slug)
+
+  if (!destination) {
+    return { title: 'Destino no encontrado' }
+  }
+
+  const price = destination.hero.priceFrom
+    ? `desde $${destination.hero.priceFrom.amount.toLocaleString('es-MX')} ${destination.hero.priceFrom.currency}`
+    : ''
+
+  const title = `Viaje a ${destination.name} desde México ${price ? `· ${price}` : ''}`
+  const description = `${destination.hero.subtitle} Itinerario personalizado a ${destination.name} — diseñado a tu medida por Flymingo Viajes, agencia en Torreón, México.`
+
+  return {
+    title,
+    description,
+    keywords: [
+      `viaje a ${destination.name} desde México`,
+      `viaje a ${destination.name} personalizado`,
+      `itinerario ${destination.name}`,
+      `paquete ${destination.name} México`,
+      `${destination.name} Flymingo Viajes`,
+      'agencia de viajes Torreón',
+      'viajes personalizados México',
+    ],
+    openGraph: {
+      title: `${destination.name} — Itinerario a tu medida | Flymingo Viajes`,
+      description,
+      images: destination.hero.posterUrl ? [{ url: destination.hero.posterUrl }] : [],
+    },
+  }
 }
 
 export default async function Page({ params }: PageProps) {

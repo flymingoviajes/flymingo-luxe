@@ -1,120 +1,75 @@
 import Image from "next/image";
 
-type StoryFrame = {
-  k: string;
-  title: string;
-  desc: string;
-};
-
-const FRAMES: StoryFrame[] = [
+const STEPS = [
   {
-    k: "ruta",
+    num: "01",
     title: "No es un paquete. Es tu ruta.",
     desc: "Partimos de tus fechas, gustos, presupuesto y estilo. No al revés.",
   },
   {
-    k: "intencion",
+    num: "02",
     title: "Cada día tiene intención.",
     desc: "Lo icónico, lo local y el descanso correcto para disfrutar de verdad.",
   },
   {
-    k: "ritmo",
+    num: "03",
     title: "Se adapta a tu ritmo.",
-    desc: "Viaje tranqui, intenso o balanceado. Aquí manda tu energía.",
+    desc: "Tranqui, intenso o balanceado. Aquí manda tu energía.",
   },
   {
-    k: "listo",
+    num: "04",
     title: "Cero estrés: lo dejamos listo.",
     desc: "Conexiones, zonas, traslados, recomendaciones y opciones claras.",
   },
   {
-    k: "acompanamiento",
+    num: "05",
     title: "Te acompañamos en el camino.",
     desc: "Atención real para que siempre te sientas en control.",
   },
 ];
 
-// 📸 Cambia por una imagen editorial (o una foto hero de tu video)
-// Colócala en: public/images/home/scrollstory.jpg
-const STICKY_IMAGE = {
-  src: "/images/home/scrollstory.jpg",
-  alt: "Flymingo Viajes — diseño de itinerarios a medida",
-};
-
 export default function HomeScrollStory() {
   return (
-    <section className="bg-content2/30">
-      <div className="mx-auto max-w-6xl px-4 py-16">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
-          {/* Sticky panel */}
-          <div className="md:sticky md:top-24 md:self-start">
-            <div className="overflow-hidden rounded-3xl border border-divider/70 bg-content1 shadow-sm">
-              {/* Image */}
-              <div className="relative h-72 w-full">
-                <Image
-                  src={STICKY_IMAGE.src}
-                  alt={STICKY_IMAGE.alt}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  priority={false}
-                />
-                {/* Luxe overlays */}
-                <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/15 to-transparent" />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(255,255,255,0.18),transparent_45%)] opacity-70" />
+    <section className="bg-brand-surface/40 dark:bg-content1/40">
+      <div className="mx-auto max-w-7xl px-6 py-24 lg:px-12 lg:py-32">
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">
 
-                {/* Top label */}
-                <div className="absolute left-5 top-5">
-                  <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs text-white/85 backdrop-blur">
-                    <span className="h-1.5 w-1.5 rounded-full bg-white/80" />
-                    Flymingo, en una frase
-                  </p>
-                </div>
-              </div>
+          {/* Sticky visual */}
+          <div className="lg:sticky lg:top-24 lg:self-start">
+            <div className="relative overflow-hidden rounded-2xl" style={{ aspectRatio: "4/5" }}>
+              <Image
+                src="/images/home/scrollstory.jpg"
+                alt="Flymingo Viajes - diseño de itinerarios a medida"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 45vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+            </div>
 
-              {/* Content */}
-              <div className="p-6">
-                <p className="text-2xl font-semibold leading-snug">
-                  Un itinerario que se siente hecho para ti.
-                </p>
-
-                <p className="mt-3 text-sm text-foreground/70">
-                  Diseño inteligente, flexible y con estilo. Para que viajes con calma, claridad y emoción.
-                </p>
-
-                {/* Micro pills */}
-                <div className="mt-6 grid grid-cols-3 gap-3">
-                  <TinyPill text="Intención" />
-                  <TinyPill text="Ritmo" />
-                  <TinyPill text="Detalles" />
-                </div>
-
-                {/* Progress (subtle, Apple-ish) */}
-                <div className="mt-7 flex items-center justify-between">
-                  <p className="text-xs text-foreground/60">Nuestra forma de trabajar</p>
-                  <p className="text-xs text-foreground/60">{FRAMES.length} pasos</p>
-                </div>
-
-                <div className="mt-3 flex gap-2">
-                  {FRAMES.map((f, idx) => (
-                    <span
-                      key={f.k}
-                      className="h-1.5 flex-1 rounded-full bg-foreground/10"
-                      aria-hidden="true"
-                      style={{
-                        opacity: 0.35 + idx * 0.08, // leve “gradiente” visual sin colores raros
-                      }}
-                    />
-                  ))}
-                </div>
-              </div>
+            <div className="mt-6">
+              <span className="divider-accent" />
+              <p className="mt-4 text-xs tracking-widest uppercase text-foreground/40 font-medium">
+                Nuestra forma de trabajar
+              </p>
+              <p
+                className="mt-1 text-foreground"
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: "1.1rem",
+                  fontWeight: 700,
+                  letterSpacing: "-0.02em",
+                }}
+              >
+                Un itinerario que se siente hecho para ti.
+              </p>
             </div>
           </div>
 
-          {/* Frames */}
-          <div className="space-y-4">
-            {FRAMES.map((f, idx) => (
-              <Frame key={f.k} index={idx + 1} title={f.title} desc={f.desc} />
+          {/* Steps */}
+          <div className="flex flex-col">
+            {STEPS.map((step, idx) => (
+              <Step key={step.num} {...step} isLast={idx === STEPS.length - 1} />
             ))}
           </div>
         </div>
@@ -123,35 +78,41 @@ export default function HomeScrollStory() {
   );
 }
 
-/* -------------------------------- UI bits -------------------------------- */
-
-function TinyPill({ text }: { text: string }) {
-  return (
-    <div className="rounded-full border border-divider/70 bg-content2/40 px-3 py-2 text-center text-xs text-foreground/70">
-      {text}
-    </div>
-  );
-}
-
-function Frame({
-  index,
+function Step({
+  num,
   title,
   desc,
+  isLast,
 }: {
-  index: number;
+  num: string;
   title: string;
   desc: string;
+  isLast: boolean;
 }) {
   return (
-    <div className="rounded-3xl border border-divider/70 bg-content1 p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
-      <div className="flex items-start gap-3">
-        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-divider/70 bg-content2/40 text-xs font-semibold text-foreground/70">
-          {index}
-        </div>
-        <div>
-          <p className="text-sm font-semibold">{title}</p>
-          <p className="mt-2 text-sm text-foreground/70">{desc}</p>
-        </div>
+    <div className="flex gap-6 group">
+      <div className="flex flex-col items-center">
+        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-divider text-xs font-semibold text-foreground/50 transition-colors group-hover:border-brand-accent group-hover:text-brand-accent">
+          {num}
+        </span>
+        {!isLast && (
+          <div className="mt-2 w-px flex-1 mb-2 bg-foreground/10" />
+        )}
+      </div>
+
+      <div className="pb-10 pt-1">
+        <p
+          className="text-foreground font-semibold"
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "1.05rem",
+            letterSpacing: "-0.02em",
+            fontWeight: 700,
+          }}
+        >
+          {title}
+        </p>
+        <p className="mt-2 text-sm leading-relaxed text-foreground/55 font-light">{desc}</p>
       </div>
     </div>
   );

@@ -2,68 +2,30 @@ export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
   name: "Flymingo Viajes",
-  description: "Make beautiful websites regardless of your design experience.",
+  description:
+    "Agencia de viajes personalizados en México. Diseñamos itinerarios únicos a tu medida: Europa, Japón, Islandia, lunas de miel y más. Atención 1 a 1, rutas con lógica y estilo.",
+  url: "https://flymingoviajes.com",
+  ogImage: "/images/og-flymingo.jpg",
   navItems: [
-    {
-      label: "Home",
-      href: "/",
-    },
-    {
-      label: "Docs",
-      href: "/docs",
-    },
-    {
-      label: "Pricing",
-      href: "/pricing",
-    },
-    {
-      label: "Blog",
-      href: "/blog",
-    },
-    {
-      label: "About",
-      href: "/about",
-    },
+    { label: "Inicio", href: "/" },
+    { label: "Destinos", href: "/destinos" },
+    { label: "Weddings", href: "/weddings" },
+    { label: "Women", href: "/women" },
+    { label: "Nosotros", href: "/nosotros" },
   ],
   navMenuItems: [
-    {
-      label: "Profile",
-      href: "/profile",
-    },
-    {
-      label: "Dashboard",
-      href: "/dashboard",
-    },
-    {
-      label: "Projects",
-      href: "/projects",
-    },
-    {
-      label: "Team",
-      href: "/team",
-    },
-    {
-      label: "Calendar",
-      href: "/calendar",
-    },
-    {
-      label: "Settings",
-      href: "/settings",
-    },
-    {
-      label: "Help & Feedback",
-      href: "/help-feedback",
-    },
-    {
-      label: "Logout",
-      href: "/logout",
-    },
+    { label: "Inicio", href: "/" },
+    { label: "Destinos", href: "/destinos" },
+    { label: "Weddings", href: "/weddings" },
+    { label: "Women", href: "/women" },
+    { label: "Nosotros", href: "/nosotros" },
+    { label: "Términos y condiciones", href: "/terminos-y-condiciones" },
   ],
-  links: {
-    github: "https://github.com/heroui-inc/heroui",
-    twitter: "https://twitter.com/hero_ui",
-    docs: "https://heroui.com",
-    discord: "https://discord.gg/9b6yyZKmH4",
-    sponsor: "https://patreon.com/jrgarciadev",
+  contact: {
+    whatsapp: "https://wa.me/5218716887385",
+    phone: "871 688 7385",
+    email: "reservas@flymingoviajes.com",
+    instagram: "https://instagram.com/flymingoviajes",
+    facebook: "https://facebook.com/flymingoviajes",
   },
 };

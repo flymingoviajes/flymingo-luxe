@@ -1,108 +1,117 @@
-import { Button } from "@heroui/button";
-import { Link } from "@heroui/link";
+import TrackLink from "@/components/TrackLink";
 
 const WA_LINK = "https://wa.me/5218716887385";
 
+const STEPS = [
+  { n: "01", label: "Nos cuentas", desc: "Destino, fechas aproximadas, cuántos son y el presupuesto que traen en mente." },
+  { n: "02", label: "Diseñamos la ruta", desc: "Mapeamos la lógica de traslados, zonas ideales, hoteles y actividades — sin backtracking innecesario." },
+  { n: "03", label: "Afinamos juntos", desc: "Ajustamos ritmo, estilo y detalles hasta que suene perfecto. Sin apuros." },
+  { n: "04", label: "Todo queda en contrato", desc: "Todo lo que te vendemos queda firmado. Sabemos que eso vale." },
+];
+
 export default function DestinosPersonalizados() {
   return (
-    <section id="personalizado" className="mx-auto max-w-6xl px-4 pb-16">
-      <div className="relative overflow-hidden rounded-3xl border border-divider/70 bg-content1 p-8 shadow-sm">
-        {/* subtle texture */}
-        <div className="pointer-events-none absolute inset-0 opacity-[0.55]">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(0,0,0,0.06),transparent_45%)] dark:bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.08),transparent_45%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_60%,rgba(0,0,0,0.04),transparent_45%)] dark:bg-[radial-gradient(circle_at_70%_60%,rgba(255,255,255,0.06),transparent_45%)]" />
-        </div>
+    <section id="personalizado" style={{ background: "white" }}>
+      <div className="mx-auto max-w-7xl px-6 py-24 lg:px-12 lg:py-36">
 
-        <div className="relative grid grid-cols-1 gap-10 md:grid-cols-2 md:items-center">
-          {/* Left copy */}
+        {/* Top: editorial headline split */}
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:items-start">
+
+          {/* Left */}
           <div>
-            <p className="inline-flex items-center gap-2 rounded-full border border-divider/70 bg-content2/40 px-3 py-1 text-xs text-foreground/70">
-              <span className="h-1.5 w-1.5 rounded-full bg-foreground/50" />
-              Destinos a la medida
-            </p>
-
-            <h3 className="mt-4 text-2xl font-semibold md:text-3xl">
-              ¿No está tu destino aquí?
-              <span className="block text-foreground/70">Perfecto.</span>
-            </h3>
-
-            <p className="mt-4 text-foreground/70">
-              Flymingo no se limita a un catálogo. Diseñamos{" "}
-              <span className="font-medium text-foreground">cualquier destino del mundo</span>{" "}
-              a tu medida: ruta, hoteles, actividades, ritmo y estilo. Tú sueñas, nosotros lo aterrizamos.
-            </p>
-
-            <ul className="mt-6 space-y-2 text-sm text-foreground/70">
-              <li>• Te escuchamos (fechas, presupuesto, vibe)</li>
-              <li>• Diseñamos la ruta con lógica y zonas ideales</li>
-              <li>• Ajustamos hasta que se sienta “perfecto”</li>
-            </ul>
-
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button
-                as={Link}
-                href={WA_LINK}
-                isExternal
-                color="primary"
-                radius="full"
-                className="font-medium"
-              >
-                Pedir propuesta por WhatsApp →
-              </Button>
-
-              <Button
-                as={Link}
-                href="/nosotros"
-                variant="bordered"
-                radius="full"
-                className="border-divider/70 text-foreground"
-              >
-                Conocer Flymingo
-              </Button>
+            <p className="text-eyebrow-accent mb-8">Tu destino, aunque no esté en la lista</p>
+            <div style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2.8rem, 6vw, 5.5rem)", letterSpacing: "-0.04em", lineHeight: 0.9 }}>
+              <span style={{ display: "block", fontWeight: 800, color: "var(--color-brand-ink)" }}>Cualquier</span>
+              <span style={{ display: "block", fontWeight: 800, fontStyle: "italic", color: "var(--color-brand-accent)" }}>destino</span>
+              <span style={{ display: "block", fontWeight: 200, color: "var(--color-brand-ink)", opacity: 0.3 }}>del mundo.</span>
             </div>
 
-            <p className="mt-4 text-xs text-foreground/60">
-              Tip: si ya tienes fechas aproximadas, avanzamos mucho más rápido.
+            <p className="mt-10 max-w-md" style={{ fontFamily: "var(--font-sans)", fontWeight: 300, fontSize: "1.05rem", lineHeight: 1.7, color: "var(--color-brand-ink)", opacity: 0.6 }}>
+              Flymingo no opera con catálogos fijos. Si puedes soñarlo, nosotros lo aterrizamos: ruta con lógica, hoteles que te queden, actividades reales y asistencia las 24 horas del viaje.
+            </p>
+
+            <div className="mt-10 flex flex-wrap gap-4">
+              <TrackLink href={WA_LINK} className="btn btn-accent" label="Destinos — Pedir propuesta">
+                Pedir propuesta por WhatsApp
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </TrackLink>
+              <a href="/nosotros" className="btn btn-ghost">
+
+                Conocer Flymingo
+              </a>
+            </div>
+
+            <p className="mt-5 text-caption">
+              Tip: si ya tienes fechas, avanzamos mucho mas rapido.
             </p>
           </div>
 
-          {/* Right: mini wizard / examples */}
-          <div className="rounded-3xl border border-divider/70 bg-content2/40 p-6">
-            <p className="text-xs font-medium text-foreground/60">
-              Así lo personalizamos contigo
-            </p>
+          {/* Right: what to send us — brand voice card */}
+          <div style={{ background: "var(--color-brand-surface)", borderRadius: "24px", padding: "3rem", border: "1px solid var(--color-brand-border)" }}>
+            <p className="text-eyebrow-accent mb-8">Envianos esto por WhatsApp y en menos de 24 horas tienes una propuesta</p>
 
-            <div className="mt-5 space-y-3">
-              <ExampleLine title="Ritmo" desc="tranqui / intenso / balanceado" />
-              <ExampleLine title="Estilo" desc="luxe, foodie, aventura, romance" />
-              <ExampleLine title="Ruta" desc="ciudades con lógica (sin regresos)" />
-              <ExampleLine title="Detalles" desc="zonas top, traslados, recomendaciones" />
+            <div className="space-y-0">
+              {[
+                { emoji: "🌍", label: "Destino o idea", hint: "aunque sea vaga" },
+                { emoji: "📅", label: "Fechas aproximadas", hint: "o temporada del ano" },
+                { emoji: "👥", label: "Numero de personas", hint: "pareja, familia, amigos" },
+                { emoji: "💰", label: "Presupuesto estimado", hint: "por persona o total" },
+              ].map((item, i) => (
+                <div
+                  key={i}
+                  className="flex items-start gap-5 py-5"
+                  style={{ borderBottom: i < 3 ? "1px solid var(--color-brand-border)" : "none" }}
+                >
+                  <span style={{ fontSize: "1.4rem", lineHeight: 1 }}>{item.emoji}</span>
+                  <div>
+                    <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1rem", letterSpacing: "-0.02em", color: "var(--color-brand-ink)", lineHeight: 1 }}>{item.label}</p>
+                    <p className="text-caption mt-1">{item.hint}</p>
+                  </div>
+                </div>
+              ))}
             </div>
 
-            <div className="mt-6 rounded-2xl border border-divider/70 bg-content1 p-4">
-              <p className="text-xs text-foreground/60">Envíanos esto por WhatsApp:</p>
-              <ul className="mt-2 space-y-1 text-sm text-foreground/75">
-                <li>• Destino(s) o idea</li>
-                <li>• Fechas aproximadas</li>
-                <li>• Número de personas</li>
-                <li>• Presupuesto estimado</li>
-              </ul>
-            </div>
+            <TrackLink
+              href={WA_LINK}
+              className="mt-8 btn btn-accent w-full justify-center"
+              label="Destinos — Escribir ahora"
+            >
+              Escribir ahora
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </TrackLink>
           </div>
         </div>
+
+        {/* Process: editorial numbered list */}
+        <div className="mt-28">
+          <p className="text-eyebrow-accent mb-12">Como lo hacemos</p>
+          <div className="grid grid-cols-1 gap-0 md:grid-cols-2 lg:grid-cols-4">
+            {STEPS.map((s, i) => (
+              <div
+                key={i}
+                className="py-8 md:py-0 md:px-8"
+                style={{
+                  borderLeft: i > 0 ? "1px solid var(--color-brand-border)" : "none",
+                  borderTop: i > 0 ? undefined : undefined,
+                }}
+              >
+                <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2.5rem, 5vw, 4rem)", letterSpacing: "-0.04em", lineHeight: 0.85, color: "var(--color-brand-accent)", opacity: 0.18 }}>
+                  {s.n}
+                </p>
+                <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.1rem", letterSpacing: "-0.02em", color: "var(--color-brand-ink)", marginTop: "0.75rem", lineHeight: 1.1 }}>
+                  {s.label}
+                </p>
+                <p className="text-caption mt-3">{s.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
       </div>
     </section>
-  );
-}
-
-function ExampleLine({ title, desc }: { title: string; desc: string }) {
-  return (
-    <div className="flex items-start justify-between gap-3 rounded-2xl border border-divider/70 bg-content1 p-4 shadow-sm">
-      <div>
-        <p className="text-sm font-medium">{title}</p>
-        <p className="mt-1 text-xs text-foreground/70">{desc}</p>
-      </div>
-      <span className="text-foreground/50">→</span>
-    </div>
   );
 }

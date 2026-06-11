@@ -1,96 +1,123 @@
 import Image from "next/image";
-import NextLink from "next/link";
-import { Link } from "@heroui/link";
+import Link from "next/link";
 import type { DestinationCard } from "./types";
 
-export default function DestinosCatalogo({
-  items,
-}: {
-  items: DestinationCard[];
-}) {
+export default function DestinosCatalogo({ items }: { items: DestinationCard[] }) {
+  const [featured, second, ...rest] = items;
+
   return (
-    <section id="catalogo" className="mx-auto max-w-6xl px-4 py-14">
-      <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
-        <div className="max-w-2xl">
-          <h2 className="text-2xl font-semibold md:text-3xl">Catálogo de destinos</h2>
-          <p className="mt-3 text-foreground/70">
-            Una selección pequeña (máximo 6). Lo hacemos intencional para mantenerlo premium.
+    <section id="catalogo" style={{ background: "white" }}>
+      <div className="mx-auto max-w-7xl px-6 py-24 lg:px-12 lg:py-36">
+
+        {/* Header */}
+        <div className="flex items-end justify-between mb-14">
+          <div>
+            <p className="text-eyebrow-accent mb-8">Destinos seleccionados</p>
+            <div style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2.5rem, 5.5vw, 5rem)", letterSpacing: "-0.04em", lineHeight: 0.9 }}>
+              <span style={{ display: "block", fontWeight: 800, color: "var(--color-brand-ink)" }}>Los que más amamos.</span>
+              <span style={{ display: "block", fontWeight: 200, fontStyle: "italic", color: "var(--color-brand-ink)", opacity: 0.3 }}>Y el tuyo también.</span>
+            </div>
+          </div>
+          <p className="hidden md:block text-caption max-w-xs text-right">
+            Diseñamos cualquier destino del mundo. Si no lo ves aquí, escríbenos.
           </p>
         </div>
 
-        <Link
-          as={NextLink}
-          href="#personalizado"
-          className="text-sm font-medium text-foreground"
-        >
-          ¿Y si quiero otro destino? →
-        </Link>
-      </div>
+        {/* Row 1: featured (2/3) + second (1/3) */}
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+          {featured && <DestCard dest={featured} className="md:col-span-2" height="h-80 md:h-[500px]" />}
+          {second && <DestCard dest={second} height="h-72 md:h-[500px]" />}
+        </div>
 
-      <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {items.map((d) => (
-          <DestinationCardView key={d.slug} d={d} />
-        ))}
+        {/* Row 2: rest equally split */}
+        {rest.length > 0 && (
+          <div className={`mt-3 grid grid-cols-1 gap-3 md:grid-cols-${Math.min(rest.length, 3)}`}>
+            {rest.map((d) => (
+              <DestCard key={d.slug} dest={d} height="h-64 md:h-72" />
+            ))}
+          </div>
+        )}
+
+        {/* Footer nudge */}
+        <div className="mt-12 flex items-center gap-5">
+          <span className="divider-accent" />
+          <p className="text-caption">
+            ¿No ves tu destino? Lo diseñamos desde cero.{" "}
+            <a href="https://wa.me/5218716887385" target="_blank" rel="noreferrer" className="font-semibold" style={{ color: "var(--color-brand-accent)" }}>
+              Escríbenos →
+            </a>
+          </p>
+        </div>
       </div>
     </section>
   );
 }
 
-function DestinationCardView({ d }: { d: DestinationCard }) {
+function DestCard({
+  dest,
+  height,
+  className = "",
+}: {
+  dest: DestinationCard;
+  height: string;
+  className?: string;
+}) {
   return (
     <Link
-      as={NextLink}
-      href={`/destinos/${d.slug}`}
-      className="group block overflow-hidden rounded-3xl border border-divider/70 bg-content1 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+      href={`/destinos/${dest.slug}`}
+      className={`group relative block overflow-hidden ${height} ${className}`}
+      style={{ borderRadius: "20px" }}
     >
-      {/* Image */}
-      <div className="relative h-44 w-full">
-        <Image
-          src={d.imageSrc}
-          alt={d.imageAlt}
-          fill
-          className="object-cover transition duration-500 group-hover:scale-[1.03]"
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          priority={false}
-        />
+      <Image
+        src={dest.imageSrc}
+        alt={dest.imageAlt}
+        fill
+        className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 50vw"
+      />
 
-        {/* Luxe overlays */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/10 to-transparent" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(255,255,255,0.18),transparent_45%)] opacity-70" />
+      {/* Deep cinematic gradient */}
+      <div
+        className="absolute inset-0"
+        style={{ background: "linear-gradient(to top, rgba(10,5,8,0.92) 0%, rgba(10,5,8,0.25) 50%, transparent 80%)" }}
+      />
 
-        {/* Tag */}
-        {d.tag ? (
-          <div className="absolute right-4 top-4">
-            <span className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs text-white/90 backdrop-blur">
-              {d.tag}
-            </span>
-          </div>
-        ) : null}
-
-        {/* Subtle shine on hover */}
-        <div className="pointer-events-none absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100">
-          <div className="absolute -left-1/4 top-0 h-full w-1/2 rotate-12 bg-white/10 blur-2xl" />
+      {/* Tag */}
+      {dest.tag && (
+        <div className="absolute top-5 left-5 z-10">
+          <span className="badge badge-white">{dest.tag}</span>
         </div>
-      </div>
+      )}
 
       {/* Content */}
-      <div className="p-6">
-        <p className="text-sm font-semibold">{d.title}</p>
+      <div className="absolute bottom-0 left-0 right-0 z-10 p-6">
+        {/* Region + highlight */}
+        <p style={{ fontFamily: "var(--font-sans)", fontWeight: 300, fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase" as const, color: "rgba(255,255,255,0.4)", marginBottom: "0.5rem" }}>
+          {dest.region}{dest.highlight ? ` · ${dest.highlight}` : ""}
+        </p>
 
-        {d.subtitle ? (
-          <p className="mt-2 text-sm text-foreground/70 line-clamp-2">
-            {d.subtitle}
-          </p>
-        ) : null}
+        {/* Title */}
+        <p
+          className="text-white"
+          style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.4rem, 2.5vw, 2.2rem)", letterSpacing: "-0.035em", lineHeight: 0.95 }}
+        >
+          {dest.title}
+        </p>
 
-        <div className="mt-5 flex items-center justify-between">
-          <p className="text-xs text-foreground/60">
-            Itinerario flexible • Diseño a medida
+        {/* Price */}
+        {dest.priceFrom && (
+          <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(0.9rem, 1.2vw, 1rem)", letterSpacing: "-0.01em", color: "var(--color-brand-accent)", marginTop: "0.5rem", lineHeight: 1 }}>
+            {dest.priceFrom}
           </p>
-          <span className="text-sm font-medium">
-            Ver <span className="transition group-hover:translate-x-0.5 inline-block">→</span>
-          </span>
-        </div>
+        )}
+
+        {/* CTA on hover */}
+        <p className="mt-3 text-white text-xs font-semibold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300 inline-flex items-center gap-2">
+          Ver itinerario
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </p>
       </div>
     </Link>
   );

@@ -1,67 +1,53 @@
-import { womenManifestoData } from "./women.data"
+const PILLARS = [
+  { n: "01", title: "Solo mujeres", body: "El grupo importa tanto como el destino. Creamos un ambiente donde puedes llegar sola y regresar con amigas." },
+  { n: "02", title: "Seguros y cuidados", body: "Desde la logistica hasta el hotel, todo esta pensado para que te sientas comoda, segura y libre." },
+  { n: "03", title: "Acompanamiento real", body: "Flymingo esta contigo antes, durante y despues. Whatsapp, itinerario diario, asistencia 24/7." },
+  { n: "04", title: "Momentos que duran", body: "No vendemos boletos. Disenamos la experiencia completa para que cuando regreses, la quieras repetir." },
+];
 
-export default function WomenManifesto() {
+export default function WomenManifiesto() {
   return (
-    <section id="manifiesto" className="relative bg-white overflow-hidden">
+    <section style={{ background: "white" }}>
+      <div className="mx-auto max-w-7xl px-6 py-24 lg:px-12 lg:py-36">
 
-      {/* Número decorativo de fondo */}
-      <div
-        className="absolute -top-6 -left-4 select-none pointer-events-none leading-none text-[20rem] font-black text-rose-50"
-        style={{ fontFamily: "var(--font-display, 'Clash Display', sans-serif)" }}
-        aria-hidden
-      >
-        ✦
-      </div>
-
-      <div className="relative mx-auto max-w-6xl px-6 py-24 md:px-10 md:py-32">
-        <div className="grid lg:grid-cols-[1fr_1.6fr] gap-16 items-start">
-
-          {/* Columna izquierda — etiqueta y línea */}
-          <div className="lg:pt-3">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="h-px w-8 bg-rose-400" />
-              <span className="font-sans text-[10px] font-bold uppercase tracking-[0.28em] text-rose-400">
-                {womenManifestoData.eyebrow}
-              </span>
-            </div>
-
-            <h2
-              className="text-[#1a0f16] leading-[1.0] tracking-[-0.03em]"
-              style={{
-                fontFamily: "var(--font-display, 'Clash Display', sans-serif)",
-                fontWeight: 600,
-                fontSize: "clamp(2rem, 4vw, 3.25rem)"
-              }}
-            >
-              {womenManifestoData.title}
-            </h2>
-          </div>
-
-          {/* Columna derecha — texto */}
-          <div className="space-y-6 lg:pt-3">
-            <p className="font-sans text-base leading-8 text-[#5c3d52] md:text-[1.05rem] font-normal">
-              {womenManifestoData.text1}
-            </p>
-            <p className="font-sans text-base leading-8 text-[#5c3d52] md:text-[1.05rem] font-normal">
-              {womenManifestoData.text2}
-            </p>
-
-            {/* Línea de cierre decorativa */}
-            <div className="flex items-center gap-4 pt-4">
-              <div className="h-px flex-1 bg-rose-100" />
-              <span
-                className="text-rose-200 text-2xl select-none"
-                style={{ fontFamily: "var(--font-display, 'Clash Display', sans-serif)" }}
-                aria-hidden
-              >
-                ✦
-              </span>
-              <div className="h-px flex-1 bg-rose-100" />
+        {/* Top: headline + intro */}
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:items-end mb-20">
+          <div>
+            <p className="text-eyebrow-accent mb-8">Por que Flymingo Women</p>
+            <div style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2.8rem, 6vw, 5.5rem)", letterSpacing: "-0.04em", lineHeight: 0.9 }}>
+              <span style={{ display: "block", fontWeight: 800, color: "var(--color-brand-ink)" }}>No son</span>
+              <span style={{ display: "block", fontWeight: 800, fontStyle: "italic", color: "var(--color-brand-accent)" }}>solo viajes.</span>
+              <span style={{ display: "block", fontWeight: 200, color: "var(--color-brand-ink)", opacity: 0.25 }}>Es una comunidad.</span>
             </div>
           </div>
 
+          <div style={{ paddingBottom: "0.25rem" }}>
+            <p style={{ fontFamily: "var(--font-sans)", fontWeight: 300, fontSize: "1.05rem", lineHeight: 1.8, color: "var(--color-brand-ink)", opacity: 0.6, maxWidth: "38rem" }}>
+              Flymingo Women nace para crear viajes entre mujeres que se sientan emocionantes, bonitos, seguros y memorables. Aqui el destino importa, si, pero tambien importa como te sientes durante el viaje: acompanada, inspirada y rodeada de mujeres que tambien decidieron darse esta oportunidad.
+            </p>
+          </div>
         </div>
+
+        {/* Pillars: editorial 4-col */}
+        <div className="grid grid-cols-1 gap-0 sm:grid-cols-2 lg:grid-cols-4">
+          {PILLARS.map((p, i) => (
+            <div
+              key={i}
+              className="py-10 sm:py-0 sm:px-8"
+              style={{ borderLeft: i > 0 ? "1px solid var(--color-brand-border)" : "none" }}
+            >
+              <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2.2rem, 4.5vw, 3.5rem)", letterSpacing: "-0.04em", lineHeight: 0.85, color: "var(--color-brand-accent)", opacity: 0.15 }}>
+                {p.n}
+              </p>
+              <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1rem", letterSpacing: "-0.02em", color: "var(--color-brand-ink)", marginTop: "0.75rem", lineHeight: 1.1 }}>
+                {p.title}
+              </p>
+              <p className="text-caption mt-3">{p.body}</p>
+            </div>
+          ))}
+        </div>
+
       </div>
     </section>
-  )
+  );
 }

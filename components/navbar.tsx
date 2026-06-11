@@ -1,4 +1,6 @@
-import Image from "next/image";
+"use client";
+
+import NextLink from "next/link";
 import {
   Navbar as HeroUINavbar,
   NavbarContent,
@@ -9,15 +11,10 @@ import {
   NavbarMenuItem,
 } from "@heroui/navbar";
 import { Link } from "@heroui/link";
-import NextLink from "next/link";
-import clsx from "clsx";
-
-import { ThemeSwitch } from "@/components/theme-switch";
-import { link as linkStyles } from "@heroui/theme";
 import { InstagramIcon, FacebookIcon, WhatsappIcon } from "@/components/icons";
 
 const navItems = [
-  { label: "Home", href: "/" },
+  { label: "Inicio", href: "/" },
   { label: "Destinos", href: "/destinos" },
   { label: "Weddings", href: "/weddings", wedding: true },
   { label: "Women", href: "/women", highlight: true },
@@ -35,46 +32,48 @@ export const Navbar = () => {
     <HeroUINavbar
       maxWidth="xl"
       position="sticky"
-      className="border-b border-divider/60 bg-background/70 backdrop-blur-md"
+      className="border-b border-brand-border/60 bg-brand-canvas/75 backdrop-blur-md dark:bg-[#0D0A0E]/75 dark:border-[rgba(244,120,152,0.08)]"
     >
       {/* Left: Brand + Desktop nav */}
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand as="div" className="gap-2 max-w-fit">
           <NextLink className="flex items-center gap-2" href="/">
-            <span className="relative h-9 w-9 overflow-hidden rounded-full border border-divider/70 bg-content1">
-              <Image
-                src="/favicon.ico"
-                alt="Flymingo Viajes"
-                fill
-                sizes="36px"
-                className="object-cover"
-                priority
-              />
+            {/* Logo tipográfico — rosa + verde, igual que el logo real */}
+            <span
+              className="text-xl leading-none select-none"
+              style={{ fontFamily: "var(--font-display)", fontWeight: 800, letterSpacing: "-0.03em" }}
+              aria-label="Flymingo"
+            >
+              <span style={{ color: "var(--color-brand-accent)" }}>fly</span>
+              <span style={{ color: "var(--color-brand-green)" }}>mingo</span>
             </span>
-
-            <div className="leading-tight">
-              <p className="text-xs font-semibold tracking-[0.28em] text-foreground/80">
-                FLYMINGO
-              </p>
-              <p className="text-sm font-semibold text-foreground">Viajes</p>
-            </div>
           </NextLink>
         </NavbarBrand>
 
-        <ul className="hidden lg:flex items-center gap-6 ml-6">
+        {/* Desktop nav */}
+        <ul className="hidden lg:flex items-center gap-5 ml-8">
           {navItems.map((item) => (
             <NavbarItem key={item.href}>
               <NextLink
-                className={clsx(
-                  linkStyles({ color: "foreground" }),
-                  "text-sm transition",
-                  item.highlight
-                    ? "rounded-full bg-gradient-to-r from-pink-500 via-fuchsia-500 to-rose-500 px-4 py-2 font-semibold text-white shadow-md hover:scale-[1.02] hover:text-white"
-                    : item.wedding
-                      ? "rounded-full border border-rose-200/70 bg-rose-50 px-4 py-2 font-medium text-rose-900 hover:bg-rose-100 hover:text-rose-950"
-                      : "text-foreground/80 hover:text-foreground"
-                )}
                 href={item.href}
+                className={
+                  item.highlight
+                    ? "rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-white"
+                    : item.wedding
+                    ? "rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-widest border"
+                    : "nav-link"
+                }
+                style={
+                  item.highlight
+                    ? { background: "var(--gradient-accent)", fontFamily: "var(--font-sans)" }
+                    : item.wedding
+                    ? {
+                        borderColor: "var(--color-brand-green)",
+                        color: "var(--color-brand-green)",
+                        fontFamily: "var(--font-sans)",
+                      }
+                    : undefined
+                }
               >
                 {item.label}
               </NextLink>
@@ -83,66 +82,77 @@ export const Navbar = () => {
         </ul>
       </NavbarContent>
 
-      {/* Right: Social + theme */}
+      {/* Right: Social + WA CTA */}
       <NavbarContent className="hidden sm:flex basis-1/5 sm:basis-full" justify="end">
-        <NavbarItem className="flex items-center gap-2">
+        <NavbarItem className="flex items-center gap-3">
           <Link isExternal aria-label="Instagram" href={social.instagram}>
-            <InstagramIcon className="text-default-500 hover:text-foreground transition" />
+            <InstagramIcon className="h-4 w-4 text-brand-muted hover:text-brand-accent transition-colors" />
           </Link>
           <Link isExternal aria-label="Facebook" href={social.facebook}>
-            <FacebookIcon className="text-default-500 hover:text-foreground transition" />
-          </Link>
-          <Link isExternal aria-label="WhatsApp" href={social.whatsapp}>
-            <WhatsappIcon className="text-default-500 hover:text-foreground transition" />
+            <FacebookIcon className="h-4 w-4 text-brand-muted hover:text-brand-accent transition-colors" />
           </Link>
 
-          <div className="ml-1">
-            <ThemeSwitch />
-          </div>
+          {/* WhatsApp — botón CTA en navbar */}
+          <Link
+            isExternal
+            href={social.whatsapp}
+            className="ml-1 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-white transition-all hover:opacity-90"
+            style={{ background: "var(--gradient-accent)", fontFamily: "var(--font-sans)" }}
+            aria-label="WhatsApp"
+          >
+            <WhatsappIcon className="h-3.5 w-3.5" />
+            WhatsApp
+          </Link>
         </NavbarItem>
       </NavbarContent>
 
-      {/* Mobile: Social + theme + toggle */}
+      {/* Mobile */}
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
         <Link isExternal aria-label="WhatsApp" href={social.whatsapp}>
-          <WhatsappIcon className="text-default-500" />
+          <WhatsappIcon className="h-5 w-5" style={{ color: "var(--color-brand-accent)" }} />
         </Link>
-        <ThemeSwitch />
         <NavbarMenuToggle />
       </NavbarContent>
 
       {/* Mobile menu */}
-      <NavbarMenu className="pt-6">
+      <NavbarMenu className="pt-8 bg-brand-canvas/98 dark:bg-[#0D0A0E]/98 backdrop-blur-lg">
         <div className="mx-4 flex flex-col gap-2">
           {navItems.map((item, index) => (
             <NavbarMenuItem key={`${item.href}-${index}`}>
-              <Link
-                as={NextLink}
-                color="foreground"
+              <NextLink
                 href={item.href}
-                size="lg"
-                className={clsx(
-                  "py-2",
-                  item.highlight &&
-                    "rounded-full bg-gradient-to-r from-pink-500 via-fuchsia-500 to-rose-500 px-4 py-3 font-semibold text-white",
-                  item.wedding &&
-                    "rounded-full border border-rose-200 bg-rose-50 px-4 py-3 font-medium text-rose-900"
-                )}
+                className={
+                  item.highlight
+                    ? "inline-block rounded-full px-5 py-3 text-sm font-semibold text-white"
+                    : item.wedding
+                    ? "inline-block rounded-full border px-5 py-3 text-sm font-semibold"
+                    : "block py-3 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors"
+                }
+                style={
+                  item.highlight
+                    ? { background: "var(--gradient-accent)" }
+                    : item.wedding
+                    ? { borderColor: "var(--color-brand-green)", color: "var(--color-brand-green)" }
+                    : undefined
+                }
               >
                 {item.label}
-              </Link>
+              </NextLink>
             </NavbarMenuItem>
           ))}
 
-          <div className="mt-6 flex items-center gap-3">
+          {/* Divider */}
+          <div className="mt-4 h-px bg-brand-border/50" />
+
+          <div className="mt-4 flex items-center gap-3">
             <Link isExternal aria-label="Instagram" href={social.instagram}>
-              <InstagramIcon className="text-default-500" />
+              <InstagramIcon className="h-5 w-5 text-brand-muted" />
             </Link>
             <Link isExternal aria-label="Facebook" href={social.facebook}>
-              <FacebookIcon className="text-default-500" />
+              <FacebookIcon className="h-5 w-5 text-brand-muted" />
             </Link>
             <Link isExternal aria-label="WhatsApp" href={social.whatsapp}>
-              <WhatsappIcon className="text-default-500" />
+              <WhatsappIcon className="h-5 w-5" style={{ color: "var(--color-brand-accent)" }} />
             </Link>
           </div>
         </div>

@@ -1,112 +1,89 @@
-import { Button } from "@heroui/button";
-import { Link } from "@heroui/link";
+import Link from "next/link";
+import TrackLink from "@/components/TrackLink";
 
 const WA_LINK = "https://wa.me/5218716887385";
-
-// 🔥 Pon tu video aquí (ideal .mp4 optimizado)
-// Ej: "/videos/flymingo-hero.mp4"
 const HERO_VIDEO_SRC = "/videos/flymingo-hero.mp4";
-
-// Opcional: poster para cuando el video aún no carga
 const HERO_POSTER = "/images/hero-poster.jpg";
+
+const TRUST = [
+  { value: "200+", label: "Itinerarios diseñados" },
+  { value: "4.9 ★", label: "Google Reviews" },
+  { value: "6 MSI", label: "Sin intereses" },
+  { value: "1 a 1", label: "Atención personal" },
+];
 
 export default function HomeHero() {
   return (
-    <section className="relative overflow-hidden">
-      {/* Background Video */}
+    <section className="section-hero relative overflow-hidden">
+      {/* Video */}
       <div className="absolute inset-0">
         <video
-          className="h-full w-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
+          autoPlay muted loop playsInline preload="metadata"
           poster={HERO_POSTER}
+          className="h-full w-full object-cover"
         >
           <source src={HERO_VIDEO_SRC} type="video/mp4" />
         </video>
-
-        {/* Overlays (premium) */}
-        {/* Base darkening for readability */}
-        <div className="absolute inset-0 bg-black/45 dark:bg-black/55" />
-
-        {/* Subtle luxe gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/25 to-background/95 dark:to-background" />
-
-        {/* Soft highlight */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_18%,rgba(255,255,255,0.16),transparent_45%)] dark:bg-[radial-gradient(circle_at_22%_18%,rgba(255,255,255,0.10),transparent_45%)]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-black/15" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/45 via-black/10 to-transparent" />
       </div>
 
       {/* Content */}
-      <div className="relative mx-auto max-w-6xl px-4 py-16 md:py-24">
-        <div className="max-w-3xl">
-          {/* Badge */}
-          <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs text-white/85 backdrop-blur">
-            <span className="h-1.5 w-1.5 rounded-full bg-white/80" />
-            Viajes personalizados • Atención 1:1 • 6 MSI
-          </p>
+      <div className="relative mx-auto max-w-7xl w-full px-6 lg:px-12">
+        <div className="flex flex-col justify-end min-h-[100svh] pb-16 md:pb-24 max-w-3xl">
 
-          {/* Headline */}
-          <h1 className="mt-5 text-4xl font-semibold leading-[1.05] tracking-tight text-white md:text-6xl">
-            Viajes a tu medida.
-            <span className="block text-white/75">Diseñados con estilo y precisión.</span>
+          <span className="badge badge-white self-start animate-fade-up">
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-white/60 mr-1" />
+            Agencia de viajes personalizados · Torreón, México
+          </span>
+
+          <h1
+            className="text-display text-white mt-6 animate-fade-up stagger"
+            style={{ "--delay": "0.1s" } as React.CSSProperties}
+          >
+            El viaje que<br />
+            <span className="opacity-65 font-light">siempre</span>{" "}
+            quisiste.
           </h1>
 
-          {/* Sub */}
-          <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/80">
-            Creamos itinerarios únicos y flexibles. Nada de paquetes rígidos.
-            Aquí el viaje se adapta a tu ritmo, tus gustos y tu forma de disfrutar.
+          <p
+            className="mt-7 max-w-lg text-white/60 font-light leading-loose text-base animate-fade-up stagger"
+            style={{ "--delay": "0.2s" } as React.CSSProperties}
+          >
+            No vendemos paquetes rígidos. Diseñamos itinerarios a tu medida
+            — con lógica, ritmo y cada detalle listo para que solo disfrutes.
           </p>
 
-          {/* CTAs */}
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <Button
-              as={Link}
-              href="/destinos"
-              radius="full"
-              className="bg-white text-neutral-900 hover:bg-white/90 font-medium"
-            >
-              Ver destinos
-            </Button>
-
-            <Button
-              as={Link}
-              href={WA_LINK}
-              isExternal
-              variant="bordered"
-              radius="full"
-              className="border-white/25 text-white hover:bg-white/10"
-            >
-              Diseñar por WhatsApp
-            </Button>
+          <div
+            className="mt-10 flex flex-wrap items-center gap-4 animate-fade-up stagger"
+            style={{ "--delay": "0.3s" } as React.CSSProperties}
+          >
+            <TrackLink href={WA_LINK} className="btn btn-accent" label="Hero — Disenar mi viaje">
+              Diseñar mi viaje
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </TrackLink>
+            <Link href="/destinos" className="btn-ghost-white">Ver destinos</Link>
           </div>
 
-          {/* Stats (glass) */}
-          <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-3">
-            <HeroStat label="Itinerarios" value="Únicos" />
-            <HeroStat label="Ajustes" value="Reales" />
-            <HeroStat label="Estilo" value="Luxe" />
+          <div
+            className="mt-14 grid grid-cols-2 gap-x-10 gap-y-5 md:flex md:gap-12 animate-fade-up stagger"
+            style={{ "--delay": "0.45s" } as React.CSSProperties}
+          >
+            {TRUST.map((item) => (
+              <div key={item.label} className="flex flex-col gap-0.5">
+                <span className="text-white font-semibold text-xl leading-none" style={{ fontFamily: "var(--font-display)" }}>
+                  {item.value}
+                </span>
+                <span className="text-white/40 text-xs uppercase tracking-widest font-medium">{item.label}</span>
+              </div>
+            ))}
           </div>
-
-          {/* Micro trust line */}
-          <p className="mt-6 text-xs text-white/65">
-            Diseñamos viajes en todo el mundo • Rutas con lógica • Detalles listos • Cero estrés
-          </p>
         </div>
       </div>
 
-      {/* Bottom fade for seamless transition to next section */}
-      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-b from-transparent to-background" />
+      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
     </section>
-  );
-}
-
-function HeroStat({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur">
-      <p className="text-xs text-white/70">{label}</p>
-      <p className="mt-1 text-sm font-medium text-white">{value}</p>
-    </div>
   );
 }

@@ -1,199 +1,65 @@
-import Image from "next/image";
+const FEATURES = [
+  {
+    title: "Tu ruta, no la de todos",
+    desc: "Partimos de tus fechas, tu estilo, tu presupuesto. No al revés.",
+  },
+  {
+    title: "Rutas con lógica real",
+    desc: "Sin regresos innecesarios, sin días agotadores. Cada zona elegida con intención.",
+  },
+  {
+    title: "Acompañamiento de verdad",
+    desc: "Antes, durante y después. Una persona real — no un chatbot.",
+  },
+];
 
-type CardImage = {
-  src: string;
-  alt: string;
-};
+const FS = "clamp(3.5rem, 9.5vw, 9rem)";
 
 export default function HomeValueProps() {
   return (
-    <section className="mx-auto max-w-6xl px-4 py-14">
-      <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-end">
-        <div className="md:col-span-7">
-          <h2 className="text-2xl font-semibold md:text-3xl">
-            No vendemos destinos.
-            <span className="block text-foreground/70">Diseñamos experiencias.</span>
-          </h2>
+    <section style={{ background: "white" }}>
+      <div className="mx-auto max-w-7xl px-6 pt-32 pb-24 lg:px-12 lg:pt-48 lg:pb-36">
 
-          <p className="mt-3 max-w-2xl text-foreground/70">
-            Lo que cambia todo: tu viaje no “viene armado”. Se construye contigo, con lógica,
-            ritmo y detalles listos para disfrutar.
-          </p>
+        <p className="text-eyebrow-accent mb-14">Por qué Flymingo</p>
+
+        {/* Editorial headline — dramatic weight contrast */}
+        <div style={{ fontFamily: "var(--font-display)", fontSize: FS, letterSpacing: "-0.04em", lineHeight: 0.9 }}>
+          <span style={{ display: "block", fontWeight: 200, color: "var(--color-brand-ink)", opacity: 0.35 }}>No vendemos</span>
+          <span style={{ display: "block", fontWeight: 800, fontStyle: "italic", color: "var(--color-brand-accent)" }}>destinos.</span>
+          <span style={{ display: "block", fontWeight: 800, color: "var(--color-brand-ink)" }}>Diseñamos</span>
+          <span style={{ display: "block", fontWeight: 200, color: "var(--color-brand-ink)", opacity: 0.25 }}>los tuyos.</span>
         </div>
 
-        <div className="md:col-span-5 md:justify-self-end">
-          <div className="inline-flex flex-wrap items-center gap-2 rounded-full border border-divider/70 bg-content1/60 px-3 py-2 text-xs text-foreground/70 backdrop-blur">
-            <Pill>Itinerario a medida</Pill>
-            <Pill>Rutas con lógica</Pill>
-            <Pill>Estilo luxe</Pill>
-            <Pill>Cero estrés</Pill>
-          </div>
-        </div>
-      </div>
+        <hr className="divider mt-20 mb-16" />
 
-      {/* Layout editorial */}
-      <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-12">
-        {/* Big feature card */}
-        <div className="md:col-span-7">
-          <BigCard
-            image={{
-              src: "/images/home/value-itinerary.jpg",
-              alt: "Itinerarios personalizados Flymingo Viajes",
-            }}
-          />
-        </div>
-
-        {/* Two stacked cards */}
-        <div className="grid gap-4 md:col-span-5">
-          <SmallCard
-            eyebrow="A tu estilo"
-            title="Una ruta que se siente tuya"
-            desc="Luxe relajado, aventura, wellness, foodie, romance, amigas o familia. Nosotros adaptamos el viaje a tu vibe."
-            chips={["Luxe", "Foodie", "Romance", "Amigas", "Familia"]}
-            image={{
-              src: "/images/home/value-style.jpg",
-              alt: "Viajes a tu estilo Flymingo Viajes",
-            }}
-          />
-
-          <SmallCard
-            eyebrow="Flexibles de verdad"
-            title="Ajustes reales, sin drama"
-            desc="Cambiamos ciudad, noches, hotel, tours o ritmo. Tú decides. Nosotros lo resolvemos y lo dejamos claro."
-            chips={["Cambios", "Alternativas", "Opciones", "Soporte"]}
-            image={{
-              src: "/images/home/value-flex.jpg",
-              alt: "Viajes flexibles Flymingo Viajes",
-            }}
-          />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------- Cards -------------------------------- */
-
-function BigCard({ image }: { image: CardImage }) {
-  return (
-    <div className="relative overflow-hidden rounded-3xl border border-divider/70 bg-content1 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
-      {/* Image */}
-      <CardImageBlock image={image} ratio="wide" />
-
-      {/* Content */}
-      <div className="relative p-7">
-        <p className="text-xs font-medium text-foreground/60">Itinerarios únicos</p>
-        <h3 className="mt-2 text-xl font-semibold md:text-2xl">
-          Cada día con intención.
-          <span className="block text-foreground/70">Sin cansancio innecesario.</span>
-        </h3>
-
-        <p className="mt-3 max-w-xl text-sm text-foreground/70">
-          Diseñamos un viaje que fluye: zonas correctas, traslados con lógica, tiempos humanos y
-          momentos que se sienten premium.
-        </p>
-
-        {/* “System line” Apple-ish */}
-        <div className="mt-6 rounded-2xl border border-divider/70 bg-content2/40 p-4">
-          <p className="text-xs text-foreground/60">Se siente como:</p>
-          <p className="mt-1 text-sm font-medium">
-            “Ok, esto está perfectamente pensado.”
-          </p>
-
-          <div className="mt-4 grid grid-cols-3 gap-3">
-            <MiniStat label="Ritmo" value="Balanceado" />
-            <MiniStat label="Ruta" value="Con lógica" />
-            <MiniStat label="Detalles" value="Listos" />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function SmallCard({
-  eyebrow,
-  title,
-  desc,
-  chips,
-  image,
-}: {
-  eyebrow: string;
-  title: string;
-  desc: string;
-  chips: string[];
-  image: CardImage;
-}) {
-  return (
-    <div className="relative overflow-hidden rounded-3xl border border-divider/70 bg-content1 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
-      <CardImageBlock image={image} ratio="tall" />
-
-      <div className="p-6">
-        <p className="text-xs font-medium text-foreground/60">{eyebrow}</p>
-        <p className="mt-2 text-lg font-semibold">{title}</p>
-        <p className="mt-2 text-sm text-foreground/70">{desc}</p>
-
-        <div className="mt-4 flex flex-wrap gap-2">
-          {chips.map((c) => (
-            <span
-              key={c}
-              className="rounded-full border border-divider/70 bg-content2/40 px-3 py-1 text-xs text-foreground/70"
-            >
-              {c}
-            </span>
+        {/* Features — clean horizontal, no boxes */}
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-0 md:divide-x md:divide-brand-border">
+          {FEATURES.map((f, i) => (
+            <div key={f.title} className="md:px-10 first:pl-0 last:pr-0">
+              <p
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontWeight: 600,
+                  fontSize: "0.6rem",
+                  letterSpacing: "0.22em",
+                  textTransform: "uppercase",
+                  color: "var(--color-brand-accent)",
+                  marginBottom: "1rem",
+                }}
+              >
+                0{i + 1}
+              </p>
+              <h4 style={{ fontSize: "clamp(1.05rem, 1.5vw, 1.25rem)", lineHeight: 1.1, letterSpacing: "-0.02em" }}>
+                {f.title}
+              </h4>
+              <p className="mt-3 text-sm font-light leading-relaxed" style={{ color: "var(--color-brand-dim)" }}>
+                {f.desc}
+              </p>
+            </div>
           ))}
         </div>
+
       </div>
-    </div>
-  );
-}
-
-/* ------------------------------ Image Block ------------------------------ */
-
-function CardImageBlock({
-  image,
-  ratio,
-}: {
-  image: CardImage;
-  ratio: "wide" | "tall";
-}) {
-  const hClass = ratio === "wide" ? "h-56 md:h-64" : "h-44 md:h-48";
-
-  return (
-    <div className={`relative ${hClass} w-full`}>
-      <Image
-        src={image.src}
-        alt={image.alt}
-        fill
-        priority={false}
-        className="object-cover"
-        sizes="(max-width: 768px) 100vw, 50vw"
-      />
-
-      {/* Luxe overlay for readability + vibe */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/10 to-transparent" />
-
-      {/* Subtle highlight */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(255,255,255,0.18),transparent_45%)] opacity-70" />
-    </div>
-  );
-}
-
-/* ------------------------------ Small UI bits ---------------------------- */
-
-function Pill({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="rounded-full border border-divider/70 bg-content2/40 px-3 py-1">
-      {children}
-    </span>
-  );
-}
-
-function MiniStat({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="rounded-2xl border border-divider/70 bg-content1 p-3">
-      <p className="text-[11px] text-foreground/60">{label}</p>
-      <p className="mt-0.5 text-xs font-medium text-foreground">{value}</p>
-    </div>
+    </section>
   );
 }
