@@ -1,39 +1,66 @@
+import Link from "next/link";
+import TrackLink from "@/components/TrackLink";
+
+const WA = "https://wa.me/5218716887385?text=Hola%20Flymingo,%20quiero%20agendar%20una%20llamada%20para%20mi%20boda%20destino.";
+
 export default function WeddingsCTA() {
   return (
-    <section className="bg-[#fcf8f2]">
-      <div className="mx-auto max-w-7xl px-4 pb-16 pt-10 sm:px-6 lg:px-10 lg:pb-24 lg:pt-14">
-        <div className="overflow-hidden rounded-[2rem] border border-[#ead7d1] bg-[linear-gradient(135deg,rgba(255,245,241,0.98),rgba(255,255,255,0.95),rgba(244,232,218,0.9))] p-6 shadow-[0_24px_70px_rgba(165,136,116,0.10)] sm:p-8 lg:rounded-[2.4rem] lg:p-12">
-          <div className="max-w-3xl">
-            <p className="text-[11px] uppercase tracking-[0.24em] text-[#b88d87]">
-              Flymingo Weddings
-            </p>
+    <section style={{ background: "white", borderTop: "1px solid var(--color-brand-border)" }}>
+      <div className="mx-auto max-w-7xl px-6 py-24 lg:px-12 lg:py-36">
 
-            <h2 className="mt-3 text-[2rem] font-semibold leading-tight tracking-tight text-[#5a4a42] sm:text-4xl lg:text-5xl">
-              El siguiente paso puede ser mucho más claro, bonito y emocionante.
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:items-end">
+
+          {/* Left: headline */}
+          <div>
+            <p className="text-eyebrow-accent mb-8">El siguiente paso</p>
+            <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2.8rem, 6.5vw, 6rem)", letterSpacing: "-0.04em", lineHeight: 0.88 }}>
+              <span style={{ display: "block", fontWeight: 200, color: "var(--color-brand-ink)", opacity: 0.25 }}>Una boda</span>
+              <span style={{ display: "block", fontWeight: 800, color: "var(--color-brand-ink)" }}>que se sienta</span>
+              <span style={{ display: "block", fontWeight: 800, fontStyle: "italic", color: "var(--color-brand-accent)" }}>como ustedes.</span>
             </h2>
 
-            <p className="mt-4 text-sm leading-7 text-[#75645c] sm:text-base sm:leading-8 lg:text-lg">
-              Descubran una colección pensada para ayudarles a elegir mejor,
-              entender cómo funciona su boda destino y acercarse a una propuesta
-              que sí se sienta como ustedes.
+            <p style={{ fontFamily: "var(--font-sans)", fontWeight: 300, fontSize: "1rem", lineHeight: 1.8, color: "var(--color-brand-ink)", opacity: 0.6, maxWidth: "34rem", marginTop: "1.5rem" }}>
+              Descubran una coleccion pensada para elegir mejor, entender como funciona una boda destino y acercarse a una propuesta que de verdad se sienta como ustedes.
             </p>
 
-            <p className="mt-4 text-sm leading-7 text-[#7c6b63] sm:text-base sm:leading-8">
-              Empiecen por explorar sus opciones favoritas o agenden una
-              videollamada para aterrizar destino, estilo, invitados y lo que
-              realmente quieren vivir.
-            </p>
-
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4">
-              <button className="w-full rounded-full bg-[#c78c87] px-6 py-4 text-sm font-semibold text-white shadow-[0_14px_40px_rgba(199,140,135,0.22)] transition hover:scale-[1.01] sm:w-auto sm:px-7">
-                Diseñar mi boda
-              </button>
-
-              <button className="w-full rounded-full border border-[#e5d8cd] bg-white px-6 py-4 text-sm font-medium text-[#6d5d54] transition hover:bg-[#fffaf7] sm:w-auto sm:px-7">
+            <div className="mt-10 flex flex-wrap gap-4">
+              <TrackLink href={WA} className="btn btn-accent" label="Weddings CTA — Agendar llamada">
                 Agendar videollamada
-              </button>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </TrackLink>
+              <Link href="#colecciones" className="btn btn-ghost">
+                Ver colecciones
+              </Link>
+            </div>
+
+            <p className="mt-5 text-caption">Sin compromiso · Respuesta en menos de 24 h · Atencion 1 a 1</p>
+          </div>
+
+          {/* Right: stats */}
+          <div>
+            <div className="space-y-0">
+              {[
+                { stat: "Xcaret · AVA", label: "nuestros venues favoritos" },
+                { stat: "Hard Rock · Palace", label: "opciones premium para grupos" },
+                { stat: "Contrato", label: "todo queda por escrito" },
+                { stat: "24/7", label: "asistencia durante tu boda" },
+              ].map((item, i, arr) => (
+                <div
+                  key={i}
+                  className="flex items-baseline justify-between py-5"
+                  style={{ borderBottom: i < arr.length - 1 ? "1px solid var(--color-brand-border)" : "none" }}
+                >
+                  <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.4rem, 2.5vw, 2rem)", letterSpacing: "-0.04em", color: "var(--color-brand-ink)", lineHeight: 1 }}>
+                    {item.stat}
+                  </p>
+                  <p className="text-caption text-right">{item.label}</p>
+                </div>
+              ))}
             </div>
           </div>
+
         </div>
       </div>
     </section>

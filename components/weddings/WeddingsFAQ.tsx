@@ -1,83 +1,90 @@
 const faqs = [
   {
-    question: "¿Los invitados pagan su viaje?",
-    answer:
-      "Sí. En la mayoría de las bodas destino, cada invitado cubre su viaje y hospedaje. Lo importante es elegir una opción que funcione bien para el grupo y comunicarlo de forma clara desde el inicio.",
+    question: "Los invitados pagan su viaje?",
+    answer: "Si. En la mayoria de las bodas destino, cada invitado cubre su viaje y hospedaje. Lo importante es elegir una opcion que funcione bien para el grupo y comunicarlo con claridad desde el inicio.",
   },
   {
-    question: "¿Los precios que veo aquí son por persona?",
-    answer:
-      "No. Los precios que mostramos en esta página corresponden al paquete de boda de los novios. El viaje y hospedaje de los invitados se cotiza por separado, según destino, fechas y tipo de habitación.",
+    question: "Los precios que veo aqui son por persona?",
+    answer: "No. Los precios que mostramos corresponden al paquete de boda de los novios. El viaje y hospedaje de los invitados se cotiza por separado, segun destino, fechas y tipo de habitacion.",
   },
   {
-    question: "¿Cuánto cuesta realmente una boda destino?",
-    answer:
-      "Depende del hotel, del tipo de ceremonia, de los extras que quieran agregar y del tamaño del grupo. Hay opciones más visuales, otras más premium y otras que ofrecen mejores beneficios conforme crece la reservación de invitados.",
+    question: "Cuanto cuesta realmente una boda destino?",
+    answer: "Depende del hotel, el tipo de ceremonia, los extras y el tamano del grupo. Hay opciones mas visuales, otras mas premium y otras que ofrecen mejores beneficios conforme crece la reservacion del grupo.",
   },
   {
-    question: "¿Necesitamos tener fecha exacta para empezar?",
-    answer:
-      "No necesariamente. Si todavía no tienen fecha definida, podemos empezar por entender qué tipo de boda quieren, qué destino les atrae más y qué tan grande imaginan su grupo.",
+    question: "Necesitamos tener fecha exacta para empezar?",
+    answer: "No necesariamente. Podemos empezar por entender que tipo de boda quieren, que destino les atrae mas y que tan grande imaginan su grupo.",
   },
   {
-    question: "¿Se puede pagar poco a poco?",
-    answer:
-      "Sí, en muchos casos se puede estructurar el proceso para que tanto la pareja como los invitados tengan mayor claridad sobre tiempos, anticipos y pagos. Eso depende del hotel, la fecha y las políticas del paquete elegido.",
+    question: "Se puede pagar poco a poco?",
+    answer: "Si, en muchos casos se puede estructurar el proceso para que tanto la pareja como los invitados tengan claridad sobre tiempos, anticipos y pagos. Depende del hotel y las politicas del paquete elegido.",
   },
   {
-    question: "¿Qué pasa si no sabemos qué hotel nos conviene?",
-    answer:
-      "Justo para eso existe Flymingo Weddings. La idea de esta página es ayudarlos a empezar por una colección curada de opciones que realmente valen la pena según el estilo de boda y la experiencia que quieren vivir.",
+    question: "Que pasa si no sabemos que hotel nos conviene?",
+    answer: "Justo para eso existe Flymingo Weddings. La idea es ayudarlos a empezar por una coleccion curada de opciones que realmente valen la pena segun el estilo de boda y la experiencia que quieren vivir.",
   },
   {
-    question: "¿Primero conviene agendar llamada o ver opciones?",
-    answer:
-      "Lo ideal es llegar a la llamada con un poco más de claridad. Por eso esta página les ayuda a descubrir estilos, entender cómo funciona una boda destino y acercarse a opciones que sí hagan sentido para ustedes.",
+    question: "Flymingo tambien ayuda con los invitados?",
+    answer: "Si, esa es una parte muy importante. Coordinamos que el grupo entienda como viajar, donde hospedarse y como aprovechar mejor la experiencia. No solo el evento.",
   },
   {
-    question: "¿Flymingo también ayuda con los invitados?",
-    answer:
-      "Sí. Esa es una parte muy importante de una boda destino. No se trata solo del evento, sino también de ayudar a que el grupo entienda mejor cómo viajar, dónde hospedarse y cómo aprovechar mejor la experiencia.",
+    question: "Primero conviene agendar llamada o ver opciones?",
+    answer: "Lo ideal es llegar a la llamada con un poco mas de claridad. Por eso esta pagina les ayuda a descubrir estilos, entender como funciona una boda destino y acercarse a opciones que si hagan sentido para ustedes.",
   },
 ];
 
 export default function WeddingsFaq() {
+  const schemaFaq = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: { "@type": "Answer", text: f.answer },
+    })),
+  };
+
   return (
-    <section className="border-b border-[#e9dfd2] bg-[#fcf8f2]">
-      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-10 lg:py-20">
-        <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-10">
-          <div className="max-w-2xl">
-            <p className="text-[11px] uppercase tracking-[0.24em] text-[#b88d87]">
-              Preguntas frecuentes
-            </p>
+    <section style={{ background: "var(--color-brand-surface)" }}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaFaq) }}
+      />
 
-            <h2 className="mt-3 text-[2rem] font-semibold leading-tight tracking-tight text-[#5a4a42] sm:text-4xl lg:text-5xl">
-              Hay muchas dudas que son completamente normales al empezar.
+      <div className="mx-auto max-w-7xl px-6 py-24 lg:px-12 lg:py-36">
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+
+          {/* Left */}
+          <div className="lg:sticky lg:top-28">
+            <p className="text-eyebrow-accent mb-8">Preguntas frecuentes</p>
+            <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2.2rem, 4.5vw, 4rem)", letterSpacing: "-0.04em", lineHeight: 0.9 }}>
+              <span style={{ display: "block", fontWeight: 800, color: "var(--color-brand-ink)" }}>Dudas que</span>
+              <span style={{ display: "block", fontWeight: 200, fontStyle: "italic", color: "var(--color-brand-ink)", opacity: 0.3 }}>son completamente</span>
+              <span style={{ display: "block", fontWeight: 800, color: "var(--color-brand-accent)" }}>normales.</span>
             </h2>
-
-            <p className="mt-4 text-sm leading-7 text-[#75645c] sm:text-base sm:leading-8 lg:text-lg">
-              Una boda destino emociona muchísimo, pero también trae preguntas
-              importantes. Aquí te compartimos algunas de las más comunes para
-              que todo empiece a sentirse más claro desde el principio.
+            <p style={{ fontFamily: "var(--font-sans)", fontWeight: 300, fontSize: "0.95rem", lineHeight: 1.8, color: "var(--color-brand-ink)", opacity: 0.55, maxWidth: "28rem", marginTop: "1.5rem" }}>
+              Una boda destino emociona mucho, pero tambien trae preguntas importantes. Aqui aclaramos las mas comunes.
             </p>
           </div>
 
-          <div className="space-y-3 sm:space-y-4">
-            {faqs.map((faq) => (
-              <article
-                key={faq.question}
-                className="rounded-[1.35rem] border border-[#eadfd4] bg-white p-4 shadow-sm sm:rounded-[1.5rem] sm:p-5"
+          {/* Right: FAQ list */}
+          <div className="space-y-0">
+            {faqs.map((faq, i) => (
+              <div
+                key={i}
+                className="py-6"
+                style={{ borderBottom: "1px solid var(--color-brand-border)" }}
               >
-                <h3 className="text-lg font-semibold leading-7 text-[#5a4a42] sm:text-xl">
+                <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1rem", letterSpacing: "-0.02em", color: "var(--color-brand-ink)", lineHeight: 1.2, marginBottom: "0.6rem" }}>
                   {faq.question}
                 </h3>
-
-                <p className="mt-3 text-sm leading-7 text-[#7b6a61] sm:text-[15px] sm:leading-7">
+                <p style={{ fontFamily: "var(--font-sans)", fontWeight: 300, fontSize: "0.88rem", lineHeight: 1.7, color: "var(--color-brand-ink)", opacity: 0.6 }}>
                   {faq.answer}
                 </p>
-              </article>
+              </div>
             ))}
           </div>
+
         </div>
       </div>
     </section>

@@ -29,7 +29,7 @@ import WeddingsCTA from "@/components/weddings/WeddingsCTA";
 
 export default function WeddingsPage() {
   return (
-    <main className="min-h-screen bg-[#fcf8f2] text-[#4d433b]">
+    <main className="min-h-screen" style={{ background: "white" }}>
       <WeddingsHero />
       <WeddingsWhy />
       <WeddingsCollections />

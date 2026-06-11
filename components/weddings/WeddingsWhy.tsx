@@ -1,61 +1,66 @@
+const PILLARS = [
+  {
+    n: "01",
+    title: "Solo opciones que valen la pena",
+    body: "No un catalogo eterno. Seleccionamos hoteles y paquetes que realmente destacan por experiencia, estetica y beneficios de grupo.",
+  },
+  {
+    n: "02",
+    title: "Te ayudamos a elegir con claridad",
+    body: "Cada pareja busca algo distinto. Algunas priorizan lo visual, otras la logistica del grupo, otras el equilibrio entre precio y experiencia.",
+  },
+  {
+    n: "03",
+    title: "Pensamos tambien en tus invitados",
+    body: "Una boda destino no es solo el evento. Coordinamos que tu grupo entienda como viajar, donde hospedarse y como aprovechar el plan.",
+  },
+  {
+    n: "04",
+    title: "Llegamos a una propuesta aterrizada",
+    body: "Descubres opciones, respondes preguntas clave y llegas a una videollamada con mucha mas claridad sobre lo que realmente les conviene.",
+  },
+];
+
 export default function WeddingsWhy() {
-  const items = [
-    {
-      title: "Curamos opciones que sí valen la pena",
-      text: "No vas a encontrar un catálogo eterno. Seleccionamos hoteles y paquetes que realmente destacan por experiencia, estética, beneficios de grupo y facilidad para invitados.",
-    },
-    {
-      title: "Te ayudamos a elegir con más claridad",
-      text: "Cada pareja busca algo distinto. Algunas priorizan una boda visualmente espectacular, otras una mejor logística para su grupo, y otras un equilibrio entre presupuesto, experiencia y beneficios.",
-    },
-    {
-      title: "Pensamos también en tus invitados",
-      text: "Una boda destino no se trata solo del evento. También importa que tus invitados entiendan cómo viajar, dónde hospedarse y cómo aprovechar mejor el plan del grupo.",
-    },
-    {
-      title: "Todo avanza hacia una propuesta más aterrizada",
-      text: "La idea es que puedas descubrir opciones, responder unas preguntas clave y llegar a una videollamada con mucha más claridad sobre lo que realmente les conviene.",
-    },
-  ];
-
   return (
-    <section className="border-b border-[#e9dfd2] bg-[#fcf8f2]">
-      <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10">
-        <div className="max-w-3xl">
-          <p className="text-xs uppercase tracking-[0.26em] text-[#b88d87]">
-            Flymingo Weddings
-          </p>
+    <section style={{ background: "white" }}>
+      <div className="mx-auto max-w-7xl px-6 py-24 lg:px-12 lg:py-36">
 
-          <h2 className="mt-4 text-4xl font-semibold tracking-tight text-[#5a4a42] md:text-5xl">
-            Más que mostrarte hoteles, queremos ayudarte a encontrar la boda
-            destino correcta para ustedes.
-          </h2>
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:items-end mb-20">
+          <div>
+            <p className="text-eyebrow-accent mb-8">Por que Flymingo Weddings</p>
+            <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2.8rem, 6vw, 5.5rem)", letterSpacing: "-0.04em", lineHeight: 0.9 }}>
+              <span style={{ display: "block", fontWeight: 800, color: "var(--color-brand-ink)" }}>Mas que</span>
+              <span style={{ display: "block", fontWeight: 800, fontStyle: "italic", color: "var(--color-brand-accent)" }}>mostrarte hoteles.</span>
+              <span style={{ display: "block", fontWeight: 200, color: "var(--color-brand-ink)", opacity: 0.25 }}>Encontrar la boda correcta.</span>
+            </h2>
+          </div>
 
-          <p className="mt-5 text-lg leading-8 text-[#75645c]">
-            Por eso nuestra forma de trabajar combina curaduría, acompañamiento
-            y una estrategia pensada tanto para la pareja como para sus
-            invitados.
-          </p>
+          <div style={{ paddingBottom: "0.25rem" }}>
+            <p style={{ fontFamily: "var(--font-sans)", fontWeight: 300, fontSize: "1.05rem", lineHeight: 1.8, color: "var(--color-brand-ink)", opacity: 0.6, maxWidth: "38rem" }}>
+              Nuestra forma de trabajar combina curaduria, acompanamiento y una estrategia pensada tanto para la pareja como para sus invitados.
+            </p>
+          </div>
         </div>
 
-        <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {items.map((item) => (
-            <article
-              key={item.title}
-              className="rounded-[1.7rem] border border-[#eadfd4] bg-white/85 p-6 shadow-sm"
+        <div className="grid grid-cols-1 gap-0 sm:grid-cols-2 lg:grid-cols-4">
+          {PILLARS.map((p, i) => (
+            <div
+              key={i}
+              className="py-10 sm:py-0 sm:px-8"
+              style={{ borderLeft: i > 0 ? "1px solid var(--color-brand-border)" : "none" }}
             >
-              <div className="mb-4 grid h-11 w-11 place-items-center rounded-2xl bg-[#f2dfd8] text-lg text-[#8e6f66]">
-                ✦
-              </div>
-
-              <h3 className="text-xl font-semibold text-[#5a4a42]">
-                {item.title}
-              </h3>
-
-              <p className="mt-3 leading-7 text-[#7b6a61]">{item.text}</p>
-            </article>
+              <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2.2rem, 4.5vw, 3.5rem)", letterSpacing: "-0.04em", lineHeight: 0.85, color: "var(--color-brand-accent)", opacity: 0.15 }}>
+                {p.n}
+              </p>
+              <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1rem", letterSpacing: "-0.02em", color: "var(--color-brand-ink)", marginTop: "0.75rem", lineHeight: 1.1 }}>
+                {p.title}
+              </p>
+              <p className="text-caption mt-3">{p.body}</p>
+            </div>
           ))}
         </div>
+
       </div>
     </section>
   );

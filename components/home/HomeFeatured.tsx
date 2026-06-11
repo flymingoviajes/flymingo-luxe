@@ -79,10 +79,10 @@ export default function HomeFeatured() {
         <div className="flex items-end justify-between mb-14">
           <div>
             <p className="text-eyebrow-accent mb-10">Experiencias Flymingo</p>
-            <div style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2.8rem, 6vw, 5.5rem)", letterSpacing: "-0.04em", lineHeight: 0.9 }}>
+            <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2.8rem, 6vw, 5.5rem)", letterSpacing: "-0.04em", lineHeight: 0.9 }}>
               <span style={{ display: "block", fontWeight: 800, color: "var(--color-brand-ink)" }}>Tres formas de vivir</span>
               <span style={{ display: "block", fontWeight: 200, fontStyle: "italic", color: "var(--color-brand-ink)", opacity: 0.25 }}>el viaje perfecto.</span>
-            </div>
+            </h2>
           </div>
           <Link
             href="/destinos"
@@ -214,23 +214,8 @@ function LineCard({ line, tall }: { line: (typeof LINES)[number]; tall: boolean 
           {line.title}
         </p>
 
-        {/* CTA — slides up on hover */}
-        <div
-          className="overflow-hidden mt-5"
-          style={{ maxHeight: "0", transition: "max-height 0.4s ease" }}
-        >
-          <span
-            className="inline-flex items-center gap-2 text-white text-xs font-semibold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-          >
-            {line.cta}
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </span>
-        </div>
-        <span
-          className="mt-5 inline-flex items-center gap-2 text-white text-xs font-semibold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        >
+        {/* CTA — fade in on hover */}
+        <span className="mt-5 inline-flex items-center gap-2 text-white text-xs font-semibold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           {line.cta}
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M5 12h14M12 5l7 7-7 7" />

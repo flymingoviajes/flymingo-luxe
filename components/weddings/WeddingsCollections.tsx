@@ -1,242 +1,168 @@
-type PackageItem = {
-  name: string;
-  price: string;
-  text: string;
-};
+import TrackLink from "@/components/TrackLink";
 
+type Package = { name: string; price: string; text: string };
 type Collection = {
-  eyebrow: string;
-  title: string;
-  location: string;
-  intro: string;
-  fit: string;
-  bullets: string[];
-  packages: PackageItem[];
-  badge: string;
+  eyebrow: string; title: string; location: string;
+  intro: string; fit: string; bullets: string[];
+  packages: Package[]; badge: string; wa: string;
 };
 
 const collections: Collection[] = [
   {
     eyebrow: "Riviera Maya",
     title: "Xcaret Weddings",
-    location: "Hotel Xcaret México · Hotel Xcaret Arte",
-    intro:
-      "Para parejas que quieren una boda destino que se sienta como una experiencia completa para ustedes y sus invitados.",
-    fit:
-      "Ideal si sueñan con algo premium, memorable y con una propuesta muy fuerte en hospitalidad, gastronomía y experiencia.",
+    location: "Hotel Xcaret Mexico · Hotel Xcaret Arte",
+    intro: "Para parejas que quieren una boda destino que se sienta como una experiencia completa para ustedes y sus invitados.",
+    fit: "Ideal si suenan con algo premium, memorable y con una propuesta muy fuerte en hospitalidad, gastronomia y experiencia.",
     bullets: [
       "Experiencia premium y muy aspiracional",
-      "Gran valor para invitados que quieren vivir más que solo el evento",
+      "Gran valor para invitados que quieren vivir mas que el evento",
       "Perfecto para parejas que quieren algo especial desde el inicio",
     ],
     packages: [
-      {
-        name: "Atardecer",
-        price: "Desde $75,000 MXN aprox.",
-        text:
-          "Una gran puerta de entrada al universo Xcaret, con ceremonia, cóctel, cena y beneficios especiales para la pareja.",
-      },
-      {
-        name: "Alux",
-        price: "Desde $140,000 MXN aprox.",
-        text:
-          "Una opción más elevada para parejas que buscan una celebración más estructurada, elegante y con mayor presencia.",
-      },
+      { name: "Atardecer", price: "Desde $75,000 MXN", text: "Ceremonia, coctel, cena y beneficios especiales para la pareja." },
+      { name: "Alux", price: "Desde $140,000 MXN", text: "Celebracion mas estructurada, elegante y con mayor presencia." },
     ],
     badge: "Premium experience",
+    wa: "https://wa.me/5218716887385?text=Hola%20Flymingo,%20quiero%20cotizar%20Xcaret%20Weddings.",
   },
   {
-    eyebrow: "Cancún",
-    title: "AVA Resort Cancún",
-    location: "AVA Cancún",
-    intro:
-      "Para parejas que quieren una boda moderna, elegante y visualmente hermosa desde el primer vistazo.",
-    fit:
-      "Ideal si la estética, la atmósfera y las fotos son parte fundamental de cómo imaginan su gran día.",
+    eyebrow: "Cancun",
+    title: "AVA Resort Cancun",
+    location: "AVA Cancun",
+    intro: "Para parejas que quieren una boda moderna, elegante y visualmente hermosa desde el primer vistazo.",
+    fit: "Ideal si la estetica, la atmosfera y las fotos son parte fundamental de como imaginan su gran dia.",
     bullets: [
-      "Colección visual, chic y contemporánea",
+      "Coleccion visual, chic y contemporanea",
       "Paquetes con estilos muy definidos",
       "Excelente para parejas que quieren una boda editorial",
     ],
     packages: [
-      {
-        name: "Sunset",
-        price: "$6,000 USD",
-        text:
-          "Una propuesta luminosa, romántica y fresca, perfecta para una boda bonita y muy bien presentada.",
-      },
-      {
-        name: "Willow",
-        price: "$7,000 USD",
-        text:
-          "Una opción cálida y sofisticada, con una estética orgánica y elegante frente al mar.",
-      },
-      {
-        name: "Golden",
-        price: "$8,000 USD",
-        text:
-          "La versión más editorial y glamorosa de la colección AVA para una boda con gran presencia visual.",
-      },
+      { name: "Sunset", price: "$6,000 USD", text: "Propuesta luminosa, romantica y fresca, perfecta para una boda muy bien presentada." },
+      { name: "Willow", price: "$7,000 USD", text: "Estetica organica y elegante con una opcion calida y sofisticada frente al mar." },
+      { name: "Golden", price: "$8,000 USD", text: "La version mas editorial y glamorosa para una boda con gran presencia visual." },
     ],
     badge: "Visual & chic",
+    wa: "https://wa.me/5218716887385?text=Hola%20Flymingo,%20quiero%20cotizar%20AVA%20Cancun%20Weddings.",
   },
   {
-    eyebrow: "Cancún",
+    eyebrow: "Cancun",
     title: "Palace / Moon Palace",
-    location: "Moon Palace Cancún · Palace Weddings",
-    intro:
-      "Para parejas que quieren una boda hermosa, pero también una mejor estrategia para sus invitados.",
-    fit:
-      "Ideal si el tamaño del grupo, las habitaciones y los beneficios por reservación son parte importante de su decisión.",
+    location: "Moon Palace Cancun · Palace Weddings",
+    intro: "Para parejas que quieren una boda hermosa, pero tambien una mejor estrategia para sus invitados.",
+    fit: "Ideal si el tamano del grupo, las habitaciones y los beneficios por reservacion son parte importante de su decision.",
     bullets: [
-      "Muy fuerte para grupos y logística",
-      "Beneficios claros según habitaciones reservadas",
+      "Muy fuerte para grupos y logistica",
+      "Beneficios claros segun habitaciones reservadas",
       "Gran apoyo para parejas con muchos invitados",
     ],
     packages: [
-      {
-        name: "Colección Complementaria",
-        price: "Sujeto a mínimo de grupo",
-        text:
-          "Una forma muy atractiva de comenzar con ceremonia, cena semi privada y beneficios para la pareja al cumplir los mínimos.",
-      },
-      {
-        name: "Beneficios por Grupo",
-        price: "Según habitaciones reservadas",
-        text:
-          "Mientras más grande sea el grupo, mayores pueden ser las ventajas para los novios: eventos privados, upgrades y mejores condiciones.",
-      },
+      { name: "Coleccion Complementaria", price: "Segun minimo de grupo", text: "Ceremonia, cena semi privada y beneficios para la pareja al cumplir los minimos." },
+      { name: "Beneficios por Grupo", price: "Segun habitaciones", text: "Mientras mas grande el grupo, mayores las ventajas para los novios." },
     ],
     badge: "Ideal para grupos",
+    wa: "https://wa.me/5218716887385?text=Hola%20Flymingo,%20quiero%20cotizar%20Palace%20Weddings.",
   },
 ];
 
-function Badge({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="inline-flex items-center rounded-full border border-[#ead7d1] bg-[#fbf2ef] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#9f756f]">
-      {children}
-    </span>
-  );
-}
-
 export default function WeddingsCollections() {
   return (
-    <section className="border-b border-[#e9dfd2] bg-[#f8f2eb]">
-      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-10 lg:py-20">
-        <div className="max-w-3xl">
-          <p className="text-[11px] uppercase tracking-[0.24em] text-[#b88d87]">
-            Colección Flymingo Weddings
-          </p>
+    <section id="colecciones" style={{ background: "var(--color-brand-surface)" }}>
+      <div className="mx-auto max-w-7xl px-6 py-24 lg:px-12 lg:py-36">
 
-          <h2 className="mt-3 text-[2rem] font-semibold leading-tight tracking-tight text-[#5a4a42] sm:text-4xl lg:text-5xl">
-            Empiecen por una colección que sí vaya con ustedes.
-          </h2>
+        {/* Header */}
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-end mb-12">
+          <div>
+            <p className="text-eyebrow-accent mb-8">Coleccion Flymingo Weddings</p>
+            <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2.5rem, 5.5vw, 5rem)", letterSpacing: "-0.04em", lineHeight: 0.9 }}>
+              <span style={{ display: "block", fontWeight: 800, color: "var(--color-brand-ink)" }}>Empiecen por</span>
+              <span style={{ display: "block", fontWeight: 800, fontStyle: "italic", color: "var(--color-brand-accent)" }}>la coleccion</span>
+              <span style={{ display: "block", fontWeight: 200, color: "var(--color-brand-ink)", opacity: 0.25 }}>que va con ustedes.</span>
+            </h2>
+          </div>
 
-          <p className="mt-4 max-w-2xl text-sm leading-7 text-[#75645c] sm:text-base sm:leading-8 lg:text-lg">
-            Seleccionamos algunas de nuestras propuestas favoritas para que puedan
-            descubrir estilos distintos de boda destino y empezar por la opción
-            que mejor se adapte a lo que imaginan.
-          </p>
+          {/* Nota de precios */}
+          <div style={{ background: "white", borderRadius: "16px", border: "1px solid var(--color-brand-border)", padding: "1.5rem" }}>
+            <p className="text-eyebrow-accent mb-2">Importante</p>
+            <p style={{ fontFamily: "var(--font-sans)", fontWeight: 300, fontSize: "0.9rem", lineHeight: 1.7, color: "var(--color-brand-ink)", opacity: 0.65 }}>
+              Los precios mostrados corresponden al <strong style={{ fontWeight: 600, opacity: 1 }}>paquete de boda de los novios</strong>. El viaje y hospedaje de los invitados se cotiza por separado.
+            </p>
+          </div>
         </div>
 
-        <div className="mt-5 rounded-2xl border border-[#eadfd4] bg-white/80 p-4 sm:mt-6 sm:p-5">
-          <p className="text-[11px] uppercase tracking-[0.22em] text-[#b39a8d]">
-            Importante
-          </p>
-          <p className="mt-2 text-sm leading-6 text-[#7a6961] sm:text-[15px]">
-            Los precios mostrados aquí corresponden al{" "}
-            <span className="font-semibold text-[#5f5048]">
-              paquete de boda de los novios
-            </span>
-            . El viaje y hospedaje de los invitados se cotiza por separado.
-          </p>
-        </div>
-
-        <div className="mt-8 space-y-5 sm:mt-10 lg:grid lg:grid-cols-3 lg:gap-6 lg:space-y-0">
-          {collections.map((collection) => (
+        {/* Collection cards */}
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+          {collections.map((col) => (
             <article
-              key={collection.title}
-              className="overflow-hidden rounded-[1.5rem] border border-[#eadfd4] bg-white shadow-sm"
+              key={col.title}
+              style={{ background: "white", borderRadius: "24px", border: "1px solid var(--color-brand-border)", overflow: "hidden" }}
             >
-              <div className="border-b border-[#efe5db] bg-[linear-gradient(135deg,rgba(244,232,218,0.95),rgba(255,255,255,0.75))] px-4 py-4 sm:px-5 sm:py-5">
-                <div className="flex flex-wrap items-center gap-2">
-                  <p className="text-[10px] uppercase tracking-[0.22em] text-[#b39a8d]">
-                    {collection.eyebrow}
-                  </p>
-                  <Badge>{collection.badge}</Badge>
+              {/* Card header */}
+              <div style={{ background: "var(--color-brand-surface)", padding: "1.75rem 1.75rem 1.5rem", borderBottom: "1px solid var(--color-brand-border)" }}>
+                <div className="flex items-center justify-between mb-3">
+                  <p className="text-eyebrow-accent">{col.eyebrow}</p>
+                  <span className="badge badge-accent" style={{ fontSize: "0.6rem" }}>{col.badge}</span>
                 </div>
-
-                <h3 className="mt-3 text-2xl font-semibold leading-tight text-[#5a4a42]">
-                  {collection.title}
+                <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.5rem", letterSpacing: "-0.03em", color: "var(--color-brand-ink)", lineHeight: 1.1 }}>
+                  {col.title}
                 </h3>
-
-                <p className="mt-2 text-sm leading-6 text-[#9a8578]">
-                  {collection.location}
-                </p>
+                <p className="text-caption mt-1">{col.location}</p>
               </div>
 
-              <div className="px-4 py-4 sm:px-5 sm:py-5">
-                <p className="text-sm leading-7 text-[#76655d] sm:text-[15px]">
-                  {collection.intro}
+              {/* Card body */}
+              <div style={{ padding: "1.75rem" }}>
+                <p style={{ fontFamily: "var(--font-sans)", fontWeight: 300, fontSize: "0.9rem", lineHeight: 1.7, color: "var(--color-brand-ink)", opacity: 0.65, marginBottom: "1.25rem" }}>
+                  {col.intro}
                 </p>
 
-                <div className="mt-4 rounded-[1.2rem] border border-[#efe5db] bg-[#fffaf7] p-4">
-                  <p className="text-sm leading-6 font-medium text-[#5f5048]">
-                    {collection.fit}
+                {/* Fit note */}
+                <div style={{ background: "var(--color-brand-surface)", borderRadius: "12px", padding: "0.85rem 1rem", marginBottom: "1.25rem" }}>
+                  <p style={{ fontFamily: "var(--font-sans)", fontWeight: 500, fontSize: "0.82rem", lineHeight: 1.6, color: "var(--color-brand-ink)" }}>
+                    {col.fit}
                   </p>
                 </div>
 
-                <div className="mt-4 space-y-2.5">
-                  {collection.bullets.map((bullet) => (
-                    <div
-                      key={bullet}
-                      className="rounded-xl border border-[#f0e7de] bg-[#fffdfb] px-3.5 py-3 text-sm leading-6 text-[#7b6a61]"
-                    >
-                      {bullet}
+                {/* Bullets */}
+                <div className="space-y-2 mb-6">
+                  {col.bullets.map((b) => (
+                    <div key={b} className="flex items-start gap-3">
+                      <span style={{ height: "6px", width: "6px", borderRadius: "50%", background: "var(--color-brand-accent)", marginTop: "6px", flexShrink: 0 }} />
+                      <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.83rem", lineHeight: 1.6, color: "var(--color-brand-ink)", opacity: 0.6 }}>{b}</p>
                     </div>
                   ))}
                 </div>
 
-                <div className="mt-5 border-t border-[#efe5db] pt-5">
-                  <p className="text-[11px] uppercase tracking-[0.22em] text-[#b29c8f]">
-                    Paquetes destacados
-                  </p>
-
-                  <div className="mt-3 space-y-3">
-                    {collection.packages.map((pkg) => (
+                {/* Packages */}
+                <div style={{ borderTop: "1px solid var(--color-brand-border)", paddingTop: "1.25rem", marginBottom: "1.5rem" }}>
+                  <p className="text-eyebrow-accent mb-4">Paquetes destacados</p>
+                  <div className="space-y-3">
+                    {col.packages.map((pkg) => (
                       <div
                         key={pkg.name}
-                        className="rounded-[1.2rem] border border-[#eadfd4] bg-[#fffefd] p-4"
+                        style={{ borderRadius: "12px", border: "1px solid var(--color-brand-border)", padding: "1rem" }}
                       >
-                        <div className="flex flex-col gap-3">
-                          <div className="flex flex-col gap-2">
-                            <h4 className="text-lg font-semibold leading-tight text-[#5a4a42]">
-                              {pkg.name}
-                            </h4>
-
-                            <span className="inline-flex w-fit items-center rounded-full border border-[#ead7d1] bg-[#fbf2ef] px-3 py-1 text-[11px] font-semibold text-[#9f756f]">
-                              {pkg.price}
-                            </span>
-
-                            <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#b49a8c]">
-                              Paquete de boda para los novios
-                            </p>
-                          </div>
-
-                          <p className="text-sm leading-6 text-[#82726a]">
-                            {pkg.text}
+                        <div className="flex items-start justify-between gap-3 mb-1">
+                          <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "0.95rem", letterSpacing: "-0.02em", color: "var(--color-brand-ink)", lineHeight: 1.2 }}>
+                            {pkg.name}
                           </p>
+                          <span className="badge badge-accent" style={{ fontSize: "0.58rem", whiteSpace: "nowrap" }}>{pkg.price}</span>
                         </div>
+                        <p className="text-caption">{pkg.text}</p>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div className="mt-5">
-                  <button className="w-full rounded-full bg-white px-5 py-3.5 text-sm font-medium text-[#6d5d54] border border-[#e5d8cd] transition hover:bg-[#fffaf7]">
-                    Quiero conocer esta colección
-                  </button>
-                </div>
+                <TrackLink
+                  href={col.wa}
+                  className="btn btn-accent w-full justify-center"
+                  label={`Weddings — Cotizar ${col.title}`}
+                >
+                  Cotizar esta coleccion
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </TrackLink>
               </div>
             </article>
           ))}

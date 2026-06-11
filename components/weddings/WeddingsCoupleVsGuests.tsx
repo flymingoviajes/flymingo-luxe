@@ -1,132 +1,91 @@
+const coupleItems = [
+  "El paquete de boda del hotel",
+  "Extras como decoracion, fotografia, musica o ambientacion especial",
+  "Algunos beneficios mejoran segun el tamano del grupo",
+  "La mejor estrategia depende del hotel, fecha y numero de habitaciones",
+];
+
+const guestItems = [
+  "Cada invitado normalmente cubre su viaje y hospedaje",
+  "El costo depende del destino, hotel, fechas y tipo de habitacion",
+  "El tamano del grupo puede generar beneficios adicionales para la pareja",
+  "Flymingo ayuda a organizar opciones, pagos y seguimiento del grupo",
+];
+
 export default function WeddingsCoupleVsGuests() {
-  const coupleItems = [
-    "El paquete de boda del hotel",
-    "Extras como decoración, fotografía, música o ambientación especial",
-    "Algunos beneficios pueden mejorar según el tamaño del grupo",
-    "La mejor estrategia depende del hotel, la fecha y el número de habitaciones",
-  ];
-
-  const guestItems = [
-    "Cada invitado normalmente cubre su viaje y hospedaje",
-    "El costo depende del destino, hotel, fechas y tipo de habitación",
-    "En ciertos hoteles, el tamaño del grupo puede generar beneficios para la pareja",
-    "Flymingo ayuda a organizar opciones, pagos y seguimiento del grupo",
-  ];
-
   return (
-    <section className="border-b border-[#e9dfd2] bg-[#fcf8f2]">
-      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-10 lg:py-20">
-        <div className="max-w-3xl">
-          <p className="text-[11px] uppercase tracking-[0.24em] text-[#b88d87]">
-            Cómo funciona
-          </p>
+    <section style={{ background: "white" }}>
+      <div className="mx-auto max-w-7xl px-6 py-24 lg:px-12 lg:py-36">
 
-          <h2 className="mt-3 text-[2rem] font-semibold leading-tight tracking-tight text-[#5a4a42] sm:text-4xl lg:text-5xl">
-            En una boda destino, los novios y los invitados no pagan lo mismo.
+        {/* Header */}
+        <div className="mb-16">
+          <p className="text-eyebrow-accent mb-8">Como funciona</p>
+          <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2.5rem, 5.5vw, 5rem)", letterSpacing: "-0.04em", lineHeight: 0.9, maxWidth: "22ch" }}>
+            <span style={{ display: "block", fontWeight: 800, color: "var(--color-brand-ink)" }}>Novios e invitados</span>
+            <span style={{ display: "block", fontWeight: 200, fontStyle: "italic", color: "var(--color-brand-ink)", opacity: 0.25 }}>no pagan lo mismo.</span>
           </h2>
-
-          <p className="mt-4 text-sm leading-7 text-[#75645c] sm:text-base sm:leading-8 lg:text-lg">
-            Entender esto desde el inicio ayuda muchísimo a tomar mejores
-            decisiones. Por eso en Flymingo Weddings les ayudamos a aterrizar
-            qué corresponde al evento, qué corresponde al viaje y cómo organizar
-            mejor todo el grupo.
+          <p style={{ fontFamily: "var(--font-sans)", fontWeight: 300, fontSize: "1.05rem", lineHeight: 1.8, color: "var(--color-brand-ink)", opacity: 0.6, maxWidth: "44rem", marginTop: "1.5rem" }}>
+            Entender esto desde el inicio ayuda a tomar mejores decisiones. Por eso en Flymingo Weddings les ayudamos a aterrizar que corresponde al evento, que corresponde al viaje y como organizar mejor el grupo.
           </p>
         </div>
 
-        <div className="mt-8 grid gap-5 lg:mt-10 lg:grid-cols-[1fr_1fr]">
-          <article className="rounded-[1.5rem] border border-[#ead7d1] bg-[linear-gradient(180deg,#fff4ef,rgba(255,250,247,0.95))] p-5 shadow-sm sm:p-6">
-            <div className="flex items-center gap-3">
-              <div className="grid h-11 w-11 place-items-center rounded-2xl bg-[#f2dfd8] text-[#8e6f66]">
-                ✦
-              </div>
-              <div>
-                <p className="text-[11px] uppercase tracking-[0.22em] text-[#b88d87]">
-                  Novios
-                </p>
-                <h3 className="text-2xl font-semibold text-[#5a4a42]">
-                  Lo que normalmente paga la pareja
-                </h3>
-              </div>
-            </div>
-
-            <div className="mt-4 rounded-[1.2rem] border border-[#ecd9d1] bg-white/75 p-4">
-              <p className="text-sm leading-6 text-[#755f56]">
-                Aquí entra principalmente el{" "}
-                <span className="font-semibold text-[#5a4a42]">
-                  paquete de boda de los novios
-                </span>
-                , además de los extras que quieran agregar para personalizar su
-                celebración.
-              </p>
-            </div>
-
-            <div className="mt-4 space-y-2.5">
-              {coupleItems.map((item) => (
+        {/* Two columns */}
+        <div className="grid grid-cols-1 gap-0 lg:grid-cols-2">
+          {/* Novios */}
+          <div style={{ borderRight: "1px solid var(--color-brand-border)", paddingRight: "4rem" }} className="pb-12 lg:pb-0">
+            <p className="text-eyebrow-accent mb-6">Novios</p>
+            <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.25rem", letterSpacing: "-0.025em", color: "var(--color-brand-ink)", lineHeight: 1.2, marginBottom: "1.5rem" }}>
+              Lo que normalmente paga la pareja
+            </p>
+            <p style={{ fontFamily: "var(--font-sans)", fontWeight: 300, fontSize: "0.88rem", lineHeight: 1.7, color: "var(--color-brand-ink)", opacity: 0.6, marginBottom: "1.5rem" }}>
+              Aqui entra principalmente el <strong style={{ fontWeight: 600, opacity: 1 }}>paquete de boda de los novios</strong>, ademas de los extras para personalizar la celebracion.
+            </p>
+            <div className="space-y-0">
+              {coupleItems.map((item, i) => (
                 <div
-                  key={item}
-                  className="rounded-xl border border-[#f0e1d8] bg-white/85 px-4 py-3 text-sm leading-6 text-[#7b6a61]"
+                  key={i}
+                  className="flex items-start gap-4 py-4"
+                  style={{ borderBottom: i < coupleItems.length - 1 ? "1px solid var(--color-brand-border)" : "none" }}
                 >
-                  {item}
+                  <span style={{ height: "6px", width: "6px", borderRadius: "50%", background: "var(--color-brand-accent)", marginTop: "6px", flexShrink: 0 }} />
+                  <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.88rem", lineHeight: 1.6, color: "var(--color-brand-ink)", opacity: 0.65 }}>{item}</p>
                 </div>
               ))}
             </div>
-          </article>
+          </div>
 
-          <article className="rounded-[1.5rem] border border-[#eadfd4] bg-white p-5 shadow-sm sm:p-6">
-            <div className="flex items-center gap-3">
-              <div className="grid h-11 w-11 place-items-center rounded-2xl bg-[#f5ece4] text-[#9f7d70]">
-                ✈
-              </div>
-              <div>
-                <p className="text-[11px] uppercase tracking-[0.22em] text-[#b29c8f]">
-                  Invitados
-                </p>
-                <h3 className="text-2xl font-semibold text-[#5a4a42]">
-                  Lo que normalmente paga el grupo
-                </h3>
-              </div>
-            </div>
-
-            <div className="mt-4 rounded-[1.2rem] border border-[#efe5db] bg-[#fffaf7] p-4">
-              <p className="text-sm leading-6 text-[#755f56]">
-                En la mayoría de las bodas destino,{" "}
-                <span className="font-semibold text-[#5a4a42]">
-                  cada invitado cubre su viaje y hospedaje
-                </span>
-                . Lo importante es organizar bien el grupo y elegir una opción
-                que funcione para todos.
-              </p>
-            </div>
-
-            <div className="mt-4 space-y-2.5">
-              {guestItems.map((item) => (
+          {/* Invitados */}
+          <div style={{ paddingLeft: "4rem" }} className="pt-12 lg:pt-0">
+            <p className="text-eyebrow-accent mb-6">Invitados</p>
+            <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.25rem", letterSpacing: "-0.025em", color: "var(--color-brand-ink)", lineHeight: 1.2, marginBottom: "1.5rem" }}>
+              Lo que normalmente paga el grupo
+            </p>
+            <p style={{ fontFamily: "var(--font-sans)", fontWeight: 300, fontSize: "0.88rem", lineHeight: 1.7, color: "var(--color-brand-ink)", opacity: 0.6, marginBottom: "1.5rem" }}>
+              En la mayoria de las bodas destino, <strong style={{ fontWeight: 600, opacity: 1 }}>cada invitado cubre su viaje y hospedaje</strong>. Lo importante es organizar bien el grupo.
+            </p>
+            <div className="space-y-0">
+              {guestItems.map((item, i) => (
                 <div
-                  key={item}
-                  className="rounded-xl border border-[#f0e7de] bg-[#fffdfb] px-4 py-3 text-sm leading-6 text-[#7b6a61]"
+                  key={i}
+                  className="flex items-start gap-4 py-4"
+                  style={{ borderBottom: i < guestItems.length - 1 ? "1px solid var(--color-brand-border)" : "none" }}
                 >
-                  {item}
+                  <span style={{ height: "6px", width: "6px", borderRadius: "50%", background: "var(--color-brand-green)", marginTop: "6px", flexShrink: 0 }} />
+                  <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.88rem", lineHeight: 1.6, color: "var(--color-brand-ink)", opacity: 0.65 }}>{item}</p>
                 </div>
               ))}
             </div>
-          </article>
+          </div>
         </div>
 
-        <div className="mt-6 rounded-[1.5rem] border border-[#eadfd4] bg-white p-5 shadow-sm sm:p-6">
-          <p className="text-[11px] uppercase tracking-[0.22em] text-[#b39a8d]">
-            Lo que hace Flymingo Weddings
-          </p>
-
-          <h3 className="mt-2 text-2xl font-semibold text-[#5a4a42]">
-            Les ayudamos a que todo esto tenga sentido desde el principio.
-          </h3>
-
-          <p className="mt-3 max-w-4xl text-sm leading-7 text-[#75645c] sm:text-base sm:leading-8">
-            No se trata solo de escoger un hotel bonito. Se trata de entender qué
-            opción les conviene más como pareja, cómo se va a mover el grupo, qué
-            beneficios pueden aprovechar y cuál es la mejor forma de avanzar hacia
-            una propuesta o una videollamada más aterrizada.
+        {/* Bottom note */}
+        <div style={{ borderTop: "1px solid var(--color-brand-border)", marginTop: "3rem", paddingTop: "2.5rem" }}>
+          <p className="text-eyebrow-accent mb-3">Lo que hace Flymingo Weddings</p>
+          <p style={{ fontFamily: "var(--font-sans)", fontWeight: 300, fontSize: "1rem", lineHeight: 1.8, color: "var(--color-brand-ink)", opacity: 0.6, maxWidth: "54rem" }}>
+            No se trata solo de escoger un hotel bonito. Se trata de entender que opcion les conviene mas como pareja, como se va a mover el grupo, que beneficios pueden aprovechar y cual es la mejor forma de avanzar hacia una propuesta aterrizada.
           </p>
         </div>
+
       </div>
     </section>
   );
