@@ -32,10 +32,10 @@ export default function WomenNYCSection() {
 
           {/* ── Columna izquierda ── */}
           <div>
-            <div style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2.8rem, 7vw, 6.5rem)", letterSpacing: "-0.04em", lineHeight: 0.88 }}>
+            <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2.8rem, 7vw, 6.5rem)", letterSpacing: "-0.04em", lineHeight: 0.88 }}>
               <span style={{ display: "block", fontWeight: 800, color: "var(--color-brand-ink)" }}>Nueva York</span>
               <span style={{ display: "block", fontWeight: 800, fontStyle: "italic", color: "var(--color-brand-green)" }}>entre Amigas.</span>
-            </div>
+            </h2>
 
             <p className="text-eyebrow-accent mt-5 mb-8">03 — 08 nov 2026</p>
 

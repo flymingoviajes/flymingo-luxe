@@ -73,10 +73,10 @@ export default function WomenIcelandSection() {
 
           {/* ── Columna izquierda ── */}
           <div>
-            <div style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2.8rem, 7vw, 6.5rem)", letterSpacing: "-0.04em", lineHeight: 0.88 }}>
+            <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2.8rem, 7vw, 6.5rem)", letterSpacing: "-0.04em", lineHeight: 0.88 }}>
               <span style={{ display: "block", fontWeight: 800, color: "var(--color-brand-ink)" }}>Islandia</span>
               <span style={{ display: "block", fontWeight: 800, fontStyle: "italic", color: "var(--color-brand-accent)" }}>para Mujeres.</span>
-            </div>
+            </h2>
 
             <p style={{ fontFamily: "var(--font-sans)", fontWeight: 300, fontSize: "1.05rem", lineHeight: 1.8, color: "var(--color-brand-ink)", opacity: 0.6, maxWidth: "36rem", marginTop: "1.5rem", marginBottom: "2.5rem" }}>
               Nuestro viaje mas iconico. Auroras boreales, glaciares y momentos que no se olvidan — en un grupo de mujeres con la misma energia de aventura.

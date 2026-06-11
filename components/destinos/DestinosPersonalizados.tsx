@@ -20,11 +20,11 @@ export default function DestinosPersonalizados() {
           {/* Left */}
           <div>
             <p className="text-eyebrow-accent mb-8">Tu destino, aunque no esté en la lista</p>
-            <div style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2.8rem, 6vw, 5.5rem)", letterSpacing: "-0.04em", lineHeight: 0.9 }}>
+            <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2.8rem, 6vw, 5.5rem)", letterSpacing: "-0.04em", lineHeight: 0.9 }}>
               <span style={{ display: "block", fontWeight: 800, color: "var(--color-brand-ink)" }}>Cualquier</span>
               <span style={{ display: "block", fontWeight: 800, fontStyle: "italic", color: "var(--color-brand-accent)" }}>destino</span>
               <span style={{ display: "block", fontWeight: 200, color: "var(--color-brand-ink)", opacity: 0.3 }}>del mundo.</span>
-            </div>
+            </h2>
 
             <p className="mt-10 max-w-md" style={{ fontFamily: "var(--font-sans)", fontWeight: 300, fontSize: "1.05rem", lineHeight: 1.7, color: "var(--color-brand-ink)", opacity: 0.6 }}>
               Flymingo no opera con catálogos fijos. Si puedes soñarlo, nosotros lo aterrizamos: ruta con lógica, hoteles que te queden, actividades reales y asistencia las 24 horas del viaje.

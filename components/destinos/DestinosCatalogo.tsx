@@ -13,10 +13,10 @@ export default function DestinosCatalogo({ items }: { items: DestinationCard[] }
         <div className="flex items-end justify-between mb-14">
           <div>
             <p className="text-eyebrow-accent mb-8">Destinos seleccionados</p>
-            <div style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2.5rem, 5.5vw, 5rem)", letterSpacing: "-0.04em", lineHeight: 0.9 }}>
+            <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2.5rem, 5.5vw, 5rem)", letterSpacing: "-0.04em", lineHeight: 0.9 }}>
               <span style={{ display: "block", fontWeight: 800, color: "var(--color-brand-ink)" }}>Los que más amamos.</span>
               <span style={{ display: "block", fontWeight: 200, fontStyle: "italic", color: "var(--color-brand-ink)", opacity: 0.3 }}>Y el tuyo también.</span>
-            </div>
+            </h2>
           </div>
           <p className="hidden md:block text-caption max-w-xs text-right">
             Diseñamos cualquier destino del mundo. Si no lo ves aquí, escríbenos.

@@ -66,10 +66,10 @@ export default function HomeBeforeAfter() {
           {/* Left — big dramatic heading */}
           <div className="lg:sticky lg:top-28">
             <p className="text-eyebrow-accent mb-10">Cómo funciona</p>
-            <div style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2.8rem, 6vw, 5.5rem)", letterSpacing: "-0.04em", lineHeight: 0.9 }}>
+            <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2.8rem, 6vw, 5.5rem)", letterSpacing: "-0.04em", lineHeight: 0.9 }}>
               <span style={{ display: "block", fontWeight: 800, color: "var(--color-brand-ink)" }}>Tres pasos.</span>
               <span style={{ display: "block", fontWeight: 200, fontStyle: "italic", color: "var(--color-brand-ink)", opacity: 0.25 }}>Tu viaje listo.</span>
-            </div>
+            </h2>
             <p className="mt-9 text-sm font-light leading-loose max-w-xs" style={{ color: "var(--color-brand-dim)" }}>
               Sin formularios. Sin burocracia. Empezamos con una conversación y desde ahí construimos todo.
             </p>

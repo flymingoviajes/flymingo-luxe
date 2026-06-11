@@ -23,12 +23,12 @@ export default function HomeValueProps() {
         <p className="text-eyebrow-accent mb-14">Por qué Flymingo</p>
 
         {/* Editorial headline — dramatic weight contrast */}
-        <div style={{ fontFamily: "var(--font-display)", fontSize: FS, letterSpacing: "-0.04em", lineHeight: 0.9 }}>
+        <h2 style={{ fontFamily: "var(--font-display)", fontSize: FS, letterSpacing: "-0.04em", lineHeight: 0.9 }}>
           <span style={{ display: "block", fontWeight: 200, color: "var(--color-brand-ink)", opacity: 0.35 }}>No vendemos</span>
           <span style={{ display: "block", fontWeight: 800, fontStyle: "italic", color: "var(--color-brand-accent)" }}>destinos.</span>
           <span style={{ display: "block", fontWeight: 800, color: "var(--color-brand-ink)" }}>Diseñamos</span>
           <span style={{ display: "block", fontWeight: 200, color: "var(--color-brand-ink)", opacity: 0.25 }}>los tuyos.</span>
-        </div>
+        </h2>
 
         <hr className="divider mt-20 mb-16" />
 

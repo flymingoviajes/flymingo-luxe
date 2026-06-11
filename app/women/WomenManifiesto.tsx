@@ -14,11 +14,11 @@ export default function WomenManifiesto() {
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:items-end mb-20">
           <div>
             <p className="text-eyebrow-accent mb-8">Por que Flymingo Women</p>
-            <div style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2.8rem, 6vw, 5.5rem)", letterSpacing: "-0.04em", lineHeight: 0.9 }}>
+            <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2.8rem, 6vw, 5.5rem)", letterSpacing: "-0.04em", lineHeight: 0.9 }}>
               <span style={{ display: "block", fontWeight: 800, color: "var(--color-brand-ink)" }}>No son</span>
               <span style={{ display: "block", fontWeight: 800, fontStyle: "italic", color: "var(--color-brand-accent)" }}>solo viajes.</span>
               <span style={{ display: "block", fontWeight: 200, color: "var(--color-brand-ink)", opacity: 0.25 }}>Es una comunidad.</span>
-            </div>
+            </h2>
           </div>
 
           <div style={{ paddingBottom: "0.25rem" }}>
