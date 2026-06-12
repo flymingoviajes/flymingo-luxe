@@ -109,6 +109,7 @@ export default function FAQSection({ destination }: { destination: Destination }
             onClick={() => {
               window.fbq?.('track', 'Contact')
               window.fbq?.('track', 'Lead', { content_name: `FAQ ${destination.name}` })
+              window.gtag?.('event', 'conversion', { send_to: 'AW-11261587022/Np8mCL-Jgr4cEM7c-Pkp', value: 1.0, currency: 'MXN' })
               window.dataLayer = window.dataLayer || []
               window.dataLayer.push({ event: 'whatsapp_lead', event_label: `FAQ ${destination.name}` })
             }}

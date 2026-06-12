@@ -3,7 +3,7 @@ import type { CSSProperties, ReactNode } from "react";
 
 // Google Ads conversion label — formato "AW-XXXXXXXXX/CONVERSION_LABEL"
 // Se obtiene en: Google Ads → Goals → Conversions → tu acción → Tag details
-const GOOGLE_ADS_CONVERSION = "REEMPLAZA_CON_TU_CONVERSION_LABEL";
+const GOOGLE_ADS_CONVERSION = "AW-11261587022/Np8mCL-Jgr4cEM7c-Pkp";
 
 declare global {
   interface Window {
@@ -52,16 +52,13 @@ export default function TrackLink({
       event_label: label,
     });
 
-    // 4. Google Ads conversion (activar cuando tengas el conversion label)
-    if (
-      GOOGLE_ADS_CONVERSION !== "REEMPLAZA_CON_TU_CONVERSION_LABEL" &&
-      window.gtag
-    ) {
-      window.gtag("event", "conversion", {
-        send_to: GOOGLE_ADS_CONVERSION,
-        event_label: label,
-      });
-    }
+    // 4. Google Ads conversion
+    window.gtag?.("event", "conversion", {
+      send_to: GOOGLE_ADS_CONVERSION,
+      value: 1.0,
+      currency: "MXN",
+      event_label: label,
+    });
   }
 
   return (

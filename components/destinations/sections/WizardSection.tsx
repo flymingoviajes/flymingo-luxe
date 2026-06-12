@@ -52,6 +52,7 @@ function track(dest: string, days: number, adults: number, children: number, add
   // Contacto vía WhatsApp
   window.fbq?.('track', 'Contact')
 
+  window.gtag?.('event', 'conversion', { send_to: 'AW-11261587022/Np8mCL-Jgr4cEM7c-Pkp', value: 1.0, currency: 'MXN' })
   window.gtag?.('event', 'generate_lead', { event_category: 'Cotizador', event_label: dest })
   window.dataLayer = window.dataLayer || []
   window.dataLayer.push({ event: 'cotizador_lead', destination: dest, days, adults, children, addons })

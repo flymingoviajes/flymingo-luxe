@@ -1,9 +1,10 @@
 "use client";
 import Script from "next/script";
 
-const META_PIXEL_ID = "277543872029576";
-const GTM_ID        = "GTM-WL3T3SN9";
-const GA4_ID        = "G-P9R4KRC80B";
+const META_PIXEL_ID  = "277543872029576";
+const GTM_ID         = "GTM-WL3T3SN9";
+const GA4_ID         = "G-P9R4KRC80B";
+const GOOGLE_ADS_ID  = "AW-11261587022";
 
 const hasPixel = META_PIXEL_ID.length > 0 && !META_PIXEL_ID.startsWith("REEMPLAZA");
 const hasGTM   = GTM_ID.length > 0 && !GTM_ID.startsWith("REEMPLAZA");
@@ -54,6 +55,7 @@ export default function Analytics() {
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
               gtag('config', '${GA4_ID}');
+              gtag('config', '${GOOGLE_ADS_ID}');
             `}
           </Script>
         </>

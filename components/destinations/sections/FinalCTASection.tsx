@@ -16,6 +16,7 @@ function trackWhatsApp(dest: string) {
   if (typeof window === 'undefined') return
   window.fbq?.('track', 'Contact')
   window.fbq?.('track', 'Lead', { content_name: `CTA Final ${dest}` })
+  window.gtag?.('event', 'conversion', { send_to: 'AW-11261587022/Np8mCL-Jgr4cEM7c-Pkp', value: 1.0, currency: 'MXN' })
   window.gtag?.('event', 'generate_lead', { event_category: 'CTA Final', event_label: dest })
   window.dataLayer = window.dataLayer || []
   window.dataLayer.push({ event: 'whatsapp_lead', event_label: `CTA Final ${dest}` })
