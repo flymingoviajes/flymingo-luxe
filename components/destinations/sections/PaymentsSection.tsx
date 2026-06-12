@@ -4,172 +4,121 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import type { Destination } from '@/app/lib/destinations/types'
 
-function cx(...classes: Array<string | false | null | undefined>) {
-  return classes.filter(Boolean).join(' ')
-}
-
-function Card({
-  title,
-  subtitle,
-  bullets,
-  badge,
-}: {
-  title: string
-  subtitle?: string
-  bullets: string[]
-  badge?: string
-}) {
-  return (
-    <div className="relative overflow-hidden rounded-3xl border border-divider bg-content1 p-6">
-      <div className="pointer-events-none absolute inset-0 opacity-30 dark:opacity-100 bg-[radial-gradient(circle_at_20%_10%,rgba(56,189,248,0.10),transparent_45%),radial-gradient(circle_at_80%_30%,rgba(45,212,191,0.08),transparent_40%),radial-gradient(circle_at_50%_90%,rgba(99,102,241,0.07),transparent_45%)]" />
-
-      <div className="relative">
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <div className="text-lg font-semibold text-foreground">{title}</div>
-            {subtitle ? <div className="mt-1 text-sm text-default-600">{subtitle}</div> : null}
-          </div>
-
-          {badge ? (
-            <span className="shrink-0 rounded-full border border-divider bg-content2 px-3 py-1 text-[11px] font-semibold text-foreground">
-              {badge}
-            </span>
-          ) : null}
-        </div>
-
-        <div className="mt-5 grid gap-3">
-          {bullets.map((t) => (
-            <div key={t} className="flex items-start gap-3 text-sm text-default-600">
-              <span className="mt-2 h-1.5 w-1.5 rounded-full bg-default-400" />
-              <span>{t}</span>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-6 flex items-center gap-3">
-          <a
-            href="#wizard"
-            className="inline-flex flex-1 items-center justify-center rounded-2xl bg-foreground px-4 py-3 text-sm font-semibold text-background transition hover:opacity-90"
-          >
-            Cotizar con este plan
-          </a>
-
-          <a
-            href="#faq"
-            className="inline-flex items-center justify-center rounded-2xl border border-divider bg-content2 px-4 py-3 text-sm font-semibold text-foreground transition hover:bg-content1"
-          >
-            FAQ
-          </a>
-        </div>
-      </div>
-    </div>
-  )
-}
+const PLANS = [
+  {
+    badge: 'Más fácil',
+    title: 'Todo a 6 MSI',
+    subtitle: 'Divide el total en 6 pagos mensuales con tarjeta.',
+    bullets: ['Presupuesto mensual fijo', 'Ideal para salidas con tiempo', 'Sin enganches ni complicaciones'],
+  },
+  {
+    badge: 'Más popular',
+    title: 'Apartado + resto a 6 MSI',
+    subtitle: 'Aseguras tu lugar hoy y el resto lo diferiste en 6 pagos.',
+    bullets: ['Cupo garantizado desde el primer día', 'El apartado puede ser normal o MSI', 'Perfecto para viajes con fechas muy pedidas'],
+  },
+  {
+    badge: 'Flex',
+    title: 'Apartado normal + pagos libres',
+    subtitle: 'Das un enganche y liquidas a tu ritmo antes de la salida.',
+    bullets: ['Más flexibilidad en el calendario de pagos', 'Útil si recibes ingresos variables', 'Nos adaptamos a tu forma de organizar'],
+  },
+]
 
 export default function PaymentsSection({ destination }: { destination: Destination }) {
-  // Si luego quieres hacerlo dinámico por destino, aquí puedes leer destination.hero.priceFrom, etc.
-  // Por ahora dejamos el bloque fijo pero “brand friendly”.
-  const plans = [
-    {
-      title: 'Todo a 6 MSI',
-      badge: 'Más fácil',
-      subtitle: 'Divide el total en 6 pagos mensuales con tarjeta de crédito.',
-      bullets: [
-        'Ideal si quieres presupuesto mensual fijo.',
-        'Recomendado para salidas cercanas (cupo limitado).',
-        'El precio final depende de fechas y disponibilidad.',
-      ],
-    },
-    {
-      title: 'Anticipo a 6 MSI + resto normal',
-      badge: 'Balanceado',
-      subtitle: 'Separa tu lugar hoy y paga el resto con transferencia o pago normal.',
-      bullets: [
-        'Apartas con un anticipo y aseguras disponibilidad.',
-        'El resto se liquida antes de la fecha límite.',
-        'Perfecto si quieres “amarrar” hotel/tours primero.',
-      ],
-    },
-    {
-      title: 'Anticipo normal + resto a 6 MSI',
-      badge: 'Flex',
-      subtitle: 'Apartas con pago normal y difieres el resto en 6 mensualidades.',
-      bullets: [
-        'Útil si prefieres dar un anticipo fuerte sin MSI.',
-        'El resto se puede diferir en 6 pagos.',
-        'Nos adaptamos a tu forma de pagar.',
-      ],
-    },
-  ]
-
+  void destination
   return (
-    <section id="pagos" className="relative border-t border-divider bg-background">
-      <div className="pointer-events-none absolute inset-0 opacity-30 dark:opacity-100 bg-[radial-gradient(circle_at_15%_15%,rgba(56,189,248,0.12),transparent_45%),radial-gradient(circle_at_85%_35%,rgba(45,212,191,0.10),transparent_40%),radial-gradient(circle_at_55%_90%,rgba(99,102,241,0.08),transparent_45%)]" />
-
-      <div className="relative mx-auto max-w-6xl px-5 py-14 sm:py-16">
-        {/* Header */}
+    <section style={{ background: 'white', borderTop: '1px solid var(--color-brand-border)' }}>
+      <div className="mx-auto max-w-6xl px-5 py-14 sm:py-20">
         <motion.div
           initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.65, ease: 'easeOut' }}
-          className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between"
+          className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between mb-10"
         >
           <div>
-            <div className="text-xs tracking-[0.24em] uppercase text-default-500">Plan de pagos</div>
-            <h2 className="mt-2 text-3xl font-semibold text-foreground sm:text-4xl">
-              6 MSI para que lo hagas realidad
+            <p className="text-eyebrow-accent mb-3">Plan de pagos</p>
+            <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 'clamp(1.8rem, 4vw, 3rem)', letterSpacing: '-0.03em', color: 'var(--color-brand-ink)', lineHeight: 1 }}>
+              6 MSI para que lo hagas realidad.
             </h2>
-            <p className="mt-3 max-w-2xl text-sm text-default-600">
-              Elige la modalidad que más te conviene. Tú decides cómo apartar y cómo liquidar.
-            </p>
+            <p className="text-caption mt-3 max-w-lg">Elige cómo apartar y cómo liquidar. Nos ajustamos a tu forma de pagar.</p>
           </div>
-
-          <a
-            href="#wizard"
-            className="inline-flex items-center justify-center rounded-2xl border border-divider bg-content1 px-4 py-2 text-sm font-semibold text-foreground transition hover:bg-content2"
-          >
-            Ir al wizard
+          <a href="#wizard" className="btn btn-outline" style={{ whiteSpace: 'nowrap' }}>
+            Ir al wizard →
           </a>
         </motion.div>
 
-        {/* Mobile carousel */}
-        <div className="mt-8 -mx-5 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-3 lg:hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {plans.map((p, i) => (
-            <motion.div
-              key={p.title}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.25 }}
-              transition={{ duration: 0.55, ease: 'easeOut', delay: i * 0.03 }}
-              className="shrink-0 min-w-[86%] snap-center"
-            >
-              <Card title={p.title} subtitle={p.subtitle} bullets={p.bullets} badge={p.badge} />
-            </motion.div>
-          ))}
+        {/* Mobile */}
+        <div className="scroll-clip -mx-5 md:hidden">
+          <div className="scroll-row gap-4 px-5 pb-3">
+            {PLANS.map((p, i) => (
+              <motion.div
+                key={p.title}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.04 }}
+                className="flex-none snap-start w-[84vw]"
+              >
+                <PlanCard plan={p} featured={i === 1} />
+              </motion.div>
+            ))}
+          </div>
         </div>
 
-        {/* Desktop grid */}
-        <div className="mt-8 hidden grid-cols-3 gap-4 lg:grid">
-          {plans.map((p, i) => (
+        {/* Desktop */}
+        <div className="hidden md:grid md:grid-cols-3 gap-5">
+          {PLANS.map((p, i) => (
             <motion.div
               key={p.title}
               initial={{ opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.65, ease: 'easeOut', delay: i * 0.04 }}
-              className={cx(i === 0 && 'lg:col-span-1')}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: i * 0.07 }}
             >
-              <Card title={p.title} subtitle={p.subtitle} bullets={p.bullets} badge={p.badge} />
+              <PlanCard plan={p} featured={i === 1} />
             </motion.div>
           ))}
         </div>
 
-        <div className="mt-6 text-[11px] text-default-500">
-          *Aplican términos y condiciones. MSI sujeto a aprobación bancaria. Los precios pueden cambiar por
-          disponibilidad, temporada, vuelos y ocupación.
-        </div>
+        <p className="text-caption mt-6">*MSI sujeto a aprobación bancaria. Precios pueden variar por disponibilidad, vuelos y temporada.</p>
       </div>
     </section>
+  )
+}
+
+function PlanCard({ plan, featured }: { plan: typeof PLANS[number]; featured?: boolean }) {
+  return (
+    <div style={{
+      background: featured ? 'var(--color-brand-ink)' : 'white',
+      border: `1px solid ${featured ? 'transparent' : 'var(--color-brand-border)'}`,
+      borderRadius: '20px',
+      padding: '1.75rem',
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+    }}>
+      <span className={featured ? 'badge badge-neon' : 'badge badge-accent'} style={{ marginBottom: '1rem', alignSelf: 'flex-start' }}>
+        {plan.badge}
+      </span>
+      <p style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1.15rem', letterSpacing: '-0.02em', color: featured ? 'white' : 'var(--color-brand-ink)', lineHeight: 1.1, marginBottom: '0.5rem' }}>
+        {plan.title}
+      </p>
+      <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.85rem', color: featured ? 'rgba(255,255,255,0.6)' : 'var(--color-brand-dim)', lineHeight: 1.65, marginBottom: '1.25rem' }}>
+        {plan.subtitle}
+      </p>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', flex: 1 }}>
+        {plan.bullets.map((b) => (
+          <div key={b} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.6rem' }}>
+            <span style={{ height: '5px', width: '5px', borderRadius: '50%', background: featured ? 'var(--color-brand-accent)' : 'var(--color-brand-accent)', marginTop: '7px', flexShrink: 0 }} />
+            <span style={{ fontFamily: 'var(--font-sans)', fontSize: '0.82rem', color: featured ? 'rgba(255,255,255,0.55)' : 'var(--color-brand-dim)' }}>{b}</span>
+          </div>
+        ))}
+      </div>
+      <a href="#wizard" className={featured ? 'btn btn-accent mt-6 justify-center' : 'btn btn-outline mt-6 justify-center'}>
+        Cotizar con este plan
+      </a>
+    </div>
   )
 }

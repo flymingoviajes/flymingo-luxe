@@ -1,378 +1,240 @@
 'use client'
 
-import React, { useEffect, useMemo, useState } from 'react'
+import React from 'react'
 import { motion } from 'framer-motion'
 import type { Destination } from '@/app/lib/destinations/types'
-import ThemeToggle from '@/components/ui/ThemeToggle'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { formatMoney } from '../utils/FormatMoney'
-import { estimateFromExperience, WizardInputs } from '../utils/EstimatePrice'
-
-function cx(...classes: Array<string | false | null | undefined>) {
-  return classes.filter(Boolean).join(' ')
-}
 
 export default function HeroVideo({ destination }: { destination: Destination }) {
-  const router = useRouter()
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
-
-  const experiences = destination.experiences ?? []
-  const defaultExperienceId = experiences[0]?.id ?? 'default'
-
-  const expFromUrl = searchParams.get('exp')
-  const seededExperienceId =
-    expFromUrl && experiences.some((e) => e.id === expFromUrl) ? expFromUrl : defaultExperienceId
-
-  const [inputs, setInputs] = useState<WizardInputs>(() => ({
-    experienceId: seededExperienceId,
-    adults: 2,
-    children: 0,
-    season: 'shoulder',
-    comfort: 'standard',
-  }))
-
-  useEffect(() => {
-    if (!expFromUrl) return
-    if (!experiences.some((e) => e.id === expFromUrl)) return
-    setInputs((s) => (s.experienceId === expFromUrl ? s : { ...s, experienceId: expFromUrl }))
-  }, [expFromUrl, experiences])
-
-  const money = useMemo(
-    () => estimateFromExperience(experiences, inputs, destination.hero?.priceFrom),
-    [experiences, inputs, destination.hero?.priceFrom]
-  )
-
-  const selected = useMemo(
-    () => experiences.find((e) => e.id === inputs.experienceId),
-    [experiences, inputs.experienceId]
-  )
-
-  const goToWizard = () => {
-    const params = new URLSearchParams(searchParams?.toString())
-    params.set('exp', inputs.experienceId)
-    router.push(`${pathname}?${params.toString()}#wizard`)
-  }
-
   return (
-    <section className="relative overflow-hidden border-t border-divider min-h-[88vh]">
-      {/* Video background */}
-      <div className="absolute inset-0">
+    <section
+      aria-label={`Hero ${destination.name}`}
+      style={{
+        position: 'relative',
+        overflow: 'hidden',
+        minHeight: '100svh',
+        display: 'flex',
+        flexDirection: 'column',
+        background: 'var(--color-brand-ink)', // dark fallback — never shows white
+      }}
+    >
+      {/* ── Video + overlays ─────────────────────────────────── */}
+      <div style={{ position: 'absolute', inset: 0 }}>
         <video
-          className="h-full w-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+          autoPlay muted loop playsInline preload="metadata"
           poster={destination.hero?.posterUrl ?? undefined}
         >
-          {destination.hero?.videoUrl ? <source src={destination.hero.videoUrl} type="video/mp4" /> : null}
+          {destination.hero?.videoUrl && <source src={destination.hero.videoUrl} type="video/mp4" />}
         </video>
 
-        {/* Luxe overlays: más editorial, menos “neón” */}
-        <div className="absolute inset-0 bg-black/35" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/40 to-black/10" />
-        <div className="pointer-events-none absolute inset-0 opacity-60 bg-[radial-gradient(circle_at_18%_18%,rgba(232,76,139,0.18),transparent_46%)]" />
+        {/* Cinematic grade: warm vignette from top + heavy bottom */}
+        <div style={{ position: 'absolute', inset: 0, background: 'rgba(10,6,9,0.42)' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(160deg, rgba(10,6,9,0.75) 0%, rgba(10,6,9,0.15) 45%, rgba(10,6,9,0.05) 60%, rgba(10,6,9,0.8) 100%)' }} />
+        {/* Brand glow — left shoulder */}
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 65% 60% at 5% 20%, rgba(244,120,152,0.14) 0%, transparent 55%)' }} />
+        {/* Grain texture */}
+        <div style={{ position: 'absolute', inset: 0, backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.75\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\' opacity=\'0.035\'/%3E%3C/svg%3E")', backgroundSize: '180px', mixBlendMode: 'overlay', pointerEvents: 'none' }} />
 
-        {/* Hairline signature */}
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/55 to-transparent opacity-80" />
+        {/* Top hairline */}
+        <div style={{ position: 'absolute', inset: '0 0 auto 0', height: '1px', background: 'linear-gradient(to right, transparent 10%, rgba(244,120,152,0.4) 40%, rgba(244,120,152,0.4) 60%, transparent 90%)' }} />
       </div>
 
-      <div className="relative mx-auto max-w-6xl px-5 pb-14 pt-12 sm:pt-16">
-        {/* Top bar */}
-        <div className="flex items-center gap-3">
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
+      {/* ── Content ──────────────────────────────────────────── */}
+      <div
+        className="relative mx-auto max-w-7xl w-full px-6 sm:px-8"
+        style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingTop: '2.5rem', paddingBottom: '3rem' }}
+      >
+        {/* Top row: brand chip + destination chip */}
+        <motion.div
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}
+        >
+          <Chip>Flymingo Viajes</Chip>
+          <ChipAccent>{destination.name}</ChipAccent>
+        </motion.div>
+
+        {/* Spacer — pushes headline to lower half */}
+        <div style={{ flex: 1 }} />
+
+        {/* Editorial headline block */}
+        <div style={{ maxWidth: '860px' }}>
+          <motion.h1
+            initial={{ opacity: 0, y: 36 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, ease: 'easeOut' }}
-            className="flex flex-wrap items-center gap-2"
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.08 }}
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontWeight: 800,
+              fontSize: 'clamp(3.2rem, 8.5vw, 7.5rem)',
+              letterSpacing: '-0.045em',
+              lineHeight: 0.92,
+              color: 'white',
+              margin: 0,
+            }}
           >
-            <span className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] tracking-[0.24em] uppercase text-white/85 backdrop-blur">
-              Flymingo · Luxe
-            </span>
+            {destination.hero?.title ?? destination.name}
+          </motion.h1>
 
-            <span className="rounded-full border border-white/12 bg-black/25 px-3 py-1 text-[11px] text-white/80 backdrop-blur">
-              {destination.name}
-            </span>
+          <motion.p
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut', delay: 0.22 }}
+            style={{
+              fontFamily: 'var(--font-sans)',
+              fontWeight: 300,
+              fontSize: 'clamp(1rem, 1.5vw, 1.15rem)',
+              color: 'rgba(255,255,255,0.62)',
+              lineHeight: 1.7,
+              maxWidth: '52ch',
+              marginTop: '1.6rem',
+            }}
+          >
+            {destination.hero?.subtitle}
+          </motion.p>
 
-            {money?.amount ? (
-              <span className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] text-white/90 backdrop-blur">
-                Desde{' '}
-                <b className="font-semibold">{formatMoney(money.amount, money.currency ?? 'MXN')}</b>
-              </span>
-            ) : null}
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: 'easeOut', delay: 0.35 }}
+            style={{ display: 'flex', flexWrap: 'wrap', gap: '0.85rem', alignItems: 'center', marginTop: '2.4rem' }}
+          >
+            <a
+              href="#cotizador"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.6rem',
+                padding: '1rem 2.25rem',
+                borderRadius: '14px',
+                background: 'var(--color-brand-accent)',
+                color: 'white',
+                fontFamily: 'var(--font-sans)',
+                fontWeight: 700,
+                fontSize: '0.95rem',
+                letterSpacing: '-0.01em',
+                textDecoration: 'none',
+                boxShadow: '0 24px 64px -32px rgba(244,120,152,0.75)',
+                transition: 'opacity 0.15s',
+              }}
+            >
+              Armar mi viaje
+              <span aria-hidden="true" style={{ fontSize: '1.1em' }}>→</span>
+            </a>
+
+            <a
+              href="#story"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: '1rem 1.85rem',
+                borderRadius: '14px',
+                border: '1px solid rgba(255,255,255,0.2)',
+                background: 'rgba(255,255,255,0.07)',
+                backdropFilter: 'blur(14px)',
+                WebkitBackdropFilter: 'blur(14px)',
+                color: 'rgba(255,255,255,0.88)',
+                fontFamily: 'var(--font-sans)',
+                fontWeight: 500,
+                fontSize: '0.95rem',
+                textDecoration: 'none',
+                transition: 'background 0.15s, border-color 0.15s',
+              }}
+            >
+              Ver el recorrido
+            </a>
           </motion.div>
-
-          <div className="ml-auto">
-            <ThemeToggle />
-          </div>
         </div>
 
-        {/* Main layout */}
-        <div className="mt-10 grid gap-8 lg:grid-cols-12 lg:items-end">
-          {/* LEFT editorial */}
-          <div className="lg:col-span-7">
-            <motion.h1
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: 'easeOut', delay: 0.05 }}
-              className="max-w-3xl text-4xl font-semibold leading-[1.02] text-white sm:text-5xl md:text-6xl"
-            >
-              {destination.hero?.title ?? destination.name}
-              <span className="block text-white/70">Diseñado contigo, sin ruido.</span>
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: 'easeOut', delay: 0.1 }}
-              className="mt-5 max-w-2xl text-base text-white/78 sm:text-lg"
-            >
-              {destination.hero?.subtitle ??
-                'Curaduría Flymingo: ritmo perfecto, hoteles bien ubicados y experiencias icónicas.'}
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: 'easeOut', delay: 0.15 }}
-              className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center"
-            >
-              <button
-                type="button"
-                onClick={goToWizard}
-                className="inline-flex items-center justify-center rounded-2xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-[0_22px_70px_-45px_rgba(232,76,139,0.70)] transition hover:opacity-95"
-              >
-                Diseñar mi viaje
-              </button>
-
-              <a
-                href="#rutas"
-                className="inline-flex items-center justify-center rounded-2xl border border-white/20 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/15"
-              >
-                Ver rutas y experiencias
-              </a>
-
-              <div className="text-xs text-white/65 sm:ml-auto">
-                *Estimado. Puede variar por fechas, vuelos, ocupación y temporada.
-              </div>
-            </motion.div>
-          </div>
-
-          {/* RIGHT: Mini-wizard luxe (glass card) */}
-          <div className="lg:col-span-5">
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.75, ease: 'easeOut', delay: 0.08 }}
-              className="relative overflow-hidden rounded-[28px] border border-white/12 bg-white/10 p-5 backdrop-blur-xl shadow-[0_40px_120px_-70px_rgba(0,0,0,0.75)]"
-            >
-              {/* subtle highlight */}
-              <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent" />
-              <div className="pointer-events-none absolute inset-0 opacity-60 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.10),transparent_55%)]" />
-
-              {/* price block */}
-              <div className="relative flex items-end justify-between gap-4">
-                <div>
-                  <div className="text-[11px] tracking-[0.24em] uppercase text-white/60">
-                    Precio desde (estimado)
-                  </div>
-                  <motion.div
-                    key={money?.amount ?? 0}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.35, ease: 'easeOut' }}
-                    className="mt-2 text-2xl font-semibold text-white"
-                  >
-                    {money ? formatMoney(money.amount, money.currency ?? 'MXN') : '—'}
-                  </motion.div>
-                  <div className="mt-1 text-xs text-white/60">
-                    Base: <b className="font-semibold text-white/85">{selected?.title ?? destination.name}</b>
-                  </div>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={goToWizard}
-                  className="rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-slate-950 transition hover:opacity-90"
-                >
-                  Abrir wizard →
-                </button>
-              </div>
-
-              {/* controls */}
-              <div className="relative mt-6 grid gap-4">
-                {/* experience */}
-                {experiences.length ? (
-                  <div>
-                    <div className="text-[11px] tracking-[0.24em] uppercase text-white/60">Ruta base</div>
-                    <div className="mt-2 flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                      {experiences.slice(0, 5).map((e) => {
-                        const active = e.id === inputs.experienceId
-                        return (
-                          <button
-                            key={e.id}
-                            type="button"
-                            onClick={() => setInputs((s) => ({ ...s, experienceId: e.id }))}
-                            className={cx(
-                              'shrink-0 rounded-full border px-3 py-2 text-xs transition backdrop-blur',
-                              active
-                                ? 'border-white/35 bg-white/15 text-white'
-                                : 'border-white/15 bg-black/20 text-white/75 hover:bg-white/10'
-                            )}
-                          >
-                            {e.kicker ?? e.title}
-                          </button>
-                        )
-                      })}
-                    </div>
-                  </div>
-                ) : null}
-
-                {/* pax */}
-                <div className="grid grid-cols-2 gap-3">
-                  <MiniStepper
-                    label="Adultos"
-                    value={inputs.adults}
-                    min={1}
-                    max={12}
-                    onChange={(v) => setInputs((s) => ({ ...s, adults: v }))}
-                  />
-                  <MiniStepper
-                    label="Menores"
-                    value={inputs.children}
-                    min={0}
-                    max={12}
-                    onChange={(v) => setInputs((s) => ({ ...s, children: v }))}
-                  />
-                </div>
-
-                {/* season + comfort */}
-                <div className="grid grid-cols-2 gap-3">
-                  <MiniPillGroup
-                    label="Temporada"
-                    value={inputs.season}
-                    options={[
-                      { key: 'low', label: 'Baja' },
-                      { key: 'shoulder', label: 'Media' },
-                      { key: 'high', label: 'Alta' },
-                    ]}
-                    onChange={(v) => setInputs((s) => ({ ...s, season: v as any }))}
-                  />
-                  <MiniPillGroup
-                    label="Nivel"
-                    value={inputs.comfort}
-                    options={[
-                      { key: 'standard', label: 'Standard' },
-                      { key: 'premium', label: 'Premium' },
-                    ]}
-                    onChange={(v) => setInputs((s) => ({ ...s, comfort: v as any }))}
-                  />
-                </div>
-
-                <button
-                  type="button"
-                  onClick={goToWizard}
-                  className="mt-1 inline-flex items-center justify-center rounded-2xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-[0_22px_70px_-45px_rgba(232,76,139,0.70)] transition hover:opacity-95"
-                >
-                  Diseñar mi cotización
-                </button>
-
-                <div className="text-[11px] text-white/55">
-                  *Este mini-wizard solo te da un “desde”. El wizard completo afina con tus fechas exactas.
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* cue */}
+        {/* Bottom row: metadata line + scroll */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.25 }}
-          className="mt-12 flex items-center gap-2 text-xs text-white/60"
+          transition={{ duration: 0.8, delay: 0.55 }}
+          style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginTop: '3.5rem', flexWrap: 'wrap', gap: '1rem' }}
         >
-          <span className="inline-block h-2 w-2 rounded-full bg-white/70" />
-          Desliza para ver la experiencia Flymingo
+          {/* Left: destination metadata */}
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem' }}>
+            <Meta label="Duración" value="7–14 días" />
+            <MetaDivider />
+            <Meta label="Tipo" value="Personalizado" />
+            <MetaDivider />
+            <Meta label="Pagos" value="6 MSI disponibles" />
+          </div>
+
+          {/* Right: scroll indicator */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <div style={{ width: '32px', height: '1px', background: 'rgba(255,255,255,0.3)' }} />
+            <span style={{
+              fontFamily: 'var(--font-sans)',
+              fontSize: '0.6rem',
+              letterSpacing: '0.22em',
+              textTransform: 'uppercase',
+              color: 'rgba(255,255,255,0.35)',
+            }}>
+              scroll
+            </span>
+          </div>
         </motion.div>
       </div>
     </section>
   )
 }
 
-function MiniStepper({
-  label,
-  value,
-  min,
-  max,
-  onChange,
-}: {
-  label: string
-  value: number
-  min: number
-  max: number
-  onChange: (v: number) => void
-}) {
+function Chip({ children }: { children: React.ReactNode }) {
   return (
-    <div className="rounded-2xl border border-white/12 bg-black/20 p-4">
-      <div className="text-[11px] tracking-[0.24em] uppercase text-white/60">{label}</div>
-      <div className="mt-2 flex items-center justify-between">
-        <button
-          type="button"
-          onClick={() => onChange(Math.max(min, value - 1))}
-          className="h-10 w-10 rounded-xl border border-white/10 bg-white/10 text-white/85 transition hover:bg-white/15"
-          aria-label={`Disminuir ${label}`}
-        >
-          −
-        </button>
-        <div className="text-lg font-semibold text-white">{value}</div>
-        <button
-          type="button"
-          onClick={() => onChange(Math.min(max, value + 1))}
-          className="h-10 w-10 rounded-xl border border-white/10 bg-white/10 text-white/85 transition hover:bg-white/15"
-          aria-label={`Aumentar ${label}`}
-        >
-          +
-        </button>
-      </div>
+    <span style={{
+      borderRadius: '100px',
+      border: '1px solid rgba(255,255,255,0.14)',
+      background: 'rgba(255,255,255,0.08)',
+      backdropFilter: 'blur(12px)',
+      WebkitBackdropFilter: 'blur(12px)',
+      padding: '0.3rem 0.9rem',
+      fontSize: '0.6rem',
+      letterSpacing: '0.2em',
+      textTransform: 'uppercase' as const,
+      color: 'rgba(255,255,255,0.72)',
+      fontFamily: 'var(--font-sans)',
+      fontWeight: 500,
+    }}>
+      {children}
+    </span>
+  )
+}
+
+function ChipAccent({ children }: { children: React.ReactNode }) {
+  return (
+    <span style={{
+      borderRadius: '100px',
+      border: '1px solid rgba(244,120,152,0.3)',
+      background: 'rgba(244,120,152,0.1)',
+      backdropFilter: 'blur(12px)',
+      WebkitBackdropFilter: 'blur(12px)',
+      padding: '0.3rem 0.9rem',
+      fontSize: '0.6rem',
+      letterSpacing: '0.2em',
+      textTransform: 'uppercase' as const,
+      color: 'rgba(244,120,152,0.9)',
+      fontFamily: 'var(--font-sans)',
+      fontWeight: 600,
+    }}>
+      {children}
+    </span>
+  )
+}
+
+function Meta({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.58rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)', marginBottom: '3px' }}>{label}</p>
+      <p style={{ fontFamily: 'var(--font-sans)', fontWeight: 500, fontSize: '0.82rem', color: 'rgba(255,255,255,0.75)' }}>{value}</p>
     </div>
   )
 }
 
-function MiniPillGroup({
-  label,
-  value,
-  options,
-  onChange,
-}: {
-  label: string
-  value: string
-  options: Array<{ key: string; label: string }>
-  onChange: (v: string) => void
-}) {
-  return (
-    <div className="rounded-2xl border border-white/12 bg-black/20 p-4">
-      <div className="text-[11px] tracking-[0.24em] uppercase text-white/60">{label}</div>
-      <div className="mt-2 flex flex-wrap gap-2">
-        {options.map((o) => {
-          const active = o.key === value
-          return (
-            <button
-              key={o.key}
-              type="button"
-              onClick={() => onChange(o.key)}
-              className={cx(
-                'rounded-full border px-3 py-2 text-xs transition',
-                active ? 'border-white/35 bg-white/15 text-white' : 'border-white/12 bg-white/10 text-white/75 hover:bg-white/15'
-              )}
-            >
-              {o.label}
-            </button>
-          )
-        })}
-      </div>
-    </div>
-  )
+function MetaDivider() {
+  return <div style={{ width: '1px', height: '28px', background: 'rgba(255,255,255,0.12)', alignSelf: 'center' }} />
 }

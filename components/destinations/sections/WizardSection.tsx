@@ -1,347 +1,372 @@
 'use client'
 
-import React, { useEffect, useMemo, useState } from 'react'
-import { motion } from 'framer-motion'
+import React, { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import type { Destination } from '@/app/lib/destinations/types'
-import { formatMoney } from '../utils/FormatMoney'
-import { estimateFromExperience, WizardInputs } from '../utils/EstimatePrice'
-import { useSearchParams } from 'next/navigation'
 
-function cx(...classes: Array<string | false | null | undefined>) {
-  return classes.filter(Boolean).join(' ')
+declare global {
+  interface Window {
+    fbq?: (...args: unknown[]) => void
+    gtag?: (...args: unknown[]) => void
+    dataLayer?: object[]
+  }
 }
 
-export default function WizardSection({ destination }: { destination: Destination }) {
-  const experiences = destination.experiences ?? []
+const DAY_OPTIONS = [
+  { value: 7,  label: '7 días',  sub: 'Lo esencial, bien hecho' },
+  { value: 10, label: '10 días', sub: 'Completo y sin prisas' },
+  { value: 14, label: '14 días', sub: 'A fondo, sin perderte nada' },
+]
 
-  const searchParams = useSearchParams()
-  const expFromUrl = searchParams.get('exp')
-
-  const defaultExperienceId = experiences[0]?.id ?? 'default'
-
-  const [inputs, setInputs] = useState<WizardInputs>(() => {
-    const seeded =
-      expFromUrl && experiences.some((e) => e.id === expFromUrl) ? expFromUrl : defaultExperienceId
-
-    return {
-      experienceId: seeded,
-      adults: 2,
-      children: 0,
-      season: 'shoulder',
-      comfort: 'standard',
-    }
-  })
-
-  useEffect(() => {
-    if (!expFromUrl) return
-    if (!experiences.some((e) => e.id === expFromUrl)) return
-    setInputs((s) => (s.experienceId === expFromUrl ? s : { ...s, experienceId: expFromUrl }))
-  }, [expFromUrl, experiences])
-
-  const money = useMemo(
-    () => estimateFromExperience(experiences, inputs, destination.hero?.priceFrom),
-    [experiences, inputs, destination.hero?.priceFrom]
+function buildMessage(dest: string, days: number, adults: number, children: number, hasVisa: boolean, addons: string[]) {
+  const pax = children > 0
+    ? `${adults} adulto${adults !== 1 ? 's' : ''} + ${children} menor${children !== 1 ? 'es' : ''}`
+    : `${adults} ${adults === 1 ? 'persona' : 'personas'}`
+  const addonLine = addons.length > 0
+    ? `\n🎒 Extras de interés:\n${addons.map(a => `  • ${a}`).join('\n')}`
+    : ''
+  return encodeURIComponent(
+    `Hola Flymingo! 👋 Quiero cotizar un viaje a ${dest}.\n\n` +
+    `📅 Duración: ${days} días\n` +
+    `👥 Viajeros: ${pax}\n` +
+    `✈️ Visa americana: ${hasVisa ? 'Sí' : 'No'}` +
+    addonLine +
+    `\n\n¿Pueden armarme una propuesta?`
   )
+}
 
-  const selected = useMemo(
-    () => experiences.find((e) => e.id === inputs.experienceId),
-    [experiences, inputs.experienceId]
+function track(dest: string, days: number, adults: number, children: number, addons: string[]) {
+  if (typeof window === 'undefined') return
+  window.fbq?.('track', 'Lead', { content_name: `Cotización ${dest}`, content_category: dest })
+  window.gtag?.('event', 'generate_lead', { event_category: 'Cotizador', event_label: dest })
+  window.dataLayer = window.dataLayer || []
+  window.dataLayer.push({ event: 'cotizador_lead', destination: dest, days, adults, children, addons })
+}
+
+// ─── Subcomponents ───────────────────────────────────────────────────────────
+
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <p style={{ fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: '0.7rem', letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--color-brand-ink)', marginBottom: '0.9rem' }}>
+      {children}
+    </p>
   )
+}
+
+function SummaryRow({ icon, value }: { icon: string; value: string }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '0.7rem' }}>
+      <span style={{ fontSize: '0.9rem', width: '1.2rem', flexShrink: 0 }}>{icon}</span>
+      <span style={{ fontFamily: 'var(--font-sans)', fontSize: '0.88rem', color: 'rgba(255,255,255,0.8)', lineHeight: 1.4 }}>{value}</span>
+    </div>
+  )
+}
+
+// ─── Main component ───────────────────────────────────────────────────────────
+
+export default function CotizadorSection({ destination }: { destination: Destination }) {
+  const optionalTours = (destination.tours ?? []).filter(t => t.badge === 'Opcional')
+
+  const [days, setDays] = useState(7)
+  const [adults, setAdults] = useState(2)
+  const [children, setChildren] = useState(0)
+  const [hasVisa, setHasVisa] = useState(false)
+  const [selectedAddons, setSelectedAddons] = useState<Set<string>>(new Set())
+
+  function toggleAddon(id: string) {
+    setSelectedAddons(prev => {
+      const next = new Set(prev)
+      next.has(id) ? next.delete(id) : next.add(id)
+      return next
+    })
+  }
+
+  function handleCTA() {
+    const addonNames = optionalTours.filter(t => selectedAddons.has(t.id)).map(t => t.title)
+    track(destination.name, days, adults, children, addonNames)
+    const msg = buildMessage(destination.name, days, adults, children, hasVisa, addonNames)
+    window.open(`https://wa.me/5218716887385?text=${msg}`, '_blank', 'noreferrer')
+  }
+
+  const paxLabel = children > 0
+    ? `${adults} adulto${adults !== 1 ? 's' : ''} + ${children} menor${children !== 1 ? 'es' : ''}`
+    : `${adults} ${adults === 1 ? 'persona' : 'personas'}`
 
   return (
-    <section id="wizard" className="relative border-t border-divider bg-background">
-      <div className="pointer-events-none absolute inset-0 opacity-25 dark:opacity-100 bg-[radial-gradient(circle_at_18%_10%,rgba(56,189,248,0.10),transparent_45%),radial-gradient(circle_at_82%_30%,rgba(45,212,191,0.08),transparent_40%),radial-gradient(circle_at_50%_90%,rgba(99,102,241,0.06),transparent_45%)]" />
+    <section id="cotizador" style={{ background: 'var(--color-brand-surface)', borderTop: '1px solid var(--color-brand-border)' }}>
+      <div className="mx-auto max-w-6xl px-5 py-16 sm:py-24">
 
-      <div className="relative mx-auto max-w-6xl px-5 py-14 sm:py-16">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 14 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.65, ease: 'easeOut' }}
-          className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between"
+          transition={{ duration: 0.7, ease: 'easeOut' }}
+          className="mb-12"
         >
-          <div>
-            <div className="text-xs tracking-[0.24em] uppercase text-default-500">Wizard Flymingo</div>
-            <h2 className="mt-2 text-3xl font-semibold text-foreground sm:text-4xl">
-              Diseña tu viaje en 30 segundos
-            </h2>
-
-            {/* Flymingo hairline */}
-            <div className="mt-3 h-px w-20 bg-gradient-to-r from-primary/55 via-primary/12 to-transparent" />
-
-            <p className="mt-3 max-w-2xl text-sm text-default-600">
-              El precio se actualiza en vivo (estimado). Ya con tus fechas exactas, lo afinamos contigo.
-            </p>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <div className="relative overflow-hidden rounded-2xl border border-divider bg-content1 px-4 py-3 shadow-[0_25px_80px_-60px_rgba(0,0,0,0.25)] dark:shadow-[0_35px_110px_-70px_rgba(0,0,0,0.55)]">
-              <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/35 to-transparent opacity-80" />
-              <div className="text-[11px] tracking-[0.24em] uppercase text-default-500">Precio desde</div>
-
-              <motion.div
-                key={money?.amount ?? 0}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.35, ease: 'easeOut' }}
-                className="mt-1 text-xl font-semibold text-foreground"
-              >
-                {money ? formatMoney(money.amount, money.currency) : '—'}
-              </motion.div>
-
-              <div className="mt-1 text-[11px] text-default-500">
-                Base: <b className="font-semibold text-foreground">{selected?.title ?? destination.name}</b>
-              </div>
-            </div>
-          </div>
+          <p style={{ fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: '0.65rem', letterSpacing: '0.22em', textTransform: 'uppercase', color: 'var(--color-brand-accent)', marginBottom: '0.6rem' }}>
+            Cotizador
+          </p>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 'clamp(2rem, 4.5vw, 3.5rem)', letterSpacing: '-0.04em', color: 'var(--color-brand-ink)', lineHeight: 1, maxWidth: '18ch' }}>
+            Cuéntanos cómo quieres ir.
+          </h2>
+          <p style={{ fontFamily: 'var(--font-sans)', fontWeight: 400, fontSize: '0.95rem', color: 'var(--color-brand-dim)', lineHeight: 1.7, marginTop: '0.9rem', maxWidth: '52ch' }}>
+            Selecciona lo básico y te mandamos una propuesta real por WhatsApp. Sin compromisos, sin precios genéricos.
+          </p>
         </motion.div>
 
-        {/* Layout */}
-        <div className="mt-10 grid gap-6 lg:grid-cols-12">
-          {/* Left */}
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 0.7, ease: 'easeOut' }}
-            className="lg:col-span-7"
-          >
-            <div className="flex items-center justify-between">
-              <div className="text-sm font-semibold text-foreground">Ruta / experiencia</div>
-              <div className="text-xs text-default-500">Elige una base</div>
-            </div>
+        {/* Main card */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            background: 'white',
+            border: '1px solid var(--color-brand-border)',
+            borderRadius: '24px',
+            overflow: 'hidden',
+            display: 'grid',
+          }}
+          className="lg:grid-cols-[1fr_360px]"
+        >
+          {/* ── Left: form ── */}
+          <div style={{ padding: '2.5rem 2.5rem 3rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
 
-            {/* Mobile carousel */}
-            <div className="mt-4 -mx-5 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-2 lg:hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              {experiences.map((e) => {
-                const active = e.id === inputs.experienceId
-                return (
-                  <button
-                    key={e.id}
-                    onClick={() => setInputs((s) => ({ ...s, experienceId: e.id }))}
-                    className={cx(
-                      'min-w-[78%] snap-center rounded-3xl border p-5 text-left transition',
-                      'shadow-[0_25px_80px_-60px_rgba(0,0,0,0.22)] dark:shadow-[0_35px_110px_-70px_rgba(0,0,0,0.55)]',
-                      active ? 'border-divider bg-content2' : 'border-divider bg-content1 hover:bg-content2'
-                    )}
-                  >
-                    <div className="flex items-center justify-between gap-3">
-                      <div className="text-xs tracking-[0.22em] uppercase text-default-500">
-                        {e.kicker ?? 'Experiencia'}
-                      </div>
-                      {e.priceFrom ? (
-                        <div className="text-xs text-default-600">
-                          desde{' '}
-                          <b className="font-semibold text-foreground">
-                            {formatMoney(e.priceFrom.amount, e.priceFrom.currency)}
-                          </b>
+              {/* Duración */}
+              <div>
+                <SectionLabel>¿Cuántos días tienes?</SectionLabel>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', alignItems: 'center' }}>
+                  {DAY_OPTIONS.map(opt => {
+                    const active = days === opt.value
+                    return (
+                      <button
+                        key={opt.value}
+                        type="button"
+                        onClick={() => setDays(opt.value)}
+                        style={{
+                          padding: '0.85rem 1.5rem',
+                          borderRadius: '12px',
+                          border: active ? '1.5px solid var(--color-brand-accent)' : '1.5px solid var(--color-brand-border)',
+                          background: active ? 'var(--color-brand-accent)' : 'white',
+                          cursor: 'pointer',
+                          transition: 'all 0.15s',
+                          textAlign: 'left',
+                        }}
+                      >
+                        <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1rem', color: active ? 'white' : 'var(--color-brand-ink)', lineHeight: 1.1 }}>
+                          {opt.label}
                         </div>
-                      ) : null}
-                    </div>
-
-                    <div className="mt-2 text-lg font-semibold text-foreground">{e.title}</div>
-                    {e.days ? <div className="mt-1 text-sm text-default-600">{e.days}</div> : null}
-                    {e.desc ? <div className="mt-3 text-sm text-default-600">{e.desc}</div> : null}
-
-                    {!!e.highlights?.length && (
-                      <div className="mt-4 flex flex-wrap gap-2">
-                        {e.highlights.slice(0, 3).map((h) => (
-                          <span
-                            key={h}
-                            className="rounded-full border border-divider bg-content2 px-3 py-1 text-xs text-default-600"
-                          >
-                            {h}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </button>
-                )
-              })}
-            </div>
-
-            {/* Desktop grid */}
-            <div className="mt-4 hidden grid-cols-2 gap-3 lg:grid">
-              {experiences.map((e) => {
-                const active = e.id === inputs.experienceId
-                return (
-                  <button
-                    key={e.id}
-                    onClick={() => setInputs((s) => ({ ...s, experienceId: e.id }))}
-                    className={cx(
-                      'rounded-3xl border p-5 text-left transition',
-                      'shadow-[0_25px_80px_-60px_rgba(0,0,0,0.20)] dark:shadow-[0_35px_110px_-70px_rgba(0,0,0,0.55)]',
-                      active ? 'border-divider bg-content2' : 'border-divider bg-content1 hover:bg-content2'
-                    )}
-                  >
-                    <div className="flex items-center justify-between gap-3">
-                      <div className="text-xs tracking-[0.22em] uppercase text-default-500">
-                        {e.kicker ?? 'Experiencia'}
-                      </div>
-                      {e.priceFrom ? (
-                        <div className="text-xs text-default-600">
-                          desde{' '}
-                          <b className="font-semibold text-foreground">
-                            {formatMoney(e.priceFrom.amount, e.priceFrom.currency)}
-                          </b>
+                        <div style={{ fontFamily: 'var(--font-sans)', fontSize: '0.7rem', color: active ? 'rgba(255,255,255,0.75)' : 'var(--color-brand-dim)', marginTop: '3px' }}>
+                          {opt.sub}
                         </div>
-                      ) : null}
-                    </div>
-
-                    <div className="mt-2 text-lg font-semibold text-foreground">{e.title}</div>
-                    {e.days ? <div className="mt-1 text-sm text-default-600">{e.days}</div> : null}
-                    {e.desc ? <div className="mt-3 text-sm text-default-600">{e.desc}</div> : null}
-                  </button>
-                )
-              })}
-            </div>
-          </motion.div>
-
-          {/* Right */}
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 0.7, ease: 'easeOut', delay: 0.04 }}
-            className="lg:col-span-5"
-          >
-            <div className="relative overflow-hidden rounded-3xl border border-divider bg-content1 p-6 shadow-[0_35px_110px_-70px_rgba(0,0,0,0.22)] dark:shadow-[0_45px_140px_-85px_rgba(0,0,0,0.65)]">
-              <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/35 to-transparent opacity-80" />
-
-              <div className="text-sm font-semibold text-foreground">Ajustes rápidos</div>
-              <div className="mt-1 text-xs text-default-500">
-                Esto es para darte un “desde” realista. La cotización final se hace con tus fechas exactas.
+                      </button>
+                    )
+                  })}
+                  {/* Custom */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'var(--color-brand-surface)', borderRadius: '12px', padding: '0.65rem 0.85rem', border: '1.5px solid var(--color-brand-border)' }}>
+                    <button type="button" onClick={() => setDays(Math.max(1, days - 1))} aria-label="Menos días" style={{ width: '28px', height: '28px', borderRadius: '8px', border: '1px solid var(--color-brand-border)', background: 'white', cursor: 'pointer', fontFamily: 'var(--font-display)', fontSize: '1rem', color: 'var(--color-brand-ink)' }}>−</button>
+                    <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.95rem', color: 'var(--color-brand-ink)', minWidth: '2ch', textAlign: 'center' }}>{days}</span>
+                    <button type="button" onClick={() => setDays(Math.min(30, days + 1))} aria-label="Más días" style={{ width: '28px', height: '28px', borderRadius: '8px', border: '1px solid var(--color-brand-border)', background: 'white', cursor: 'pointer', fontFamily: 'var(--font-display)', fontSize: '1rem', color: 'var(--color-brand-ink)' }}>+</button>
+                  </div>
+                </div>
               </div>
 
-              <div className="mt-6 grid gap-4">
-                {/* Pax */}
-                <div className="grid grid-cols-2 gap-3">
-                  <Stepper
-                    label="Adultos"
-                    value={inputs.adults}
-                    min={1}
-                    max={12}
-                    onChange={(v) => setInputs((s) => ({ ...s, adults: v }))}
-                  />
-                  <Stepper
-                    label="Menores"
-                    value={inputs.children}
-                    min={0}
-                    max={12}
-                    onChange={(v) => setInputs((s) => ({ ...s, children: v }))}
-                  />
-                </div>
-
-                {/* Season */}
-                <div>
-                  <div className="text-xs tracking-[0.22em] uppercase text-default-500">Temporada</div>
-                  <div className="mt-2 grid grid-cols-3 gap-2">
-                    <Pill active={inputs.season === 'low'} onClick={() => setInputs((s) => ({ ...s, season: 'low' }))} label="Baja" />
-                    <Pill active={inputs.season === 'shoulder'} onClick={() => setInputs((s) => ({ ...s, season: 'shoulder' }))} label="Media" />
-                    <Pill active={inputs.season === 'high'} onClick={() => setInputs((s) => ({ ...s, season: 'high' }))} label="Alta" />
-                  </div>
-                </div>
-
-                {/* Comfort */}
-                <div>
-                  <div className="text-xs tracking-[0.22em] uppercase text-default-500">Nivel</div>
-                  <div className="mt-2 grid grid-cols-2 gap-2">
-                    <Pill active={inputs.comfort === 'standard'} onClick={() => setInputs((s) => ({ ...s, comfort: 'standard' }))} label="Standard" />
-                    <Pill active={inputs.comfort === 'premium'} onClick={() => setInputs((s) => ({ ...s, comfort: 'premium' }))} label="Premium" />
-                  </div>
-                </div>
-
-                {/* Summary */}
-                <div className="rounded-2xl border border-divider bg-content2 p-4">
-                  <div className="text-xs tracking-[0.22em] uppercase text-default-500">Tu base</div>
-                  <div className="mt-2 text-sm font-semibold text-foreground">
-                    {selected?.title ?? destination.name}
-                  </div>
-                  <div className="mt-1 text-xs text-default-500">
-                    {inputs.adults} adulto(s) · {inputs.children} menor(es) · {inputs.season} · {inputs.comfort}
-                  </div>
-                </div>
-
-                {/* CTA */}
-                <button
-                  type="button"
-                  onClick={() => {
-                    console.log('Wizard payload:', { destination: destination.slug, ...inputs, price: money })
-                    alert('Listo ✅ Ya tengo tu base. En el siguiente paso lo conectamos al envío de lead.')
-                  }}
-                  className="mt-1 inline-flex items-center justify-center rounded-2xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-[0_22px_70px_-45px_rgba(232,76,139,0.65)] transition hover:opacity-95"
-                >
-                  Quiero mi cotización
-                </button>
-
-                <div className="text-[11px] text-default-500">
-                  *Precio estimado “desde”. Puede variar por disponibilidad, vuelos, ocupación y tipo de habitación.
+              {/* Viajeros */}
+              <div>
+                <SectionLabel>¿Cuántas personas viajan?</SectionLabel>
+                <div style={{ display: 'flex', gap: '0.85rem', flexWrap: 'wrap' }}>
+                  <Stepper label="Adultos" value={adults} min={1} max={20} onChange={setAdults} />
+                  <Stepper label="Menores de edad" value={children} min={0} max={10} onChange={setChildren} />
                 </div>
               </div>
+
+              {/* Visa */}
+              <div>
+                <SectionLabel>¿Cuentas con visa americana?</SectionLabel>
+                <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.78rem', color: 'var(--color-brand-dim)', marginTop: '-0.6rem', marginBottom: '0.85rem', lineHeight: 1.55 }}>
+                  Nos ayuda a buscar mejores conexiones de vuelo para tu ruta.
+                </p>
+                <div style={{ display: 'flex', gap: '0.65rem' }}>
+                  {(['Sí', 'No'] as const).map(opt => {
+                    const active = opt === 'Sí' ? hasVisa : !hasVisa
+                    return (
+                      <button
+                        key={opt}
+                        type="button"
+                        onClick={() => setHasVisa(opt === 'Sí')}
+                        style={{
+                          padding: '0.75rem 2rem',
+                          borderRadius: '12px',
+                          border: active ? '1.5px solid var(--color-brand-ink)' : '1.5px solid var(--color-brand-border)',
+                          background: active ? 'var(--color-brand-ink)' : 'white',
+                          fontFamily: 'var(--font-sans)',
+                          fontWeight: 600,
+                          fontSize: '0.9rem',
+                          color: active ? 'white' : 'var(--color-brand-dim)',
+                          cursor: 'pointer',
+                          transition: 'all 0.15s',
+                        }}
+                      >
+                        {opt}
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+
+              {/* Extras */}
+              {optionalTours.length > 0 && (
+                <div>
+                  <SectionLabel>¿Algún extra que te llame la atención?</SectionLabel>
+                  <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.78rem', color: 'var(--color-brand-dim)', marginTop: '-0.6rem', marginBottom: '0.85rem', lineHeight: 1.55 }}>
+                    Sin precio fijo aún — solo para saber qué te interesa al cotizar.
+                  </p>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+                    {optionalTours.map(tour => {
+                      const active = selectedAddons.has(tour.id)
+                      return (
+                        <button
+                          key={tour.id}
+                          type="button"
+                          onClick={() => toggleAddon(tour.id)}
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.9rem',
+                            padding: '0.9rem 1.1rem',
+                            borderRadius: '14px',
+                            border: active ? '1.5px solid var(--color-brand-ink)' : '1.5px solid var(--color-brand-border)',
+                            background: active ? '#F9F5F7' : 'white',
+                            cursor: 'pointer',
+                            textAlign: 'left',
+                            transition: 'all 0.15s',
+                            width: '100%',
+                          }}
+                        >
+                          {tour.image && (
+                            <div style={{ width: '50px', height: '50px', borderRadius: '10px', overflow: 'hidden', flexShrink: 0, background: 'var(--color-brand-surface)' }}>
+                              <img src={tour.image} alt={tour.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} loading="lazy" />
+                            </div>
+                          )}
+                          <div style={{ flex: 1, minWidth: 0 }}>
+                            <p style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.9rem', color: 'var(--color-brand-ink)', lineHeight: 1.2, marginBottom: '2px' }}>
+                              {tour.title}
+                            </p>
+                            {tour.short && (
+                              <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.75rem', color: 'var(--color-brand-dim)', lineHeight: 1.45 }}>
+                                {tour.short}
+                              </p>
+                            )}
+                          </div>
+                          <div style={{ width: '22px', height: '22px', borderRadius: '6px', border: active ? '2px solid var(--color-brand-ink)' : '1.5px solid var(--color-brand-border)', background: active ? 'var(--color-brand-ink)' : 'white', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.15s' }}>
+                            {active && <span style={{ color: 'white', fontSize: '11px', fontWeight: 700, lineHeight: 1 }}>✓</span>}
+                          </div>
+                        </button>
+                      )
+                    })}
+                  </div>
+                </div>
+              )}
             </div>
-          </motion.div>
-        </div>
+          </div>
+
+          {/* ── Right: summary + CTA ── */}
+          <div style={{ background: 'var(--color-brand-ink)', padding: '2.5rem', display: 'flex', flexDirection: 'column' }}>
+            <p style={{ fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: '0.62rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', marginBottom: '1.5rem' }}>
+              Tu propuesta incluirá
+            </p>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', flex: 1 }}>
+              <SummaryRow icon="📅" value={`${days} días`} />
+              <SummaryRow icon="👥" value={paxLabel} />
+              <SummaryRow icon="✈️" value={`Visa americana: ${hasVisa ? 'Sí' : 'No'}`} />
+              <AnimatePresence>
+                {selectedAddons.size > 0 && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.22 }}
+                    style={{ overflow: 'hidden' }}
+                  >
+                    <SummaryRow
+                      icon="🎒"
+                      value={`${selectedAddons.size} extra${selectedAddons.size !== 1 ? 's' : ''} de interés`}
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {/* Divider */}
+            <div style={{ height: '1px', background: 'rgba(255,255,255,0.08)', margin: '1.75rem 0' }} />
+
+            <button
+              type="button"
+              onClick={handleCTA}
+              style={{
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '0.6rem',
+                padding: '1rem',
+                borderRadius: '14px',
+                background: 'var(--color-brand-accent)',
+                border: 'none',
+                cursor: 'pointer',
+                fontFamily: 'var(--font-sans)',
+                fontWeight: 700,
+                fontSize: '0.93rem',
+                color: 'white',
+                letterSpacing: '-0.01em',
+                transition: 'opacity 0.15s',
+                boxShadow: '0 16px 40px -20px rgba(244,120,152,0.6)',
+              }}
+            >
+              <WhatsAppIcon />
+              Enviar propuesta a Flymingo
+            </button>
+
+            <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.7rem', color: 'rgba(255,255,255,0.3)', marginTop: '0.9rem', lineHeight: 1.5, textAlign: 'center' }}>
+              Te respondemos con opciones reales. Sin compromiso.
+            </p>
+          </div>
+        </motion.div>
       </div>
     </section>
   )
 }
 
-function Pill({ active, label, onClick }: { active: boolean; label: string; onClick: () => void }) {
+function Stepper({ label, value, min, max, onChange }: { label: string; value: number; min: number; max: number; onChange: (v: number) => void }) {
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={cx(
-        'rounded-2xl border px-4 py-2 text-sm transition',
-        active
-          ? 'border-divider bg-content2 text-foreground'
-          : 'border-divider bg-content1 text-default-600 hover:bg-content2'
-      )}
-    >
-      {label}
-    </button>
-  )
-}
-
-function Stepper({
-  label,
-  value,
-  min,
-  max,
-  onChange,
-}: {
-  label: string
-  value: number
-  min: number
-  max: number
-  onChange: (v: number) => void
-}) {
-  return (
-    <div className="rounded-2xl border border-divider bg-content1 p-4">
-      <div className="text-xs tracking-[0.22em] uppercase text-default-500">{label}</div>
-
-      <div className="mt-2 flex items-center justify-between">
+    <div style={{ border: '1.5px solid var(--color-brand-border)', borderRadius: '12px', padding: '0.9rem 1.1rem', minWidth: '160px', background: 'white' }}>
+      <div style={{ fontFamily: 'var(--font-sans)', fontWeight: 600, fontSize: '0.7rem', color: 'var(--color-brand-dim)', marginBottom: '0.65rem', letterSpacing: '0.04em' }}>{label}</div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
         <button
           type="button"
           onClick={() => onChange(Math.max(min, value - 1))}
-          className="h-10 w-10 rounded-xl border border-divider bg-content2 text-foreground transition hover:bg-content1"
+          style={{ width: '34px', height: '34px', borderRadius: '8px', border: '1.5px solid var(--color-brand-border)', background: 'var(--color-brand-surface)', cursor: 'pointer', fontFamily: 'var(--font-display)', fontSize: '1.1rem', color: 'var(--color-brand-ink)' }}
           aria-label={`Disminuir ${label}`}
-        >
-          −
-        </button>
-
-        <div className="text-lg font-semibold text-foreground">{value}</div>
-
+        >−</button>
+        <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1.15rem', color: 'var(--color-brand-ink)', minWidth: '1.8ch', textAlign: 'center' }}>{value}</span>
         <button
           type="button"
           onClick={() => onChange(Math.min(max, value + 1))}
-          className="h-10 w-10 rounded-xl border border-divider bg-content2 text-foreground transition hover:bg-content1"
+          style={{ width: '34px', height: '34px', borderRadius: '8px', border: '1.5px solid var(--color-brand-border)', background: 'var(--color-brand-surface)', cursor: 'pointer', fontFamily: 'var(--font-display)', fontSize: '1.1rem', color: 'var(--color-brand-ink)' }}
           aria-label={`Aumentar ${label}`}
-        >
-          +
-        </button>
+        >+</button>
       </div>
     </div>
+  )
+}
+
+function WhatsAppIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
   )
 }
