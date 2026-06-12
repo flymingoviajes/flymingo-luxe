@@ -1,7 +1,7 @@
 "use client";
 import Script from "next/script";
 
-const META_PIXEL_ID = "277543872029576";
+const META_PIXEL_ID = "2196262264483944";
 const GTAG_ID = "REEMPLAZA_CON_TU_GTAG_ID";
 
 const hasPixel = META_PIXEL_ID.length > 0 && !META_PIXEL_ID.startsWith("REEMPLAZA");
