@@ -32,10 +32,11 @@ export default function HomeValueProps() {
 
         <hr className="divider mt-20 mb-16" />
 
-        {/* Features — horizontal scroll on mobile, columns on desktop */}
-        <div className="scroll-row gap-8 -mx-6 px-6 pb-6 md:grid md:grid-cols-3 md:gap-0 md:overflow-visible md:pb-0 md:mx-0 md:px-0 md:divide-x md:divide-brand-border">
+        {/* Features */}
+        <div className="scroll-clip -mx-6 md:mx-0">
+          <div className="scroll-row gap-8 px-6 pb-6 md:grid md:grid-cols-3 md:gap-0 md:overflow-visible md:px-0 md:pb-0 md:divide-x md:divide-brand-border">
           {FEATURES.map((f, i) => (
-            <div key={f.title} className="w-[78vw] max-w-xs flex-none md:w-auto md:flex-initial md:px-10 first:md:pl-0 last:md:pr-0">
+            <div key={f.title} className="flex-none snap-start w-[78vw] md:w-auto md:max-w-none md:px-10 first:md:pl-0 last:md:pr-0">
               <p
                 style={{
                   fontFamily: "var(--font-sans)",
@@ -57,6 +58,7 @@ export default function HomeValueProps() {
               </p>
             </div>
           ))}
+          </div>
         </div>
 
       </div>

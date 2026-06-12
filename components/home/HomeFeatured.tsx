@@ -96,22 +96,26 @@ export default function HomeFeatured() {
           </Link>
         </div>
 
-        {/* Product line grid — horizontal scroll on mobile, grid on desktop */}
-        <div className="scroll-row gap-3 -mx-6 px-6 pb-4 md:grid md:grid-cols-3 md:overflow-visible md:pb-0 md:mx-0 md:px-0">
-          {LINES.map((line, i) => (
-            <div key={line.key} className="w-[82vw] max-w-sm md:w-auto">
-              <LineCard line={line} tall={i === 0} />
-            </div>
-          ))}
+        {/* Product line grid */}
+        <div className="scroll-clip -mx-6 md:mx-0">
+          <div className="scroll-row gap-3 px-6 pb-4 md:grid md:grid-cols-3 md:overflow-visible md:px-0 md:pb-0">
+            {LINES.map((line, i) => (
+              <div key={line.key} className="flex-none snap-start w-[82vw] md:w-auto md:max-w-none">
+                <LineCard line={line} tall={i === 0} />
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Destination tiles — horizontal scroll on mobile */}
-        <div className="scroll-row mt-3 gap-3 -mx-6 px-6 pb-4 md:grid md:grid-cols-3 md:overflow-visible md:pb-0 md:mx-0 md:px-0">
-          {DESTINATIONS.map((d) => (
-            <div key={d.key} className="w-[72vw] max-w-xs md:w-auto">
-              <DestCard dest={d} />
-            </div>
-          ))}
+        {/* Destination tiles */}
+        <div className="scroll-clip mt-3 -mx-6 md:mx-0">
+          <div className="scroll-row gap-3 px-6 pb-4 md:grid md:grid-cols-3 md:overflow-visible md:px-0 md:pb-0">
+            {DESTINATIONS.map((d) => (
+              <div key={d.key} className="flex-none snap-start w-[72vw] md:w-auto md:max-w-none">
+                <DestCard dest={d} />
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Footer note */}

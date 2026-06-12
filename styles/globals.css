@@ -639,17 +639,24 @@
 ::-webkit-scrollbar-thumb:hover { background: rgba(244,120,152,0.55); }
 
 /* Horizontal scroll rows — hide scrollbar, keep functionality */
-.scroll-row {
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
+/* Usage: wrap in <div class="scroll-clip -mx-6 md:mx-0"> for full-bleed effect */
+/* In @layer components so Tailwind utilities (md:grid, md:overflow-visible) override it */
+@layer components {
+  .scroll-row {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .scroll-row::-webkit-scrollbar { display: none; }
 }
-.scroll-row::-webkit-scrollbar { display: none; }
-.scroll-row > * { scroll-snap-align: start; flex-shrink: 0; }
+
+/* Outer clip wrapper — prevents horizontal page overflow on mobile zoom */
+/* Unlayered intentionally: needs to beat any overflow utility on the same element */
+.scroll-clip { overflow-x: clip; }
 
 /* ─── SELECTION ───────────────────────────────────────────── */
 ::selection { background: rgba(244,120,152,0.2); color: var(--color-brand-ink); }

@@ -85,7 +85,8 @@ export default function WomenIcelandSection() {
             {/* Selector de salidas */}
             <p className="text-eyebrow-accent mb-4">Elige tu salida</p>
 
-            <div className="scroll-row gap-3 -mx-6 px-6 pb-3 mb-7 sm:overflow-visible sm:flex-wrap sm:mx-0 sm:px-0 sm:pb-0 sm:mb-10">
+            <div className="scroll-clip -mx-6 sm:mx-0 mb-7 sm:mb-10">
+            <div className="scroll-row gap-3 px-6 pb-3 sm:overflow-visible sm:flex-wrap sm:px-0 sm:pb-0">
               {salidas.map((s) => {
                 const isSelected = selected === s.id;
                 const isAgotada = s.estado === "agotada";
@@ -140,6 +141,7 @@ export default function WomenIcelandSection() {
                   </button>
                 );
               })}
+            </div>
             </div>
 
             {/* Panel de detalle */}

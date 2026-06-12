@@ -90,13 +90,14 @@ export default function WeddingsCollections() {
           </div>
         </div>
 
-        {/* Collection cards — horizontal scroll on mobile */}
-        <div className="scroll-row gap-4 -mx-6 px-6 pb-4 lg:grid lg:grid-cols-3 lg:overflow-visible lg:pb-0 lg:mx-0 lg:px-0">
+        {/* Collection cards */}
+        <div className="scroll-clip -mx-6 lg:mx-0">
+          <div className="scroll-row gap-4 px-6 pb-4 lg:grid lg:grid-cols-3 lg:overflow-visible lg:px-0 lg:pb-0">
           {collections.map((col) => (
             <article
               key={col.title}
-              className="w-[88vw] max-w-sm lg:w-auto"
-              style={{ background: "white", borderRadius: "24px", border: "1px solid var(--color-brand-border)", overflow: "hidden", flexShrink: 0 }}
+              className="flex-none snap-start w-[88vw] lg:w-auto lg:max-w-none"
+              style={{ background: "white", borderRadius: "24px", border: "1px solid var(--color-brand-border)", overflow: "hidden" }}
             >
               {/* Card header */}
               <div style={{ background: "var(--color-brand-surface)", padding: "1.75rem 1.75rem 1.5rem", borderBottom: "1px solid var(--color-brand-border)" }}>
@@ -167,6 +168,7 @@ export default function WeddingsCollections() {
               </div>
             </article>
           ))}
+          </div>
         </div>
       </div>
     </section>

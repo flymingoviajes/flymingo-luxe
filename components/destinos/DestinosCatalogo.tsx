@@ -24,27 +24,31 @@ export default function DestinosCatalogo({ items }: { items: DestinationCard[] }
         </div>
 
         {/* Row 1: horizontal scroll on mobile, featured layout on desktop */}
-        <div className="scroll-row gap-3 -mx-6 px-6 pb-4 md:grid md:grid-cols-3 md:overflow-visible md:pb-0 md:mx-0 md:px-0">
-          {featured && (
-            <div className="w-[88vw] md:w-auto md:col-span-2" style={{ flexShrink: 0 }}>
-              <DestCard dest={featured} height="h-80 md:h-[500px]" />
-            </div>
-          )}
-          {second && (
-            <div className="w-[72vw] md:w-auto" style={{ flexShrink: 0 }}>
-              <DestCard dest={second} height="h-80 md:h-[500px]" />
-            </div>
-          )}
+        <div className="scroll-clip -mx-6 md:mx-0">
+          <div className="scroll-row gap-3 px-6 pb-4 md:grid md:grid-cols-3 md:overflow-visible md:px-0 md:pb-0">
+            {featured && (
+              <div className="flex-none snap-start w-[88vw] md:w-auto md:max-w-none md:col-span-2">
+                <DestCard dest={featured} height="h-80 md:h-[500px]" />
+              </div>
+            )}
+            {second && (
+              <div className="flex-none snap-start w-[72vw] md:w-auto md:max-w-none">
+                <DestCard dest={second} height="h-80 md:h-[500px]" />
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Row 2: rest — horizontal scroll on mobile */}
         {rest.length > 0 && (
-          <div className={`scroll-row mt-3 gap-3 -mx-6 px-6 pb-4 md:grid md:overflow-visible md:pb-0 md:mx-0 md:px-0 md:grid-cols-${Math.min(rest.length, 3)}`}>
-            {rest.map((d) => (
-              <div key={d.slug} className="w-[76vw] max-w-xs md:w-auto" style={{ flexShrink: 0 }}>
-                <DestCard dest={d} height="h-64 md:h-72" />
-              </div>
-            ))}
+          <div className="scroll-clip mt-3 -mx-6 md:mx-0">
+            <div className={`scroll-row gap-3 px-6 pb-4 md:grid md:overflow-visible md:px-0 md:pb-0 md:grid-cols-${Math.min(rest.length, 3)}`}>
+              {rest.map((d) => (
+                <div key={d.slug} className="flex-none snap-start w-[76vw] md:w-auto md:max-w-none">
+                  <DestCard dest={d} height="h-64 md:h-72" />
+                </div>
+              ))}
+            </div>
           </div>
         )}
 
