@@ -38,3 +38,10 @@ pnpm-lock.yaml
 yarn.lock
 package-lock.json
 bun.lockb
+
+# large media files — host on CDN (Cloudinary, Vercel Blob, etc.)
+public/videos/*.mp4
+public/videos/*.mov
+public/videos/*.webm
+public/videos/featured/*.mp4
+public/videos/featured/*.mov
