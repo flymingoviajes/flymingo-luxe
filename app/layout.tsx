@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import { Metadata, Viewport } from "next";
 import clsx from "clsx";
+import { headers } from "next/headers";
 
 import { Providers } from "./providers";
 import { siteConfig } from "@/config/site";
@@ -73,7 +74,11 @@ export const viewport: Viewport = {
   themeColor: "#FDF8FA",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const headersList = await headers();
+  const pathname = headersList.get("x-pathname") ?? "";
+  const isLP = pathname.startsWith("/lp/");
+
   const schemaOrg = {
     "@context": "https://schema.org",
     "@type": ["TravelAgency", "LocalBusiness"],
@@ -125,11 +130,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Providers themeProps={{ attribute: "class", defaultTheme: "light", forcedTheme: "light", enableSystem: false }}>
           <Analytics />
           <div className="relative flex min-h-screen flex-col">
-            <Navbar />
+            {!isLP && <Navbar />}
             <main className="flex-grow">{children}</main>
-            <SiteFooter />
+            {!isLP && <SiteFooter />}
           </div>
-          <FloatingWhatsApp />
+          {!isLP && <FloatingWhatsApp />}
         </Providers>
       </body>
     </html>

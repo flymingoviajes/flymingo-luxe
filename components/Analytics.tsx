@@ -1,26 +1,19 @@
 "use client";
 import Script from "next/script";
 
-// ─── FILL IN YOUR IDs ─────────────────────────────────────────
-// Meta Pixel ID: tu número de 15 dígitos de Meta Business Manager
-const META_PIXEL_ID = "REEMPLAZA_CON_TU_PIXEL_ID";
-
-// Google Ads o GA4 tag ID (formato G-XXXXXXX o AW-XXXXXXX)
+const META_PIXEL_ID = "277543872029576";
 const GTAG_ID = "REEMPLAZA_CON_TU_GTAG_ID";
-// ─────────────────────────────────────────────────────────────
+
+const hasPixel = META_PIXEL_ID.length > 0 && !META_PIXEL_ID.startsWith("REEMPLAZA");
+const hasGtag  = GTAG_ID.length > 0 && !GTAG_ID.startsWith("REEMPLAZA");
 
 export default function Analytics() {
-  if (
-    META_PIXEL_ID === "REEMPLAZA_CON_TU_PIXEL_ID" &&
-    GTAG_ID === "REEMPLAZA_CON_TU_GTAG_ID"
-  ) {
-    return null;
-  }
+  if (!hasPixel && !hasGtag) return null;
 
   return (
     <>
       {/* ── Meta Pixel ── */}
-      {META_PIXEL_ID !== "REEMPLAZA_CON_TU_PIXEL_ID" && (
+      {hasPixel && (
         <>
           <Script id="meta-pixel" strategy="afterInteractive">
             {`
@@ -48,7 +41,7 @@ export default function Analytics() {
       )}
 
       {/* ── Google Tag (Ads / GA4) ── */}
-      {GTAG_ID !== "REEMPLAZA_CON_TU_GTAG_ID" && (
+      {hasGtag && (
         <>
           <Script
             src={`https://www.googletagmanager.com/gtag/js?id=${GTAG_ID}`}
