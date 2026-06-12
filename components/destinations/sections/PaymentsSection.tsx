@@ -4,6 +4,23 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import type { Destination } from '@/app/lib/destinations/types'
 
+declare global {
+  interface Window {
+    fbq?: (...args: unknown[]) => void
+    gtag?: (...args: unknown[]) => void
+    dataLayer?: object[]
+  }
+}
+
+function trackPaymentPlan(planTitle: string) {
+  if (typeof window === 'undefined') return
+  window.fbq?.('track', 'AddPaymentInfo', { content_name: planTitle })
+  window.fbq?.('track', 'InitiateCheckout', { content_name: planTitle })
+  window.gtag?.('event', 'add_payment_info', { event_label: planTitle })
+  window.dataLayer = window.dataLayer || []
+  window.dataLayer.push({ event: 'payment_plan_selected', plan: planTitle })
+}
+
 const PLANS = [
   {
     badge: 'Más fácil',
@@ -88,7 +105,7 @@ export default function PaymentsSection({ destination }: { destination: Destinat
   )
 }
 
-function PlanCard({ plan, featured }: { plan: typeof PLANS[number]; featured?: boolean }) {
+function PlanCard({ plan, featured }: { plan: (typeof PLANS)[number]; featured?: boolean }) {
   return (
     <div style={{
       background: featured ? 'var(--color-brand-ink)' : 'white',
@@ -116,7 +133,11 @@ function PlanCard({ plan, featured }: { plan: typeof PLANS[number]; featured?: b
           </div>
         ))}
       </div>
-      <a href="#wizard" className={featured ? 'btn btn-accent mt-6 justify-center' : 'btn btn-outline mt-6 justify-center'}>
+      <a
+        href="#cotizador"
+        className={featured ? 'btn btn-accent mt-6 justify-center' : 'btn btn-outline mt-6 justify-center'}
+        onClick={() => trackPaymentPlan(plan.title)}
+      >
         Cotizar con este plan
       </a>
     </div>

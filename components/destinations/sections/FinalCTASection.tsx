@@ -4,6 +4,29 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import type { Destination } from '@/app/lib/destinations/types'
 
+declare global {
+  interface Window {
+    fbq?: (...args: unknown[]) => void
+    gtag?: (...args: unknown[]) => void
+    dataLayer?: object[]
+  }
+}
+
+function trackWhatsApp(dest: string) {
+  if (typeof window === 'undefined') return
+  window.fbq?.('track', 'Contact')
+  window.fbq?.('track', 'Lead', { content_name: `CTA Final ${dest}` })
+  window.gtag?.('event', 'generate_lead', { event_category: 'CTA Final', event_label: dest })
+  window.dataLayer = window.dataLayer || []
+  window.dataLayer.push({ event: 'whatsapp_lead', event_label: `CTA Final ${dest}` })
+}
+
+function trackCotizador(dest: string) {
+  if (typeof window === 'undefined') return
+  window.fbq?.('track', 'Schedule')
+  window.gtag?.('event', 'begin_checkout', { event_label: dest })
+}
+
 export default function FinalCTASection({ destination }: { destination: Destination }) {
   const whatsapp =
     'https://wa.me/528716887385?text=' +
@@ -26,12 +49,17 @@ export default function FinalCTASection({ destination }: { destination: Destinat
             {destination.name} te está esperando.
           </h2>
           <p style={{ fontFamily: 'var(--font-sans)', fontWeight: 300, fontSize: 'clamp(0.95rem, 1.5vw, 1.1rem)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.75, marginTop: '1.5rem', maxWidth: '44ch' }}>
-            Usa el wizard para perfilar tu viaje, o escríbenos directo. Nos adaptamos a tu timeline.
+            Arma tu propuesta en el cotizador, o escríbenos directo. Nos adaptamos a tu timeline.
           </p>
 
           <div style={{ marginTop: '2.5rem', display: 'flex', flexWrap: 'wrap', gap: '0.85rem', justifyContent: 'center' }}>
-            <a href="#wizard" className="btn btn-accent" style={{ fontSize: '0.95rem', padding: '0.85rem 2rem' }}>
-              Usar el wizard
+            <a
+              href="#cotizador"
+              className="btn btn-accent"
+              style={{ fontSize: '0.95rem', padding: '0.85rem 2rem' }}
+              onClick={() => trackCotizador(destination.name)}
+            >
+              Armar mi viaje
             </a>
             <a
               href={whatsapp}
@@ -39,6 +67,7 @@ export default function FinalCTASection({ destination }: { destination: Destinat
               rel="noreferrer"
               className="btn"
               style={{ fontSize: '0.95rem', padding: '0.85rem 2rem', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.14)', color: 'white', borderRadius: '14px' }}
+              onClick={() => trackWhatsApp(destination.name)}
             >
               WhatsApp Flymingo
             </a>

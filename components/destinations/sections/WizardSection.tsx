@@ -37,7 +37,21 @@ function buildMessage(dest: string, days: number, adults: number, children: numb
 
 function track(dest: string, days: number, adults: number, children: number, addons: string[]) {
   if (typeof window === 'undefined') return
+
+  // Personalizó su viaje y lo está enviando
+  window.fbq?.('track', 'CustomizeProduct', { content_name: `Cotización ${dest}` })
+  // Inicia el proceso de "compra" (consulta/propuesta)
+  window.fbq?.('track', 'InitiateCheckout', {
+    content_name: `Propuesta ${dest}`,
+    num_items: adults + children,
+  })
+  // Agenda una consulta de viaje
+  window.fbq?.('track', 'Schedule')
+  // Lead primario
   window.fbq?.('track', 'Lead', { content_name: `Cotización ${dest}`, content_category: dest })
+  // Contacto vía WhatsApp
+  window.fbq?.('track', 'Contact')
+
   window.gtag?.('event', 'generate_lead', { event_category: 'Cotizador', event_label: dest })
   window.dataLayer = window.dataLayer || []
   window.dataLayer.push({ event: 'cotizador_lead', destination: dest, days, adults, children, addons })
@@ -76,7 +90,15 @@ export default function CotizadorSection({ destination }: { destination: Destina
   function toggleAddon(id: string) {
     setSelectedAddons(prev => {
       const next = new Set(prev)
-      next.has(id) ? next.delete(id) : next.add(id)
+      const adding = !next.has(id)
+      adding ? next.add(id) : next.delete(id)
+      if (adding && typeof window !== 'undefined') {
+        const tour = optionalTours.find(t => t.id === id)
+        window.fbq?.('track', 'AddToCart', {
+          content_name: tour?.title ?? id,
+          content_category: destination.name,
+        })
+      }
       return next
     })
   }

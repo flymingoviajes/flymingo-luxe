@@ -35,7 +35,8 @@ export default function TrackLink({
   function handleClick() {
     if (typeof window === "undefined") return;
 
-    // 1. Meta Pixel — Lead
+    // 1. Meta Pixel — Contact (cualquier click a WhatsApp) + Lead
+    window.fbq?.("track", "Contact");
     window.fbq?.("track", "Lead", { content_name: label });
 
     // 2. GTM dataLayer — captura la conversión independientemente de gtag

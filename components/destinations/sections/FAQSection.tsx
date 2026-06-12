@@ -4,6 +4,10 @@ import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import type { Destination } from '@/app/lib/destinations/types'
 
+declare global {
+  interface Window { fbq?: (...args: unknown[]) => void; dataLayer?: object[] }
+}
+
 const FALLBACK = [
   { q: '¿Cómo aparto mi lugar?', a: 'Te ayudamos a elegir ruta y fechas en el wizard. Luego definimos anticipo y forma de pago (normal o 6 MSI).' },
   { q: '¿Qué pasa si cambian los precios?', a: 'Los precios dependen de disponibilidad, temporada y vuelos. Por eso el wizard te da un estimado y lo cerramos con cotización formal.' },
@@ -102,6 +106,12 @@ export default function FAQSection({ destination }: { destination: Destination }
             target="_blank"
             rel="noreferrer"
             className="btn btn-outline"
+            onClick={() => {
+              window.fbq?.('track', 'Contact')
+              window.fbq?.('track', 'Lead', { content_name: `FAQ ${destination.name}` })
+              window.dataLayer = window.dataLayer || []
+              window.dataLayer.push({ event: 'whatsapp_lead', event_label: `FAQ ${destination.name}` })
+            }}
           >
             Más dudas → WhatsApp
           </a>
