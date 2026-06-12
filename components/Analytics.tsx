@@ -1,7 +1,7 @@
 "use client";
 import Script from "next/script";
 
-const META_PIXEL_ID = "2196262264483944";
+const META_PIXEL_ID = "277543872029576";
 const GTM_ID        = "GTM-WL3T3SN9";
 const GA4_ID        = "G-P9R4KRC80B";
 
