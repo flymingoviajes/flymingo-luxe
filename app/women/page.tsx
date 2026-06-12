@@ -25,10 +25,12 @@ import WomenManifesto from "./WomenManifiesto"
 import WomenIcelandSection from "./WomenIcelandSection"
 import WomenNYSection from "./WomenNYSection"
 import WomenCTA from "./WomenCTA"
+import PagePixelEvents from "@/components/PagePixelEvents"
 
 export default function WomenPage() {
   return (
     <main id="top" className="min-h-screen bg-white">
+      <PagePixelEvents contentName="Flymingo Women" contentCategory="Viajes Mujeres" value={84890} />
       <WomenHero />
       <WomenManifesto />
       <WomenIcelandSection />

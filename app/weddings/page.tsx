@@ -26,10 +26,12 @@ import WeddingsCollections from "@/components/weddings/WeddingsCollections";
 import WeddingsCoupleVsGuests from "@/components/weddings/WeddingsCoupleVsGuests";
 import WeddingsFaq from "@/components/weddings/WeddingsFAQ";
 import WeddingsCTA from "@/components/weddings/WeddingsCTA";
+import PagePixelEvents from "@/components/PagePixelEvents";
 
 export default function WeddingsPage() {
   return (
     <main className="min-h-screen" style={{ background: "white" }}>
+      <PagePixelEvents contentName="Flymingo Weddings" contentCategory="Bodas Destino" />
       <WeddingsHero />
       <WeddingsWhy />
       <WeddingsCollections />

@@ -127,6 +127,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           fontSans.variable,
         )}
       >
+        {/* GTM noscript fallback */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-WL3T3SN9"
+            height="0" width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
         <Providers themeProps={{ attribute: "class", defaultTheme: "light", forcedTheme: "light", enableSystem: false }}>
           <Analytics />
           <div className="relative flex min-h-screen flex-col">

@@ -24,10 +24,12 @@ import HeroDestinos from "@/components/destinos/HeroDestinos";
 import DestinosCatalogo from "@/components/destinos/DestinosCatalogo";
 import DestinosPersonalizados from "@/components/destinos/DestinosPersonalizados";
 import { destinations } from "@/components/destinos/data";
+import PagePixelEvents from "@/components/PagePixelEvents";
 
 export default function DestinosPage() {
   return (
     <main>
+      <PagePixelEvents contentName="Destinos Flymingo" contentCategory="Destinos" />
       <HeroDestinos />
       <DestinosCatalogo items={destinations} />
       <DestinosPersonalizados />
