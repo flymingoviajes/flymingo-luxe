@@ -4,6 +4,7 @@ import TrackLink from "@/components/TrackLink";
 
 export const metadata: Metadata = {
   title: "Nosotros",
+  alternates: { canonical: "https://flymingoviajes.com/nosotros" },
   description:
     "Conoce a Flymingo Viajes — la agencia que diseña itinerarios únicos a tu medida desde 2022. Equipo de expertos en Torreón, siempre a un WhatsApp de distancia.",
 };

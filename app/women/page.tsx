@@ -14,6 +14,7 @@ export const metadata: Metadata = {
     "viaje seguro para mujeres México",
     "grupo de viaje mujeres Torreón",
   ],
+  alternates: { canonical: "https://flymingoviajes.com/women" },
   openGraph: {
     title: "Flymingo Women — Viajes diseñados para mujeres",
     description: "Grupos femeninos, destinos increíbles. Próximo viaje: Islandia Nov 2026.",

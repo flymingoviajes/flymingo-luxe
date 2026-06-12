@@ -14,6 +14,7 @@ export const metadata: Metadata = {
     "boda destino Cancún",
     "Flymingo Weddings",
   ],
+  alternates: { canonical: "https://flymingoviajes.com/weddings" },
   openGraph: {
     title: "Flymingo Weddings — Tu boda destino perfecta",
     description: "Xcaret · AVA · Hard Rock · Nobu · Le Blanc. Coordinación completa de tu boda destino.",

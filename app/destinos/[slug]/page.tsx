@@ -30,6 +30,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title,
     description,
+    alternates: {
+      canonical: `https://flymingoviajes.com/destinos/${slug}`,
+    },
     keywords: [
       `viaje a ${destination.name} desde México`,
       `viaje a ${destination.name} personalizado`,

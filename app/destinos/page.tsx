@@ -14,6 +14,7 @@ export const metadata: Metadata = {
     "agencia de viajes Torreón destinos",
     "viajes a medida México",
   ],
+  alternates: { canonical: "https://flymingoviajes.com/destinos" },
   openGraph: {
     title: "Destinos | Flymingo Viajes",
     description: "Islandia, Japón, Europa y más — diseñados a tu medida desde Torreón, México.",

@@ -1,4 +1,9 @@
+import type { Metadata } from "next";
 import HomeHero from "@/components/home/HomeHero";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "https://flymingoviajes.com" },
+};
 import HomeMarquee from "@/components/home/HomeMarquee";
 import HomeValueProps from "@/components/home/HomeValueProps";
 import HomeFeatured from "@/components/home/HomeFeatured";
