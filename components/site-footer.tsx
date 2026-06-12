@@ -1,6 +1,16 @@
 'use client'
 
 import NextLink from 'next/link'
+
+declare global { interface Window { fbq?: (...a: unknown[]) => void; dataLayer?: object[] } }
+
+function trackWA(label: string) {
+  if (typeof window === 'undefined') return
+  window.fbq?.('track', 'Contact')
+  window.fbq?.('track', 'Lead', { content_name: label })
+  window.dataLayer = window.dataLayer || []
+  window.dataLayer.push({ event: 'whatsapp_lead', event_label: label })
+}
 import { Link } from '@heroui/link'
 import { Divider } from '@heroui/divider'
 import {
@@ -75,6 +85,7 @@ export default function SiteFooter() {
                     href={item.href}
                     isExternal
                     aria-label={item.name}
+                    onClick={item.name === 'WhatsApp' ? () => trackWA('Footer Social Icon') : undefined}
                     className="group inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/12 bg-white/5 text-white/80 transition-all duration-300 hover:border-white/25 hover:bg-white/10 hover:text-white"
                   >
                     <Icon className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
@@ -119,6 +130,7 @@ export default function SiteFooter() {
                   target="_blank"
                   rel="noreferrer"
                   className="transition-colors hover:text-white"
+                  onClick={() => trackWA('Footer Contact Link')}
                 >
                   WhatsApp: 871 688 7385
                 </a>

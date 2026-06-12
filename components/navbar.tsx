@@ -13,6 +13,16 @@ import {
 import { Link } from "@heroui/link";
 import { InstagramIcon, FacebookIcon, WhatsappIcon } from "@/components/icons";
 
+declare global { interface Window { fbq?: (...a: unknown[]) => void; dataLayer?: object[] } }
+
+function trackWA() {
+  if (typeof window === "undefined") return;
+  window.fbq?.("track", "Contact");
+  window.fbq?.("track", "Lead", { content_name: "Navbar WhatsApp" });
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ event: "whatsapp_lead", event_label: "Navbar WhatsApp" });
+}
+
 const navItems = [
   { label: "Inicio", href: "/" },
   { label: "Destinos", href: "/destinos" },
@@ -96,6 +106,7 @@ export const Navbar = () => {
           <Link
             isExternal
             href={social.whatsapp}
+            onClick={trackWA}
             className="ml-1 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-white transition-all hover:opacity-90"
             style={{ background: "var(--gradient-accent)", fontFamily: "var(--font-sans)" }}
             aria-label="WhatsApp"
@@ -108,7 +119,7 @@ export const Navbar = () => {
 
       {/* Mobile */}
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-        <Link isExternal aria-label="WhatsApp" href={social.whatsapp}>
+        <Link isExternal aria-label="WhatsApp" href={social.whatsapp} onClick={trackWA}>
           <WhatsappIcon className="h-5 w-5" style={{ color: "var(--color-brand-accent)" }} />
         </Link>
         <NavbarMenuToggle />
@@ -151,7 +162,7 @@ export const Navbar = () => {
             <Link isExternal aria-label="Facebook" href={social.facebook}>
               <FacebookIcon className="h-5 w-5 text-brand-muted" />
             </Link>
-            <Link isExternal aria-label="WhatsApp" href={social.whatsapp}>
+            <Link isExternal aria-label="WhatsApp" href={social.whatsapp} onClick={trackWA}>
               <WhatsappIcon className="h-5 w-5" style={{ color: "var(--color-brand-accent)" }} />
             </Link>
           </div>

@@ -29,6 +29,16 @@ const places: VisitedPlace[] = [
 
 const WA_LINK = "https://wa.me/5218716887385";
 
+declare global { interface Window { fbq?: (...a: unknown[]) => void; dataLayer?: object[] } }
+
+function trackWA() {
+  if (typeof window === 'undefined') return
+  window.fbq?.('track', 'Contact')
+  window.fbq?.('track', 'Lead', { content_name: 'Globe Section WhatsApp' })
+  window.dataLayer = window.dataLayer || []
+  window.dataLayer.push({ event: 'whatsapp_lead', event_label: 'Globe Section WhatsApp' })
+}
+
 // ✅ Tu textura aquí:
 const GLOBE_TEXTURE = {
   src: "/images/destinos/globe-texture.jpg",
@@ -164,6 +174,7 @@ export default function VisitedGlobeSection() {
                   color="primary"
                   radius="full"
                   className="font-medium"
+                  onPress={trackWA}
                 >
                   Pedir propuesta por WhatsApp →
                 </Button>

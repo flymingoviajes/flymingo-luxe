@@ -61,8 +61,8 @@ export default function PaymentsSection({ destination }: { destination: Destinat
             </h2>
             <p className="text-caption mt-3 max-w-lg">Elige cómo apartar y cómo liquidar. Nos ajustamos a tu forma de pagar.</p>
           </div>
-          <a href="#wizard" className="btn btn-outline" style={{ whiteSpace: 'nowrap' }}>
-            Ir al wizard →
+          <a href="#cotizador" className="btn btn-outline" style={{ whiteSpace: 'nowrap' }}>
+            Cotizar viaje →
           </a>
         </motion.div>
 

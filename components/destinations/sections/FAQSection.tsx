@@ -9,8 +9,8 @@ declare global {
 }
 
 const FALLBACK = [
-  { q: '¿Cómo aparto mi lugar?', a: 'Te ayudamos a elegir ruta y fechas en el wizard. Luego definimos anticipo y forma de pago (normal o 6 MSI).' },
-  { q: '¿Qué pasa si cambian los precios?', a: 'Los precios dependen de disponibilidad, temporada y vuelos. Por eso el wizard te da un estimado y lo cerramos con cotización formal.' },
+  { q: '¿Cómo aparto mi lugar?', a: 'Te ayudamos a elegir ruta y fechas en el cotizador. Luego definimos anticipo y forma de pago (normal o 6 MSI).' },
+  { q: '¿Qué pasa si cambian los precios?', a: 'Los precios dependen de disponibilidad, temporada y vuelos. Por eso armamos una cotización formal antes de cerrar.' },
   { q: '¿Puedo personalizar la ruta?', a: 'Sí. Esta landing es el punto de partida. Podemos ajustar hoteles, noches, experiencias y ritmo del viaje a tu presupuesto.' },
   { q: '¿Hay vuelos desde Torreón?', a: 'Incluimos conexiones desde Torreón o la ciudad más conveniente para ti. Todo coordinado.' },
 ]
