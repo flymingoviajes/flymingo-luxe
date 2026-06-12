@@ -41,8 +41,8 @@ export default function HeroVideo({ destination }: { destination: Destination })
 
       {/* ── Content ──────────────────────────────────────────── */}
       <div
-        className="relative mx-auto max-w-7xl w-full px-6 sm:px-8"
-        style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingTop: '2.5rem', paddingBottom: '3rem' }}
+        className="relative mx-auto max-w-7xl w-full px-5 sm:px-8 pt-4 sm:pt-8 pb-8 sm:pb-14"
+        style={{ flex: 1, display: 'flex', flexDirection: 'column' }}
       >
         {/* Top row: brand chip + destination chip */}
         <motion.div

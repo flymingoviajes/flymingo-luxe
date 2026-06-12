@@ -165,22 +165,22 @@ export default function DateSelector() {
 
       {/* Detail panel */}
       <div
+        className="p-5 sm:p-8"
         style={{
-          borderRadius: "24px",
+          borderRadius: "20px",
           border: "1px solid var(--color-brand-border)",
           background: "white",
-          padding: "2rem 2rem 1.75rem",
           maxWidth: "540px",
         }}
       >
         {/* Dates */}
-        <div style={{ marginBottom: "1.5rem" }}>
+        <div style={{ marginBottom: "1.25rem" }}>
           <p className="text-eyebrow-accent mb-2">Fechas</p>
           <p
             style={{
               fontFamily: "var(--font-display)",
               fontWeight: 800,
-              fontSize: "1.75rem",
+              fontSize: "clamp(1.4rem, 4vw, 1.75rem)",
               letterSpacing: "-0.04em",
               color: "var(--color-brand-ink)",
               lineHeight: 1,
@@ -203,12 +203,12 @@ export default function DateSelector() {
 
         {/* Prices */}
         <div
-          className="flex gap-10"
+          className="grid grid-cols-2 gap-4"
           style={{
             borderTop: "1px solid var(--color-brand-border)",
             borderBottom: "1px solid var(--color-brand-border)",
-            padding: "1.25rem 0",
-            marginBottom: "1.25rem",
+            padding: "1.1rem 0",
+            marginBottom: "1.1rem",
           }}
         >
           <div>
@@ -217,7 +217,7 @@ export default function DateSelector() {
               style={{
                 fontFamily: "var(--font-display)",
                 fontWeight: 800,
-                fontSize: "2.4rem",
+                fontSize: "clamp(1.5rem, 5vw, 2.4rem)",
                 letterSpacing: "-0.04em",
                 color: "var(--color-brand-ink)",
                 lineHeight: 1,
@@ -227,14 +227,13 @@ export default function DateSelector() {
             </p>
             <p className="text-caption mt-1">MXN por persona</p>
           </div>
-          <div style={{ width: "1px", background: "var(--color-brand-border)" }} />
           <div>
             <p className="text-eyebrow-accent mb-1">Apartado</p>
             <p
               style={{
                 fontFamily: "var(--font-display)",
                 fontWeight: 800,
-                fontSize: "2.4rem",
+                fontSize: "clamp(1.5rem, 5vw, 2.4rem)",
                 letterSpacing: "-0.04em",
                 color: "var(--color-brand-accent)",
                 lineHeight: 1,

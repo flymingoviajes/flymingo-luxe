@@ -77,18 +77,18 @@ export default function IslandiaMujeresLP() {
           backdropFilter: "blur(12px)",
           WebkitBackdropFilter: "blur(12px)",
           borderBottom: "1px solid var(--color-brand-border)",
-          padding: "0 1.5rem",
-          height: "60px",
+          height: "56px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
+          padding: "0 1.25rem",
         }}
       >
         <span
           style={{
             fontFamily: "var(--font-display)",
             fontWeight: 800,
-            fontSize: "1.15rem",
+            fontSize: "1.1rem",
             letterSpacing: "-0.04em",
             color: "var(--color-brand-ink)",
           }}
@@ -100,20 +100,20 @@ export default function IslandiaMujeresLP() {
         <TrackLink
           href={WA_GENERIC}
           className="btn btn-accent"
-          style={{ fontSize: "0.8rem", padding: "0.45rem 1.1rem" }}
+          style={{ fontSize: "0.78rem", padding: "0.4rem 1rem" }}
           label="LP Islandia — Header CTA"
         >
           Quiero informes
         </TrackLink>
       </header>
 
-      <main style={{ paddingTop: "60px" }}>
+      <main style={{ paddingTop: "56px" }}>
 
         {/* ── Hero ── */}
         <section
           style={{
             position: "relative",
-            minHeight: "92vh",
+            minHeight: "92svh",
             display: "flex",
             alignItems: "flex-end",
             background: "var(--color-brand-ink)",
@@ -133,22 +133,18 @@ export default function IslandiaMujeresLP() {
                 position: "absolute",
                 inset: 0,
                 background:
-                  "linear-gradient(to top, rgba(10,8,18,0.92) 0%, rgba(10,8,18,0.45) 55%, rgba(10,8,18,0.2) 100%)",
+                  "linear-gradient(to top, rgba(10,8,18,0.95) 0%, rgba(10,8,18,0.5) 50%, rgba(10,8,18,0.15) 100%)",
               }}
             />
           </div>
 
+          {/* Content */}
           <div
-            style={{
-              position: "relative",
-              width: "100%",
-              maxWidth: "1200px",
-              margin: "0 auto",
-              padding: "0 1.5rem 4.5rem",
-            }}
+            className="px-5 sm:px-8 pb-10 sm:pb-16"
+            style={{ position: "relative", width: "100%", maxWidth: "1200px", margin: "0 auto" }}
           >
             {/* Urgency badge */}
-            <div style={{ marginBottom: "1.75rem" }}>
+            <div style={{ marginBottom: "1.5rem" }}>
               <span
                 style={{
                   background: "var(--color-brand-neon)",
@@ -157,7 +153,7 @@ export default function IslandiaMujeresLP() {
                   padding: "0.3rem 0.9rem",
                   fontFamily: "var(--font-sans)",
                   fontWeight: 700,
-                  fontSize: "0.62rem",
+                  fontSize: "0.6rem",
                   letterSpacing: "0.12em",
                   textTransform: "uppercase",
                   display: "inline-flex",
@@ -183,11 +179,10 @@ export default function IslandiaMujeresLP() {
             <h1
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "clamp(3.2rem, 10vw, 9rem)",
+                fontSize: "clamp(3rem, 10vw, 9rem)",
                 letterSpacing: "-0.04em",
                 lineHeight: 0.88,
                 color: "white",
-                maxWidth: "14ch",
               }}
             >
               <span style={{ display: "block", fontWeight: 200 }}>Islandia</span>
@@ -208,12 +203,12 @@ export default function IslandiaMujeresLP() {
               style={{
                 fontFamily: "var(--font-sans)",
                 fontWeight: 300,
-                fontSize: "clamp(0.95rem, 2.2vw, 1.15rem)",
+                fontSize: "clamp(0.92rem, 2.5vw, 1.1rem)",
                 lineHeight: 1.75,
-                color: "rgba(255,255,255,0.75)",
-                maxWidth: "36rem",
-                marginTop: "1.75rem",
-                marginBottom: "2.5rem",
+                color: "rgba(255,255,255,0.72)",
+                maxWidth: "34rem",
+                marginTop: "1.25rem",
+                marginBottom: "2rem",
               }}
             >
               8 días con un grupo de mujeres que entienden la misma energía.
@@ -224,10 +219,10 @@ export default function IslandiaMujeresLP() {
             <div
               style={{
                 display: "flex",
-                gap: "0.85rem",
+                gap: "0.75rem",
                 flexWrap: "wrap",
                 alignItems: "center",
-                marginBottom: "2.5rem",
+                marginBottom: "2.25rem",
               }}
             >
               <TrackLink
@@ -260,22 +255,20 @@ export default function IslandiaMujeresLP() {
               </a>
             </div>
 
-            {/* Price anchor */}
+            {/* Price anchor — responsive grid on mobile */}
             <div
               style={{
                 borderTop: "1px solid rgba(255,255,255,0.15)",
-                paddingTop: "1.5rem",
-                display: "flex",
-                flexWrap: "wrap",
-                gap: "2rem",
+                paddingTop: "1.25rem",
               }}
+              className="grid grid-cols-3 gap-3 sm:flex sm:gap-8 sm:items-start"
             >
               <div>
                 <p
                   style={{
                     fontFamily: "var(--font-sans)",
                     fontWeight: 300,
-                    fontSize: "0.68rem",
+                    fontSize: "0.6rem",
                     letterSpacing: "0.1em",
                     textTransform: "uppercase",
                     color: "rgba(255,255,255,0.4)",
@@ -288,7 +281,7 @@ export default function IslandiaMujeresLP() {
                   style={{
                     fontFamily: "var(--font-display)",
                     fontWeight: 800,
-                    fontSize: "2.4rem",
+                    fontSize: "clamp(1.35rem, 4vw, 2.4rem)",
                     letterSpacing: "-0.04em",
                     color: "white",
                     lineHeight: 1,
@@ -299,23 +292,26 @@ export default function IslandiaMujeresLP() {
                 <p
                   style={{
                     fontFamily: "var(--font-sans)",
-                    fontSize: "0.7rem",
-                    color: "rgba(255,255,255,0.38)",
+                    fontSize: "0.62rem",
+                    color: "rgba(255,255,255,0.35)",
                     marginTop: "0.2rem",
                   }}
                 >
-                  MXN por persona
+                  MXN / persona
                 </p>
               </div>
 
-              <div style={{ width: "1px", background: "rgba(255,255,255,0.1)", alignSelf: "stretch" }} />
+              <div
+                className="hidden sm:block"
+                style={{ width: "1px", background: "rgba(255,255,255,0.1)", alignSelf: "stretch" }}
+              />
 
               <div>
                 <p
                   style={{
                     fontFamily: "var(--font-sans)",
                     fontWeight: 300,
-                    fontSize: "0.68rem",
+                    fontSize: "0.6rem",
                     letterSpacing: "0.1em",
                     textTransform: "uppercase",
                     color: "rgba(255,255,255,0.4)",
@@ -328,7 +324,7 @@ export default function IslandiaMujeresLP() {
                   style={{
                     fontFamily: "var(--font-display)",
                     fontWeight: 800,
-                    fontSize: "2.4rem",
+                    fontSize: "clamp(1.35rem, 4vw, 2.4rem)",
                     letterSpacing: "-0.04em",
                     color: "var(--color-brand-accent)",
                     lineHeight: 1,
@@ -339,23 +335,26 @@ export default function IslandiaMujeresLP() {
                 <p
                   style={{
                     fontFamily: "var(--font-sans)",
-                    fontSize: "0.7rem",
-                    color: "rgba(255,255,255,0.38)",
+                    fontSize: "0.62rem",
+                    color: "rgba(255,255,255,0.35)",
                     marginTop: "0.2rem",
                   }}
                 >
-                  MXN · asegura tu lugar hoy
+                  MXN · asegura tu lugar
                 </p>
               </div>
 
-              <div style={{ width: "1px", background: "rgba(255,255,255,0.1)", alignSelf: "stretch" }} />
+              <div
+                className="hidden sm:block"
+                style={{ width: "1px", background: "rgba(255,255,255,0.1)", alignSelf: "stretch" }}
+              />
 
               <div>
                 <p
                   style={{
                     fontFamily: "var(--font-sans)",
                     fontWeight: 300,
-                    fontSize: "0.68rem",
+                    fontSize: "0.6rem",
                     letterSpacing: "0.1em",
                     textTransform: "uppercase",
                     color: "rgba(255,255,255,0.4)",
@@ -368,7 +367,7 @@ export default function IslandiaMujeresLP() {
                   style={{
                     fontFamily: "var(--font-display)",
                     fontWeight: 800,
-                    fontSize: "2.4rem",
+                    fontSize: "clamp(1.35rem, 4vw, 2.4rem)",
                     letterSpacing: "-0.04em",
                     color: "white",
                     lineHeight: 1,
@@ -379,12 +378,12 @@ export default function IslandiaMujeresLP() {
                 <p
                   style={{
                     fontFamily: "var(--font-sans)",
-                    fontSize: "0.7rem",
-                    color: "rgba(255,255,255,0.38)",
+                    fontSize: "0.62rem",
+                    color: "rgba(255,255,255,0.35)",
                     marginTop: "0.2rem",
                   }}
                 >
-                  3 salidas disponibles
+                  3 salidas
                 </p>
               </div>
             </div>
@@ -392,16 +391,19 @@ export default function IslandiaMujeresLP() {
         </section>
 
         {/* ── Date selector ── */}
-        <section style={{ background: "var(--color-brand-surface)", padding: "5rem 1.5rem" }}>
+        <section
+          className="px-5 sm:px-8 py-14 sm:py-20"
+          style={{ background: "var(--color-brand-surface)" }}
+        >
           <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-            <p className="text-eyebrow-accent mb-4">Elige tu salida</p>
+            <p className="text-eyebrow-accent mb-3">Elige tu salida</p>
             <h2
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "clamp(2rem, 4.5vw, 3.5rem)",
+                fontSize: "clamp(1.9rem, 4.5vw, 3.5rem)",
                 letterSpacing: "-0.04em",
                 lineHeight: 0.9,
-                marginBottom: "3rem",
+                marginBottom: "2.5rem",
               }}
             >
               <span style={{ display: "block", fontWeight: 800, color: "var(--color-brand-ink)" }}>
@@ -424,18 +426,21 @@ export default function IslandiaMujeresLP() {
         </section>
 
         {/* ── Qué incluye ── */}
-        <section style={{ background: "white", padding: "5rem 1.5rem" }}>
+        <section
+          className="px-5 sm:px-8 py-14 sm:py-20"
+          style={{ background: "white" }}
+        >
           <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
 
-            <div className="grid grid-cols-1 gap-14 lg:grid-cols-[1fr_1.1fr] lg:items-start">
+            <div className="grid grid-cols-1 gap-10 sm:gap-14 lg:grid-cols-[1fr_1.1fr] lg:items-start">
 
               {/* Left: headline + no-incluye note */}
               <div className="lg:sticky lg:top-24">
-                <p className="text-eyebrow-accent mb-4">Incluido en el precio</p>
+                <p className="text-eyebrow-accent mb-3">Incluido en el precio</p>
                 <h2
                   style={{
                     fontFamily: "var(--font-display)",
-                    fontSize: "clamp(2.2rem, 5vw, 4rem)",
+                    fontSize: "clamp(2rem, 5vw, 4rem)",
                     letterSpacing: "-0.04em",
                     lineHeight: 0.88,
                   }}
@@ -469,12 +474,12 @@ export default function IslandiaMujeresLP() {
                   style={{
                     fontFamily: "var(--font-sans)",
                     fontWeight: 300,
-                    fontSize: "0.95rem",
+                    fontSize: "0.92rem",
                     lineHeight: 1.8,
                     color: "var(--color-brand-ink)",
                     opacity: 0.6,
-                    marginTop: "1.5rem",
-                    marginBottom: "2rem",
+                    marginTop: "1.25rem",
+                    marginBottom: "1.75rem",
                     maxWidth: "30rem",
                   }}
                 >
@@ -489,7 +494,7 @@ export default function IslandiaMujeresLP() {
                     borderRadius: "16px",
                     border: "1px solid var(--color-brand-border)",
                     background: "var(--color-brand-surface)",
-                    padding: "1.25rem 1.5rem",
+                    padding: "1.25rem 1.25rem",
                   }}
                 >
                   <p className="text-eyebrow-accent mb-3">No incluye</p>
@@ -526,7 +531,7 @@ export default function IslandiaMujeresLP() {
                 {incluye.map((item, i) => (
                   <div
                     key={item.titulo}
-                    className="flex items-start gap-5 py-6"
+                    className="flex items-start gap-4 py-5"
                     style={{
                       borderBottom:
                         i < incluye.length - 1
@@ -569,11 +574,11 @@ export default function IslandiaMujeresLP() {
                         style={{
                           fontFamily: "var(--font-display)",
                           fontWeight: 700,
-                          fontSize: "1rem",
+                          fontSize: "0.97rem",
                           letterSpacing: "-0.025em",
                           color: "var(--color-brand-ink)",
                           lineHeight: 1.2,
-                          marginBottom: "0.35rem",
+                          marginBottom: "0.3rem",
                         }}
                       >
                         {item.titulo}
@@ -582,10 +587,10 @@ export default function IslandiaMujeresLP() {
                         style={{
                           fontFamily: "var(--font-sans)",
                           fontWeight: 300,
-                          fontSize: "0.88rem",
+                          fontSize: "0.85rem",
                           lineHeight: 1.65,
                           color: "var(--color-brand-ink)",
-                          opacity: 0.58,
+                          opacity: 0.55,
                         }}
                       >
                         {item.texto}
@@ -600,20 +605,18 @@ export default function IslandiaMujeresLP() {
 
         {/* ── Video ── */}
         <section
-          style={{
-            background: "var(--color-brand-surface)",
-            padding: "5rem 1.5rem",
-          }}
+          className="px-5 sm:px-8 py-14 sm:py-20"
+          style={{ background: "var(--color-brand-surface)" }}
         >
           <div style={{ maxWidth: "900px", margin: "0 auto" }}>
-            <p className="text-eyebrow-accent mb-4">El viaje en video</p>
+            <p className="text-eyebrow-accent mb-3">El viaje en video</p>
             <h2
               style={{
                 fontFamily: "var(--font-display)",
                 fontSize: "clamp(1.8rem, 4vw, 3rem)",
                 letterSpacing: "-0.04em",
                 lineHeight: 0.9,
-                marginBottom: "2.5rem",
+                marginBottom: "2rem",
               }}
             >
               <span style={{ display: "block", fontWeight: 800, color: "var(--color-brand-ink)" }}>
@@ -631,27 +634,24 @@ export default function IslandiaMujeresLP() {
                 de decidir.
               </span>
             </h2>
-            {/* Sube el archivo a /public/videos/islandia-mujeres.mp4
-                y opcionalmente un poster a /public/images/women/islandia-video-poster.jpg */}
-            <VideoPlayer
-              src="/videos/islandia-mujeres.mp4"
-              poster="/images/women/islandia.jpg"
-            />
+            <VideoPlayer tiktokId="7649469248775015687" />
           </div>
         </section>
 
         {/* ── Por qué mujeres ── */}
-        <section style={{ background: "white", padding: "5rem 1.5rem" }}>
+        <section
+          className="px-5 sm:px-8 py-14 sm:py-20"
+          style={{ background: "white" }}
+        >
           <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-            <p className="text-eyebrow-accent mb-4">Flymingo Women</p>
+            <p className="text-eyebrow-accent mb-3">Flymingo Women</p>
             <h2
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "clamp(2rem, 4.5vw, 3.5rem)",
+                fontSize: "clamp(1.9rem, 4.5vw, 3.5rem)",
                 letterSpacing: "-0.04em",
                 lineHeight: 0.9,
-                marginBottom: "3.5rem",
-                maxWidth: "22ch",
+                marginBottom: "3rem",
               }}
             >
               <span style={{ display: "block", fontWeight: 800, color: "var(--color-brand-ink)" }}>
@@ -680,44 +680,47 @@ export default function IslandiaMujeresLP() {
               </span>
             </h2>
 
-            <div className="grid grid-cols-1 gap-0 lg:grid-cols-3">
+            <div
+              className="grid grid-cols-1 lg:grid-cols-3"
+              style={{ borderTop: "1px solid var(--color-brand-border)" }}
+            >
               {razones.map((r, i) => (
                 <div
                   key={r.titulo}
+                  className={`py-7 sm:py-8 lg:py-10 ${i < razones.length - 1 ? "border-b lg:border-b-0 lg:border-r" : ""}`}
                   style={{
-                    padding: "2.5rem",
-                    borderRight:
-                      i < razones.length - 1
-                        ? "1px solid var(--color-brand-border)"
-                        : "none",
+                    paddingLeft: "0",
+                    paddingRight: "0",
                   }}
-                  className="border-b lg:border-b-0"
+                  // On desktop, add horizontal padding inside the columns
                 >
-                  <p
-                    style={{
-                      fontFamily: "var(--font-display)",
-                      fontWeight: 700,
-                      fontSize: "1.1rem",
-                      letterSpacing: "-0.025em",
-                      color: "var(--color-brand-ink)",
-                      lineHeight: 1.2,
-                      marginBottom: "0.85rem",
-                    }}
-                  >
-                    {r.titulo}
-                  </p>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-sans)",
-                      fontWeight: 300,
-                      fontSize: "0.9rem",
-                      lineHeight: 1.75,
-                      color: "var(--color-brand-ink)",
-                      opacity: 0.6,
-                    }}
-                  >
-                    {r.texto}
-                  </p>
+                  <div className={`${i === 0 ? "lg:pr-8" : i === razones.length - 1 ? "lg:pl-8" : "lg:px-8"}`}>
+                    <p
+                      style={{
+                        fontFamily: "var(--font-display)",
+                        fontWeight: 700,
+                        fontSize: "1.05rem",
+                        letterSpacing: "-0.025em",
+                        color: "var(--color-brand-ink)",
+                        lineHeight: 1.2,
+                        marginBottom: "0.75rem",
+                      }}
+                    >
+                      {r.titulo}
+                    </p>
+                    <p
+                      style={{
+                        fontFamily: "var(--font-sans)",
+                        fontWeight: 300,
+                        fontSize: "0.88rem",
+                        lineHeight: 1.75,
+                        color: "var(--color-brand-ink)",
+                        opacity: 0.6,
+                      }}
+                    >
+                      {r.texto}
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -726,10 +729,10 @@ export default function IslandiaMujeresLP() {
 
         {/* ── Final CTA ── editorial dark full-bleed */}
         <section
+          className="px-5 sm:px-8 py-20 sm:py-28"
           style={{
             position: "relative",
             background: "var(--color-brand-ink)",
-            padding: "6rem 1.5rem 5.5rem",
             overflow: "hidden",
           }}
         >
@@ -757,7 +760,7 @@ export default function IslandiaMujeresLP() {
           <div
             style={{
               position: "relative",
-              maxWidth: "720px",
+              maxWidth: "680px",
               margin: "0 auto",
               textAlign: "center",
             }}
@@ -766,11 +769,11 @@ export default function IslandiaMujeresLP() {
               style={{
                 fontFamily: "var(--font-sans)",
                 fontWeight: 700,
-                fontSize: "0.65rem",
+                fontSize: "0.62rem",
                 letterSpacing: "0.18em",
                 textTransform: "uppercase",
                 color: "var(--color-brand-accent)",
-                marginBottom: "2rem",
+                marginBottom: "1.75rem",
               }}
             >
               Flymingo Women · Islandia 2026 – 2027
@@ -779,10 +782,10 @@ export default function IslandiaMujeresLP() {
             <h2
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "clamp(2.8rem, 7vw, 6.5rem)",
+                fontSize: "clamp(2.6rem, 7vw, 6.5rem)",
                 letterSpacing: "-0.04em",
                 lineHeight: 0.88,
-                marginBottom: "2rem",
+                marginBottom: "1.75rem",
               }}
             >
               <span style={{ display: "block", fontWeight: 200, color: "rgba(255,255,255,0.35)" }}>
@@ -807,10 +810,10 @@ export default function IslandiaMujeresLP() {
               style={{
                 fontFamily: "var(--font-sans)",
                 fontWeight: 300,
-                fontSize: "1rem",
+                fontSize: "clamp(0.9rem, 2vw, 1rem)",
                 lineHeight: 1.8,
                 color: "rgba(255,255,255,0.55)",
-                marginBottom: "2.5rem",
+                marginBottom: "2.25rem",
                 maxWidth: "34rem",
                 marginLeft: "auto",
                 marginRight: "auto",
@@ -824,7 +827,7 @@ export default function IslandiaMujeresLP() {
             <TrackLink
               href={WA_GENERIC}
               className="btn btn-accent"
-              style={{ fontSize: "1rem", padding: "0.9rem 2.2rem" }}
+              style={{ fontSize: "0.97rem", padding: "0.9rem 2rem" }}
               label="LP Islandia — Final CTA"
             >
               Quiero informes por WhatsApp
@@ -847,9 +850,9 @@ export default function IslandiaMujeresLP() {
               style={{
                 fontFamily: "var(--font-sans)",
                 fontWeight: 300,
-                fontSize: "0.78rem",
-                color: "rgba(255,255,255,0.3)",
-                marginTop: "1.25rem",
+                fontSize: "0.75rem",
+                color: "rgba(255,255,255,0.28)",
+                marginTop: "1.1rem",
                 letterSpacing: "0.02em",
               }}
             >
@@ -860,9 +863,9 @@ export default function IslandiaMujeresLP() {
             <div
               style={{
                 width: "1px",
-                height: "3.5rem",
+                height: "3rem",
                 background: "rgba(255,255,255,0.1)",
-                margin: "3rem auto 3rem",
+                margin: "2.5rem auto",
               }}
             />
 
@@ -874,13 +877,13 @@ export default function IslandiaMujeresLP() {
                 gap: "0",
                 borderTop: "1px solid rgba(255,255,255,0.08)",
                 borderBottom: "1px solid rgba(255,255,255,0.08)",
-                padding: "1.75rem 0",
+                padding: "1.5rem 0",
               }}
             >
               {[
                 { val: "8", label: "días en Islandia" },
-                { val: "$84,890", label: "MXN por persona" },
-                { val: "3", label: "salidas disponibles" },
+                { val: "$84,890", label: "MXN / persona" },
+                { val: "3", label: "salidas" },
               ].map((s, i, arr) => (
                 <div
                   key={s.val}
@@ -890,14 +893,14 @@ export default function IslandiaMujeresLP() {
                       i < arr.length - 1
                         ? "1px solid rgba(255,255,255,0.08)"
                         : "none",
-                    padding: "0 0.5rem",
+                    padding: "0 0.25rem",
                   }}
                 >
                   <p
                     style={{
                       fontFamily: "var(--font-display)",
                       fontWeight: 800,
-                      fontSize: "clamp(1.5rem, 3.5vw, 2.4rem)",
+                      fontSize: "clamp(1.2rem, 3.5vw, 2.4rem)",
                       letterSpacing: "-0.04em",
                       color: "white",
                       lineHeight: 1,
@@ -909,9 +912,9 @@ export default function IslandiaMujeresLP() {
                     style={{
                       fontFamily: "var(--font-sans)",
                       fontWeight: 300,
-                      fontSize: "0.7rem",
+                      fontSize: "0.65rem",
                       color: "rgba(255,255,255,0.35)",
-                      marginTop: "0.35rem",
+                      marginTop: "0.3rem",
                       letterSpacing: "0.02em",
                     }}
                   >
@@ -927,7 +930,7 @@ export default function IslandiaMujeresLP() {
         <footer
           style={{
             background: "#06040e",
-            padding: "1.75rem 1.5rem",
+            padding: "1.5rem 1.25rem",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
@@ -949,7 +952,7 @@ export default function IslandiaMujeresLP() {
           <p
             style={{
               fontFamily: "var(--font-sans)",
-              fontSize: "0.72rem",
+              fontSize: "0.68rem",
               color: "rgba(255,255,255,0.2)",
             }}
           >
@@ -959,7 +962,7 @@ export default function IslandiaMujeresLP() {
             href="/"
             style={{
               fontFamily: "var(--font-sans)",
-              fontSize: "0.72rem",
+              fontSize: "0.68rem",
               color: "rgba(255,255,255,0.22)",
               textDecoration: "none",
             }}
