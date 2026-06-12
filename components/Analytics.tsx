@@ -5,6 +5,7 @@ const META_PIXEL_ID  = "277543872029576";
 const GTM_ID         = "GTM-WL3T3SN9";
 const GA4_ID         = "G-P9R4KRC80B";
 const GOOGLE_ADS_ID  = "AW-11261587022";
+const CLARITY_ID     = "x636509ffk";
 
 const hasPixel = META_PIXEL_ID.length > 0 && !META_PIXEL_ID.startsWith("REEMPLAZA");
 const hasGTM   = GTM_ID.length > 0 && !GTM_ID.startsWith("REEMPLAZA");
@@ -73,6 +74,15 @@ export default function Analytics() {
           })(window,document,'script','dataLayer','${GTM_ID}');`}
         </Script>
       )}
+
+      {/* ── Microsoft Clarity ── */}
+      <Script id="clarity" strategy="afterInteractive">
+        {`(function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window,document,"clarity","script","${CLARITY_ID}");`}
+      </Script>
     </>
   );
 }
