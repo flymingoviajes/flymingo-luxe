@@ -195,6 +195,8 @@ function DesktopStory({ chapters }: { chapters: Chapter[] }) {
                   src={c.image}
                   alt={c.imageAlt ?? c.title}
                   style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                  loading="lazy"
+                  decoding="async"
                 />
               ) : (
                 <div style={{ position: 'absolute', inset: 0, background: 'var(--color-brand-ink)' }} />

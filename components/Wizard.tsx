@@ -261,7 +261,7 @@ Genera un concepto de boda innovador y específico basado en este estilo en form
                         key={i}
                         className="w-8 h-8 rounded-full border-2 border-white bg-brand-paper overflow-hidden shadow-md"
                       >
-                        <img
+                        <img loading="lazy" decoding="async"
                           src={`https://i.pravatar.cc/100?u=couple${i}`}
                           alt="User"
                           referrerPolicy="no-referrer"
@@ -322,7 +322,7 @@ Genera un concepto de boda innovador y específico basado en este estilo en form
                         : 'hover:scale-[1.02] luxury-shadow'
                     )}
                   >
-                    <img
+                    <img loading="lazy" decoding="async"
                       src={style.image}
                       alt={style.name}
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-110"
@@ -430,7 +430,7 @@ Genera un concepto de boda innovador y específico basado en este estilo en form
                       : 'hover:scale-[1.02] luxury-shadow'
                   )}
                 >
-                  <img
+                  <img loading="lazy" decoding="async"
                     src={`https://picsum.photos/seed/${dest}/800/1200`}
                     alt={dest}
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-[3000ms] group-hover:scale-110"
@@ -695,7 +695,7 @@ Genera un concepto de boda innovador y específico basado en este estilo en form
                     </div>
 
                     <div className="relative h-[400px] md:h-[600px] overflow-hidden">
-                      <img
+                      <img loading="lazy" decoding="async"
                         src={hotel.image}
                         alt={hotel.name}
                         className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
@@ -836,7 +836,7 @@ Genera un concepto de boda innovador y específico basado en este estilo en form
                 return (
                   <div key={hotel.id} className="bg-white rounded-[4rem] luxury-shadow overflow-hidden">
                     <div className="h-64 relative">
-                      <img
+                      <img loading="lazy" decoding="async"
                         src={hotel.image}
                         alt={hotel.name}
                         className="w-full h-full object-cover"

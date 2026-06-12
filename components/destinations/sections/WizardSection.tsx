@@ -270,7 +270,7 @@ export default function CotizadorSection({ destination }: { destination: Destina
                         >
                           {tour.image && (
                             <div style={{ width: '50px', height: '50px', borderRadius: '10px', overflow: 'hidden', flexShrink: 0, background: 'var(--color-brand-surface)' }}>
-                              <img src={tour.image} alt={tour.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} loading="lazy" />
+                              <img src={tour.image} alt={tour.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} loading="lazy" decoding="async" />
                             </div>
                           )}
                           <div style={{ flex: 1, minWidth: 0 }}>

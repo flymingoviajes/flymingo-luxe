@@ -25,7 +25,7 @@ function TourCard({ t }: { t: DestinationTour }) {
       <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-divider bg-default-100/30 dark:bg-default-100/10">
         {t.image ? (
           // si luego quieres usar next/image, lo cambiamos
-          <img src={t.image} alt={t.title} className="h-full w-full object-cover opacity-90" />
+          <img src={t.image} alt={t.title} className="h-full w-full object-cover opacity-90" loading="lazy" decoding="async" />
         ) : (
           <div className="flex h-full w-full items-center justify-center text-default-500 text-sm">
             Imagen (mockup)
