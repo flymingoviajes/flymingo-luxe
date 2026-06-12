@@ -52,10 +52,12 @@ export default function HomeTestimonials() {
           </div>
         </div>
 
-        {/* Pull quotes — editorial columns, no card boxes */}
-        <div className="grid grid-cols-1 gap-0 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x md:divide-brand-border">
+        {/* Pull quotes — horizontal scroll on mobile, columns on desktop */}
+        <div className="scroll-row gap-6 -mx-6 px-6 pb-6 md:grid md:grid-cols-3 md:gap-0 md:overflow-visible md:pb-0 md:mx-0 md:px-0 md:divide-x md:divide-brand-border">
           {TESTIMONIALS.map((t) => (
-            <PullQuote key={t.name} {...t} />
+            <div key={t.name} className="w-[84vw] max-w-sm flex-none md:w-auto md:flex-initial">
+              <PullQuote {...t} />
+            </div>
           ))}
         </div>
 
@@ -66,7 +68,7 @@ export default function HomeTestimonials() {
 
 function PullQuote({ text, name, detail, initials }: Testimonial) {
   return (
-    <div className="flex flex-col py-12 md:py-0 md:px-12 first:pl-0 last:pr-0">
+    <div className="flex flex-col py-8 md:py-0 md:px-10 first:md:pl-0 last:md:pr-0 h-full">
 
       {/* Huge decorative quote mark */}
       <span

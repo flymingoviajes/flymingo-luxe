@@ -90,12 +90,13 @@ export default function WeddingsCollections() {
           </div>
         </div>
 
-        {/* Collection cards */}
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+        {/* Collection cards — horizontal scroll on mobile */}
+        <div className="scroll-row gap-4 -mx-6 px-6 pb-4 lg:grid lg:grid-cols-3 lg:overflow-visible lg:pb-0 lg:mx-0 lg:px-0">
           {collections.map((col) => (
             <article
               key={col.title}
-              style={{ background: "white", borderRadius: "24px", border: "1px solid var(--color-brand-border)", overflow: "hidden" }}
+              className="w-[88vw] max-w-sm lg:w-auto"
+              style={{ background: "white", borderRadius: "24px", border: "1px solid var(--color-brand-border)", overflow: "hidden", flexShrink: 0 }}
             >
               {/* Card header */}
               <div style={{ background: "var(--color-brand-surface)", padding: "1.75rem 1.75rem 1.5rem", borderBottom: "1px solid var(--color-brand-border)" }}>

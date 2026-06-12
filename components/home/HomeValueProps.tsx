@@ -32,10 +32,10 @@ export default function HomeValueProps() {
 
         <hr className="divider mt-20 mb-16" />
 
-        {/* Features — clean horizontal, no boxes */}
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-0 md:divide-x md:divide-brand-border">
+        {/* Features — horizontal scroll on mobile, columns on desktop */}
+        <div className="scroll-row gap-8 -mx-6 px-6 pb-6 md:grid md:grid-cols-3 md:gap-0 md:overflow-visible md:pb-0 md:mx-0 md:px-0 md:divide-x md:divide-brand-border">
           {FEATURES.map((f, i) => (
-            <div key={f.title} className="md:px-10 first:pl-0 last:pr-0">
+            <div key={f.title} className="w-[78vw] max-w-xs flex-none md:w-auto md:flex-initial md:px-10 first:md:pl-0 last:md:pr-0">
               <p
                 style={{
                   fontFamily: "var(--font-sans)",

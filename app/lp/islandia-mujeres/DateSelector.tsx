@@ -52,7 +52,7 @@ export default function DateSelector() {
   return (
     <div>
       {/* Date buttons */}
-      <div className="flex flex-col sm:flex-row gap-3 mb-8">
+      <div className="scroll-row gap-3 -mx-6 px-6 pb-3 mb-5 sm:overflow-visible sm:flex-wrap sm:mx-0 sm:px-0 sm:pb-0 sm:mb-8">
         {salidas.map((s) => {
           const isSelected = selected === s.id;
 
@@ -75,7 +75,8 @@ export default function DateSelector() {
               key={s.id}
               onClick={() => setSelected(s.id)}
               style={{
-                flex: 1,
+                flexShrink: 0,
+                width: "clamp(160px, 42vw, 220px)",
                 borderRadius: "20px",
                 border: isSelected
                   ? "2px solid var(--color-brand-accent)"

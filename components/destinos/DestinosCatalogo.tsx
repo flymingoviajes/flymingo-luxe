@@ -23,17 +23,27 @@ export default function DestinosCatalogo({ items }: { items: DestinationCard[] }
           </p>
         </div>
 
-        {/* Row 1: featured (2/3) + second (1/3) */}
-        <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
-          {featured && <DestCard dest={featured} className="md:col-span-2" height="h-80 md:h-[500px]" />}
-          {second && <DestCard dest={second} height="h-72 md:h-[500px]" />}
+        {/* Row 1: horizontal scroll on mobile, featured layout on desktop */}
+        <div className="scroll-row gap-3 -mx-6 px-6 pb-4 md:grid md:grid-cols-3 md:overflow-visible md:pb-0 md:mx-0 md:px-0">
+          {featured && (
+            <div className="w-[88vw] md:w-auto md:col-span-2" style={{ flexShrink: 0 }}>
+              <DestCard dest={featured} height="h-80 md:h-[500px]" />
+            </div>
+          )}
+          {second && (
+            <div className="w-[72vw] md:w-auto" style={{ flexShrink: 0 }}>
+              <DestCard dest={second} height="h-80 md:h-[500px]" />
+            </div>
+          )}
         </div>
 
-        {/* Row 2: rest equally split */}
+        {/* Row 2: rest — horizontal scroll on mobile */}
         {rest.length > 0 && (
-          <div className={`mt-3 grid grid-cols-1 gap-3 md:grid-cols-${Math.min(rest.length, 3)}`}>
+          <div className={`scroll-row mt-3 gap-3 -mx-6 px-6 pb-4 md:grid md:overflow-visible md:pb-0 md:mx-0 md:px-0 md:grid-cols-${Math.min(rest.length, 3)}`}>
             {rest.map((d) => (
-              <DestCard key={d.slug} dest={d} height="h-64 md:h-72" />
+              <div key={d.slug} className="w-[76vw] max-w-xs md:w-auto" style={{ flexShrink: 0 }}>
+                <DestCard dest={d} height="h-64 md:h-72" />
+              </div>
             ))}
           </div>
         )}

@@ -96,17 +96,21 @@ export default function HomeFeatured() {
           </Link>
         </div>
 
-        {/* Product line grid — cinematic, minimal chrome */}
-        <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+        {/* Product line grid — horizontal scroll on mobile, grid on desktop */}
+        <div className="scroll-row gap-3 -mx-6 px-6 pb-4 md:grid md:grid-cols-3 md:overflow-visible md:pb-0 md:mx-0 md:px-0">
           {LINES.map((line, i) => (
-            <LineCard key={line.key} line={line} tall={i === 0} />
+            <div key={line.key} className="w-[82vw] max-w-sm md:w-auto">
+              <LineCard line={line} tall={i === 0} />
+            </div>
           ))}
         </div>
 
-        {/* Destination tiles */}
-        <div className="mt-3 grid grid-cols-1 gap-3 md:grid-cols-3">
+        {/* Destination tiles — horizontal scroll on mobile */}
+        <div className="scroll-row mt-3 gap-3 -mx-6 px-6 pb-4 md:grid md:grid-cols-3 md:overflow-visible md:pb-0 md:mx-0 md:px-0">
           {DESTINATIONS.map((d) => (
-            <DestCard key={d.key} dest={d} />
+            <div key={d.key} className="w-[72vw] max-w-xs md:w-auto">
+              <DestCard dest={d} />
+            </div>
           ))}
         </div>
 
