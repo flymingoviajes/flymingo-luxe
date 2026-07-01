@@ -32,6 +32,7 @@ export const destinations: DestinationCard[] = [
     highlight: "Parejas · Amigos",
     imageSrc: "/images/destinos/europa.jpg",
     imageAlt: "Vista panorámica de una ciudad europea",
+    href: "https://wa.me/5218716887385?text=Hola%20Flymingo!%20Me%20interesa%20un%20viaje%20a%20Europa%20%F0%9F%8C%8D%20%C2%BFpueden%20cotizarme%3F",
   },
   {
     slug: "grecia",
@@ -42,6 +43,7 @@ export const destinations: DestinationCard[] = [
     highlight: "Luna de miel · Playas",
     imageSrc: "/images/destinos/grecia.jpg",
     imageAlt: "Casas blancas de Santorini frente al mar",
+    href: "https://wa.me/5218716887385?text=Hola%20Flymingo!%20Me%20interesa%20un%20viaje%20a%20Grecia%20%F0%9F%87%AC%F0%9F%87%B7%20%C2%BFpueden%20cotizarme%3F",
   },
   {
     slug: "nueva-york",
@@ -52,6 +54,7 @@ export const destinations: DestinationCard[] = [
     highlight: "Cultura · Shopping",
     imageSrc: "/images/destinos/nueva-york.jpg",
     imageAlt: "Skyline de Nueva York al atardecer",
+    href: "https://wa.me/5218716887385?text=Hola%20Flymingo!%20Me%20interesa%20un%20viaje%20a%20Nueva%20York%20%F0%9F%97%BD%EF%B8%8F%20%C2%BFpueden%20cotizarme%3F",
   },
   {
     slug: "maldivas",
@@ -63,5 +66,6 @@ export const destinations: DestinationCard[] = [
     highlight: "Luna de miel · Lujo",
     imageSrc: "/images/destinos/maldivas.jpg",
     imageAlt: "Bungalow sobre el agua turquesa en Maldivas",
+    href: "https://wa.me/5218716887385?text=Hola%20Flymingo!%20Me%20interesa%20un%20viaje%20a%20Maldivas%20%F0%9F%8F%9D%EF%B8%8F%20%C2%BFpueden%20cotizarme%3F",
   },
 ];

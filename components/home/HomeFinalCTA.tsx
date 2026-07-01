@@ -123,7 +123,7 @@ export default function HomeFinalCta() {
               />
               <p className="text-sm font-light" style={{ color: "var(--color-brand-dim)" }}>
                 <strong style={{ color: "var(--color-brand-neon)", fontWeight: 700 }}>Flymingo Women</strong>
-                {" "}— Islandia Nov 2026 · Lugares limitados · desde $79,890 MXN
+                {" "}— Islandia Nov 2026 · Lugares limitados · desde $84,890 MXN
               </p>
             </div>
 

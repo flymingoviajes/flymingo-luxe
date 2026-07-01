@@ -8,4 +8,5 @@ export type DestinationCard = {
   highlight?: string;
   imageSrc: string;
   imageAlt: string;
+  href?: string; // override for destinations without a dedicated page
 };

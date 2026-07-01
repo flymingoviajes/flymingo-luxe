@@ -20,7 +20,7 @@ const LINES = [
     label: "Women",
     eyebrow: "Flymingo Women",
     title: "Viaja con\ntu tribu.",
-    price: "Islandia · Nov 2026 · $79,890",
+    price: "Islandia · Nov 2026 · $84,890",
     cta: "Ver viaje",
     href: "/women",
     image: "/images/featured/women.jpg",

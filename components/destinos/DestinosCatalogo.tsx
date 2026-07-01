@@ -76,9 +76,12 @@ function DestCard({
   height: string;
   className?: string;
 }) {
+  const isExternal = dest.href?.startsWith("http");
   return (
     <Link
-      href={`/destinos/${dest.slug}`}
+      href={dest.href ?? `/destinos/${dest.slug}`}
+      target={isExternal ? "_blank" : undefined}
+      rel={isExternal ? "noreferrer" : undefined}
       className={`group relative block overflow-hidden ${height} ${className}`}
       style={{ borderRadius: "20px" }}
     >

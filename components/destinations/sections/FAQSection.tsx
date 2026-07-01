@@ -102,7 +102,7 @@ export default function FAQSection({ destination }: { destination: Destination }
           className="mt-8 text-center"
         >
           <a
-            href={`https://wa.me/528716887385?text=${encodeURIComponent(`Hola Flymingo! Tengo preguntas sobre ${destination.name} 🙌`)}`}
+            href={`https://wa.me/5218716887385?text=${encodeURIComponent(`Hola Flymingo! Tengo preguntas sobre ${destination.name} 🙌`)}`}
             target="_blank"
             rel="noreferrer"
             className="btn btn-outline"

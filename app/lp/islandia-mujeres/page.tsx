@@ -246,7 +246,7 @@ export default function IslandiaMujeresLP() {
                 </svg>
               </TrackLink>
               <a
-                href="/docs/ISLANDIA-x-MUJERES-2026.pdf"
+                href="https://wa.me/5218716887385?text=Hola%20Flymingo!%20Quiero%20el%20brochure%20de%20Islandia%20para%20Mujeres%202026%20%F0%9F%8C%8B"
                 target="_blank"
                 rel="noreferrer"
                 className="btn btn-ghost-white"

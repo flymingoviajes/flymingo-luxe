@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Flymingo Women — Viajes para Mujeres",
   description:
-    "Viajes en grupo diseñados para mujeres. Seguros, increíbles y con las personas correctas. Próximo destino: Islandia Nov 2026 desde $79,890 MXN.",
+    "Viajes en grupo diseñados para mujeres. Seguros, increíbles y con las personas correctas. Próximo destino: Islandia Nov 2026 desde $84,890 MXN.",
   keywords: [
     "viajes para mujeres México",
     "viaje en grupo mujeres",

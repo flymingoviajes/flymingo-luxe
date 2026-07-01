@@ -145,7 +145,7 @@ export default function SiteFooter() {
               <li className="flex items-start gap-3">
                 <Mail className="mt-0.5 h-4 w-4 shrink-0 text-white/85" />
                 <a
-                  href="mailto:hola@flymingoviajes.com"
+                  href="mailto:reservas@flymingoviajes.com"
                   className="transition-colors hover:text-white"
                 >
                   reservas@flymingoviajes.com

@@ -30,7 +30,7 @@ function trackCotizador(dest: string) {
 
 export default function FinalCTASection({ destination }: { destination: Destination }) {
   const whatsapp =
-    'https://wa.me/528716887385?text=' +
+    'https://wa.me/5218716887385?text=' +
     encodeURIComponent(`Hola Flymingo! 👋 Quiero cotizar un viaje a ${destination.name} ✈️`)
 
   return (
